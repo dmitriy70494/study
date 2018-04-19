@@ -16,6 +16,15 @@ public class Calculate{
  * @since 18.4.2018
 */
  public static void main(String[] args){
-  System.out.println("hellou world");
- } 
+  System.out.println("Hellou world");
+ }
+
+/**
+* Method echo.
+* @param name Your name.
+* @return Echo plus your name.
+*/
+public String echo(String name) {
+    return "Echo, echo, echo : " + name;
+} 
 }
