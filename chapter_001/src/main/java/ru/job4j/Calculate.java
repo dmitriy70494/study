@@ -7,7 +7,7 @@
 */
 package ru.job4j;
 
-public class Calculate{
+public class Calculate {
 /**
  * Method Main
  * Мытод выводит приветствие в консоль
@@ -15,7 +15,7 @@ public class Calculate{
  * @author Dmitriy Balandin (d89086362742@yandex.ru)
  * @since 18.4.2018
 */
- public static void main(String[] args){
+ public static void main(String[] args) {
   System.out.println("Hellou world");
  }
 
