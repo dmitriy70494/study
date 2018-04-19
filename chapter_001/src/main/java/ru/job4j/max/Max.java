@@ -12,7 +12,8 @@ public class Max {
      * @param second второе число.
      * @return Ответ.
      */
-    public int max(int first, int second){
+    public int max(int first, int second) {
+
         return (first > second) ? first : second;
     }
 
