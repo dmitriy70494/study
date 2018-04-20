@@ -16,8 +16,8 @@ public class Turn {
         int s = length-- / 2;
         for (int i = 0; i < s; i++) {
             int temp = array[i];
-            array[i] = array[length-i];
-            array[length-i] = temp;
+            array[i] = array[length - i];
+            array[length - i] = temp;
         }
         return array;
     }

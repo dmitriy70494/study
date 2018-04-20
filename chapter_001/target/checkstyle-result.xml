@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <checkstyle version="6.11.2">
+<file name="C:\projects\study\chapter_001\src\main\java\ru\job4j\array\BubbleSort.java">
+</file>
 <file name="C:\projects\study\chapter_001\src\main\java\ru\job4j\array\FindLoop.java">
 </file>
+<file name="C:\projects\study\chapter_001\src\main\java\ru\job4j\array\Matrix.java">
+</file>
 <file name="C:\projects\study\chapter_001\src\main\java\ru\job4j\array\Square.java">
+</file>
+<file name="C:\projects\study\chapter_001\src\main\java\ru\job4j\array\Turn.java">
 </file>
 <file name="C:\projects\study\chapter_001\src\main\java\ru\job4j\Calculate.java">
 </file>
@@ -30,9 +36,15 @@
 </file>
 <file name="C:\projects\study\chapter_001\src\main\java\ru\job4j\package-info.java">
 </file>
+<file name="C:\projects\study\chapter_001\src\test\java\ru\job4j\array\BubbleSortTest.java">
+</file>
 <file name="C:\projects\study\chapter_001\src\test\java\ru\job4j\array\FindLoopTest.java">
 </file>
+<file name="C:\projects\study\chapter_001\src\test\java\ru\job4j\array\MatrixTest.java">
+</file>
 <file name="C:\projects\study\chapter_001\src\test\java\ru\job4j\array\SquareTest.java">
+</file>
+<file name="C:\projects\study\chapter_001\src\test\java\ru\job4j\array\TurnTest.java">
 </file>
 <file name="C:\projects\study\chapter_001\src\test\java\ru\job4j\CalculateTest.java">
 </file>
