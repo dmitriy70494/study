@@ -19,10 +19,9 @@ public class Board {
             for (int i = 0; i < width; i++) {
                 // условие проверки, что писать пробел или X
                 // Выше в задании мы определили закономерность, когда нужно проставлять X
-                if ((s+i) % 2 == 0) {
+                if ((s + i) % 2 == 0) {
                     screen.append("X");
-                }
-                else {
+                } else {
                     screen.append(" ");
                 }
             }
