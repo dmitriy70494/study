@@ -6,14 +6,21 @@ package ru.job4j.array;
  * @since 20.04.2018
  */
 public class FindLoop {
-    public int indexOf(int[] data, int el) {
-        int rst = -1; // если элемента нет в массиве, то возвращаем -1.
-        for (int i = 0; i < data.length; i++) {
-            if (data[i] == el) {
-                rst = i;
+    /**
+     * Поиск числа в массиве
+     * если числа нет в массиве, то возвращаем -1.
+     * если есть то возвращаем порядковый номер в массиве совпавшего элемента
+     * @param array начальный массив.
+     * @return array отсортированный массив.
+     */
+    public int indexOf(int[] array, int number) {
+        int element = -1; // если элемента нет в массиве, то возвращаем -1.
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == number) {
+                element = i;
                 break;
             }
         }
-        return rst;
+        return element;
     }
 }

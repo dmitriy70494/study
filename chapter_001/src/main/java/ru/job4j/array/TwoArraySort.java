@@ -1,11 +1,22 @@
 package ru.job4j.array;
 
 /**
+ * Объединяет 2 отсортированных массива в 1 отсортированный
  * @author Dmitriy Balandin (d89086362742@yandex.ru)
  * @version $Id$
  * @since 20.04.2018
  */
 public class TwoArraySort {
+    /**
+     * Объединяет 2 отсортированных массива в 1 отсортированный
+     * Вравниваем начальные элементы
+     * если меньше записываем в общий массив
+     * затем попеременно записываем, пока не закончатся элементы в одном из массивов, если закончились
+     * дописываем остаток элементов оставшегося массива.
+     * @param arrayOne начальный первый массив.
+     * @param arrayTwo начальный второй массив.
+     * @return arrayAll объединенный массив.
+     */
     public static int[] arraySort(int[] arrayOne, int[] arrayTwo) {
         int length = arrayOne.length + arrayTwo.length;
         int[] arrayAll = new int[length];

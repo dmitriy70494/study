@@ -9,14 +9,16 @@ public class Matrix {
 
     /**
      * Coздает таблицу умножения заданного размера в массиве массивов.
+     * mn1 - первый множитель.
+     * mn2 - второй множитель.
      * @param size ширина и высота массива.
      * @return table двухмерный массив с таблицей умножения.
      */
     public int[][] multiple(int size) {
         int[][] table = new int[size][size];
-        for (int s = 0; s < size; s++) {
-            for (int i = 0; i < size; i++) {
-                table [s][i] = (s + 1) * (i + 1);
+        for (int mn1 = 0; mn1 < size; mn1++) {
+            for (int mn2 = 0; mn2 < size; mn2++) {
+                table [mn1][mn2] = (mn1 + 1) * (mn2 + 1);
             }
         }
         return table;

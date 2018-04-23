@@ -12,12 +12,12 @@ public class Turn {
      * @return array преобразованный массив.
      */
     public int[] turn(int[] array) {
-        int length = array.length;
-        int s = length-- / 2;
+        int size = array.length;
+        int s = size-- / 2;
         for (int i = 0; i < s; i++) {
             int temp = array[i];
-            array[i] = array[length - i];
-            array[length - i] = temp;
+            array[i] = array[size - i];
+            array[size - i] = temp;
         }
         return array;
     }
