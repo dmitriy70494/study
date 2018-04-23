@@ -1,4 +1,4 @@
-#Mon Apr 23 11:17:01 MSK 2018
+#Mon Apr 23 12:53:43 MSK 2018
 C\:\\projects\\study\\chapter_001\\src\\main\\java\\ru\\job4j\\array\\BubbleSort.java=1524223701667
 C\:\\projects\\study\\chapter_001\\src\\main\\java\\ru\\job4j\\loop\\Board.java=1524207212945
 C\:\\projects\\study\\chapter_001\\src\\main\\java\\ru\\job4j\\condition\\Triangle.java=1524208737365
@@ -11,8 +11,10 @@ C\:\\projects\\study\\chapter_001\\src\\main\\java\\ru\\job4j\\calculator\\Calcu
 C\:\\projects\\study\\chapter_001\\src\\test\\java\\ru\\job4j\\CalculateTest.java=1524154292609
 C\:\\projects\\study\\chapter_001\\src\\main\\java\\ru\\job4j\\array\\Square.java=1524216224065
 C\:\\projects\\study\\chapter_001\\src\\test\\java\\ru\\job4j\\array\\SquareTest.java=1524216190573
+C\:\\projects\\study\\chapter_001\\src\\main\\java\\ru\\job4j\\tictactoe\\TicTacToe.java=1524473501067
 C\:\\projects\\study\\chapter_001\\src\\main\\java\\ru\\job4j\\condition\\DummyBot.java=1524154292593
 C\:\\projects\\study\\chapter_001\\src\\test\\java\\ru\\job4j\\array\\TurnTest.java=1524223713045
+C\:\\projects\\study\\chapter_001\\src\\main\\java\\ru\\job4j\\tictactoe\\Figure3T.java=1524473597450
 C\:\\projects\\study\\chapter_001\\src\\test\\java\\ru\\job4j\\array\\TwoArraySortTest.java=1524471378365
 C\:\\projects\\study\\chapter_001\\src\\test\\java\\ru\\job4j\\array\\MatrixTest.java=1524223440730
 configuration*?=F07062D0934674CFCEC601444DD0235830B86B90
@@ -36,8 +38,8 @@ C\:\\projects\\study\\chapter_001\\src\\main\\java\\ru\\job4j\\Calculate.java=15
 C\:\\projects\\study\\chapter_001\\src\\test\\java\\ru\\job4j\\condition\\DummyBotTest.java=1524154292609
 C\:\\projects\\study\\chapter_001\\src\\main\\java\\ru\\job4j\\loop\\Paint.java=1524210866334
 C\:\\projects\\study\\chapter_001\\src\\main\\java\\ru\\job4j\\array\\ArrayDuplicate.java=1524471418766
-C\:\\projects\\study\\chapter_001\\src\\main\\java\\ru\\job4j\\array\\TwoArraySort.java=1524471175955
-C\:\\projects\\study\\chapter_001\\src\\test\\java\\ru\\job4j\\loop\\CounterTest.java=1524200193122
+C\:\\projects\\study\\chapter_001\\src\\main\\java\\ru\\job4j\\array\\TwoArraySort.java=1524471545591
 C\:\\projects\\study\\chapter_001\\src\\test\\java\\ru\\job4j\\array\\FindLoopTest.java=1524217653987
+C\:\\projects\\study\\chapter_001\\src\\test\\java\\ru\\job4j\\loop\\CounterTest.java=1524200193122
 C\:\\projects\\study\\chapter_001\\src\\main\\java\\ru\\job4j\\array\\Matrix.java=1524223487766
 C\:\\projects\\study\\chapter_001\\src\\test\\java\\ru\\job4j\\loop\\PaintTest.java=1524209150444

@@ -42,6 +42,15 @@
 </file>
 <file name="C:\projects\study\chapter_001\src\main\java\ru\job4j\package-info.java">
 </file>
+<file name="C:\projects\study\chapter_001\src\main\java\ru\job4j\tictactoe\Figure3T.java">
+</file>
+<file name="C:\projects\study\chapter_001\src\main\java\ru\job4j\tictactoe\Logic3T.java">
+<error line="20" column="16" severity="error" message="&apos;for&apos; is not followed by whitespace." source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+<error line="21" column="19" severity="error" message="&apos;if&apos; is not followed by whitespace." source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+<error line="21" column="71" severity="error" message="&apos;{&apos; is not preceded with whitespace." source="com.puppycrawl.tools.checkstyle.checks.whitespace.WhitespaceAroundCheck"/>
+</file>
+<file name="C:\projects\study\chapter_001\src\main\java\ru\job4j\tictactoe\TicTacToe.java">
+</file>
 <file name="C:\projects\study\chapter_001\src\test\java\ru\job4j\array\ArrayCharTest.java">
 </file>
 <file name="C:\projects\study\chapter_001\src\test\java\ru\job4j\array\ArrayDuplicateTest.java">
