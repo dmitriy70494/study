@@ -5,6 +5,7 @@ public class Point {
     private int x;
     private int y;
 
+
     public  Point(int x, int y) {
         this.x = x;
         this.y = y;
@@ -26,5 +27,6 @@ public class Point {
 
         double result = a.distanceTo(b);
         System.out.println("Расстояние между точками А и В : " + result);
+
     }
 }

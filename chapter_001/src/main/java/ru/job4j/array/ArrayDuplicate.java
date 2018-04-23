@@ -12,7 +12,7 @@ public class ArrayDuplicate {
         int count = 1;
         boolean bool = true;
         for (int i = 1; i < array.length; i++) {
-            for(int s = 0; s < count; s++) {
+            for (int s = 0; s < count; s++) {
                 if (array[i].equals(array[s])) {
                     bool = false;
                     break;
