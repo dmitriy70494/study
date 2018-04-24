@@ -15,14 +15,12 @@ public class Logic3T {
 
     public boolean isWinnerX() {
 for (int i = 0; i < 3; i++) {
-    if (table[i][0].hasMarkX() && table[i][1].hasMarkX() && table[i][2].hasMarkX() ||
-            table[0][i].hasMarkX() && table[1][i].hasMarkX() && table[2][i].hasMarkX()) {
+    if (table[i][0].hasMarkX() && table[i][1].hasMarkX() && table[i][2].hasMarkX() || table[0][i].hasMarkX() && table[1][i].hasMarkX() && table[2][i].hasMarkX()) {
         return true;
     }
     //проверка по горизонтали и вертикали на победителя
 }
-if (table[0][0].hasMarkX() && table[1][1].hasMarkX() && table[2][2].hasMarkX() ||
-        table[0][2].hasMarkX() && table[1][1].hasMarkX() && table[2][0].hasMarkX()) {
+if (table[0][0].hasMarkX() && table[1][1].hasMarkX() && table[2][2].hasMarkX() || table[0][2].hasMarkX() && table[1][1].hasMarkX() && table[2][0].hasMarkX()) {
     return true;
 }
 //проверка по диагонали на победителя
@@ -31,14 +29,12 @@ if (table[0][0].hasMarkX() && table[1][1].hasMarkX() && table[2][2].hasMarkX() |
 
     public boolean isWinnerO() {
         for (int i = 0; i < 3; i++) {
-            if (table[i][0].hasMarkO() && table[i][1].hasMarkO() && table[i][2].hasMarkO() ||
-                    table[0][i].hasMarkO() && table[1][i].hasMarkO() && table[2][i].hasMarkO()) {
+            if (table[i][0].hasMarkO() && table[i][1].hasMarkO() && table[i][2].hasMarkO() || table[0][i].hasMarkO() && table[1][i].hasMarkO() && table[2][i].hasMarkO()) {
                 return true;
             }
             //проверка по горизонтали и вертикали на победителя
         }
-        if (table[0][0].hasMarkO() && table[1][1].hasMarkO() && table[2][2].hasMarkO() ||
-                table[0][2].hasMarkO() && table[1][1].hasMarkO() && table[2][0].hasMarkO()) {
+        if (table[0][0].hasMarkO() && table[1][1].hasMarkO() && table[2][2].hasMarkO() || table[0][2].hasMarkO() && table[1][1].hasMarkO() && table[2][0].hasMarkO()) {
             return true;
         }
         //проверка по диагонали на победителя
