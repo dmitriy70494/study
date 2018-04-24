@@ -6,6 +6,7 @@ package ru.job4j;
  * @since 20.04.2018
  */
 public class Doctor {
-   public void treatPatient(Patient patient) {
+   public Patient[] treatPatient(Patient patient) {
+      return null;
    }
 }

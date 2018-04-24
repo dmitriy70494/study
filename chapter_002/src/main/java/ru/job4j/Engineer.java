@@ -6,6 +6,7 @@ package ru.job4j;
  * @since 20.04.2018
  */
 public class Engineer extends Profession {
-    public void buildHouse(House house) {
+    public House buildHouse(House house) {
+        return house;
     }
 }
