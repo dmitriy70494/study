@@ -13,10 +13,10 @@ public class TwoArraySortTest {
     @Test
     public void twoArraySort345To() {
         TwoArraySort sort = new TwoArraySort();
-        int[] one = {2, 3, 4};
+        int[] one = {2, 3, 4, 4, 4};
         int[] two = {1, 2, 4, 10, 11, 57};
         int[] result = sort.arraySort(one, two);
-        int[] except = {1, 2, 2, 3, 4, 4, 10, 11, 57};
+        int[] except = {1, 2, 2, 3, 4, 4, 4, 4, 10, 11, 57};
         assertThat(result, is(except));
     }
 
@@ -24,9 +24,9 @@ public class TwoArraySortTest {
     public void twoArraySort345To1() {
         TwoArraySort sort = new TwoArraySort();
         int[] one = {1, 2, 4, 10, 11, 57};
-        int[] two = {2, 3, 4};
+        int[] two = {2, 3, 4, 4};
         int[] result = sort.arraySort(one, two);
-        int[] except = {1, 2, 2, 3, 4, 4, 10, 11, 57};
+        int[] except = {1, 2, 2, 3, 4, 4, 4, 10, 11, 57};
         assertThat(result, is(except));
     }
 

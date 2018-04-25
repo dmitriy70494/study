@@ -9,6 +9,10 @@ import java.io.IOException;
  * @since 24.04.2018
  */
 public class Tracker {
+
+    /**
+     * Список со всеми заявками пользователя
+     */
     private Item[] items = new Item[100];
 
     /**

@@ -21,32 +21,19 @@ public class TwoArraySort {
      * @return arrayAll объединенный массив.
      */
     public int[] arraySort(int[] one, int[] two) {
-        int[] array = new int[one.length + two.length];
         int i = 0;
         int j = one.length;
         int n = 0;
         int m = two.length;
         int start = 0;
-        int mid;
-
-        if (one[j - 1] > two[m - 1]) {
-            mid = two[m - 1];
-        } else {
-            mid = one[j - 1];
-        }
-
-        do {
-            if (one[i] > two[n]) {
-                array[start] = two[n++];
+        int[] array = new int[j + m];
+        while (i != j && n != m) {
+            if (one[i] >= two[n]) {
+                array[start++] = two[n++];
             } else {
-                array[start] = one[i++];
+                array[start++] = one[i++];
             }
-        } while (array[start++] != mid);
-
-        if (n != m) {
-            array[start++] = two[n++];
         }
-
         while (i != j) {
             array[start++] = one[i++];
         }
