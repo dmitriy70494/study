@@ -19,8 +19,8 @@ public class Tracker {
      */
     public Item add(Item item) {
         item.setId(this.generateId());
-        if(item != null){
-            for (int i = 0; i < items.length-1; i++) {
+        if (item != null) {
+            for (int i = 0; i < items.length - 1; i++) {
                 if (items[i] == null) {
                     items[i] = item;
                     return item;
@@ -38,7 +38,7 @@ public class Tracker {
      */
     public void replace(String id, Item item) {
         for (int i = 0; i < items.length; i++) {
-            if (items[i]!=null && items[i].getId().equals(id)) {
+            if (items[i] != null && items[i].getId().equals(id)) {
                 item.setId(id);
                 items[i] = item;
                 break;

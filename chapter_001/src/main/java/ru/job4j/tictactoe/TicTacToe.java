@@ -16,6 +16,13 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
+/**
+ * Отрисовывает графику, инициирует проверки на победителя и наличие свободных клеток,
+ * если нет клеток или появился победитель вызывает аллерт (диалоговое окно).
+ * @author Dmitriy Balandin (d89086362742@yandex.ru)
+ * @version $Id$
+ * @since 25.04.2018
+ */
 public class TicTacToe extends Application {
     private static final String JOB4J = "Крестики-нолики www.job4j.ru";
     private final int size = 3;
@@ -71,7 +78,7 @@ public class TicTacToe extends Application {
         Group group = new Group();
         group.getChildren().addAll(
                 new Line(
-                        x + 10, y  + 10,
+                        x + 10, y + 10,
                         x + size - 10, y + size - 10
                 ),
                 new Line(

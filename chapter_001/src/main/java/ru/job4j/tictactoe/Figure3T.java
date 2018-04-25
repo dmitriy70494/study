@@ -2,6 +2,12 @@ package ru.job4j.tictactoe;
 
 import javafx.scene.shape.Rectangle;
 
+/**
+ * Класс содержит информацию о клетке, что она содержит, крестик или нолик
+ * @author Dmitriy Balandin (d89086362742@yandex.ru)
+ * @version $Id$
+ * @since 25.04.2018
+ */
 public class Figure3T extends Rectangle {
     private boolean markX = false;
     private boolean markO = false;

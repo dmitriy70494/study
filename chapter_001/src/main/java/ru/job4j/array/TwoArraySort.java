@@ -29,34 +29,30 @@ public class TwoArraySort {
         int start = 0;
         int mid;
 
-        if(one[j-1]>two[m-1]){
-            mid = two[m-1];
+        if (one[j - 1] > two[m - 1]) {
+            mid = two[m - 1];
         } else {
-            mid = one[j-1];
+            mid = one[j - 1];
         }
 
         do {
-            if (one[i]>two[n]){
+            if (one[i] > two[n]) {
                 array[start] = two[n++];
             } else {
                 array[start] = one[i++];
             }
         } while (array[start++] != mid);
 
-        if(n!=m){
+        if (n != m) {
             array[start++] = two[n++];
         }
 
-        while(i!=j){
+        while (i != j) {
             array[start++] = one[i++];
         }
-        while(n!=m){
+        while (n != m) {
             array[start++] = two[n++];
         }
         return array;
-    }
-
-    private void sort() {
-
     }
 }
