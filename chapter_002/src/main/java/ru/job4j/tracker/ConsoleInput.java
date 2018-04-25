@@ -33,7 +33,7 @@ public class ConsoleInput {
         try {
             System.out.println(phrase);
             return reader.readLine();
-        } catch(IOException e) {
+        } catch (IOException e) {
             System.out.println("Ошибка ввода-вывода");
         }
         return "Ошибка";
