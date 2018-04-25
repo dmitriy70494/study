@@ -1,6 +1,7 @@
 package ru.job4j.tracker;
 
 import java.io.IOException;
+import java.util.Random;
 
 /**
  * Содержит методы, которыми можно работать с данными. Все данные хранятся в списке объектов Item
@@ -9,6 +10,16 @@ import java.io.IOException;
  * @since 24.04.2018
  */
 public class Tracker {
+
+    /**
+     * позволяет генерировать случайное число
+     */
+    private static final Random RN = new Random();
+
+    /**
+     * определяет индекс для добавления заявки
+     */
+    private int position;
 
     /**
      * Список со всеми заявками пользователя
@@ -23,17 +34,10 @@ public class Tracker {
      */
     public Item add(Item item) {
         item.setId(this.generateId());
-        if (item != null) {
-            for (int i = 0; i < items.length - 1; i++) {
-                if (items[i] == null) {
-                    items[i] = item;
-                    return item;
-                }
-            }
-            return null;
-        }
-        return null;
+        this.items[position++] = item;
+        return item;
     }
+
 
     /**
      * Изменяет ячейку массива. Поиск ячейки по Id
@@ -61,6 +65,7 @@ public class Tracker {
                 break;
             }
         }
+        position--;
     }
 
     /**
@@ -116,10 +121,7 @@ public class Tracker {
      * @return String число в строке длиной long
      */
     public String generateId() {
-        int randomOne = (int) (Math.random() * 10000 + Math.random() * 100 + Math.random() * 10);
-        long currentTime = System.nanoTime();
-        int randomTwo = (int) (Math.random() * 10000 + Math.random() * 100 + Math.random() * 10);
-        return randomTwo + "" + currentTime + "" + randomOne;
+        return String.valueOf(System.currentTimeMillis() + RN.nextInt(100));
     }
 
     /**
