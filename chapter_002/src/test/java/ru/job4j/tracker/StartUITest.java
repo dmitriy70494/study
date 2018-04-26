@@ -1,6 +1,11 @@
 package ru.job4j.tracker;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -11,6 +16,173 @@ import static org.junit.Assert.assertThat;
  * @since 26.04.2018
  */
 public class StartUITest {
+
+    /**
+     * поток для управления выводом в консоль, наверное
+     */
+    private final PrintStream stdout = System.out;
+
+    /**
+     * Буфер для результата
+     */
+    private final ByteArrayOutputStream out = new ByteArrayOutputStream();
+
+    /**
+     * Генерируем поток ввода
+     */
+    private Input input;
+
+    private Tracker trackers = new Tracker();
+
+    private Item itemOne = trackers.add(new Item());
+    private Item itemTwo = trackers.add(new Item());
+    private Item itemThree = trackers.add(new Item());
+    private Item itemFour = trackers.add(new Item());
+    /**
+     * Метод для операций в начале метода, аннотация @Before, нужно добавлять в импорт
+     * Заменяем стандартный вывод на вывод в пямять для тестирования.
+     */
+    @Before
+    public void loadOutput() {
+        System.setOut(new PrintStream(this.out));
+        itemOne.setName("one name");
+        itemTwo.setName("two name");
+        itemThree.setName("three name");
+        itemFour.setName("one name");
+    }
+
+    /**
+     * Метод для операций в конце метода, аннотация @After
+     * возвращаем обратно стандартный вывод в консоль.
+     */
+    @After
+    public void backOutput() {
+        System.setOut(this.stdout);
+    }
+
+    /**
+     * Проверка на отображение всех заявок
+     */
+    @Test
+    public void whenUserAddItemThenTrackerHasAllItems() {
+        Input input = new StrubInput(new String[]{"1", "6"});
+        new StartUI(input, trackers).init();
+        assertThat(
+                new String(out.toByteArray()),
+                is(
+                        new StringBuilder()
+                                .append("Меню.\r\n0. Добавить новый элемент\r\n")
+                                .append("1. Показать все элементы\r\n2. Редактировать элемент\r\n3. Удалить элемент\r\n")
+                                .append("4. Найти элемент по ID\r\n5. Найти элементы по названию\r\n6. Выход из программы\r\n")
+                                .append("------------ Отображение всех заявок --------------\r\n")
+                                .append("Номер ID заявки: " + itemOne.getId() + "\n")
+                                .append("Название заявки: one name\n")
+                                .append("Описание заявки: null\n\n\r\n")
+                                .append("Номер ID заявки: " + itemTwo.getId() + "\n")
+                                .append("Название заявки: two name\n")
+                                .append("Описание заявки: null\n\n\r\n")
+                                .append("Номер ID заявки: " + itemThree.getId() + "\n")
+                                .append("Название заявки: three name\n")
+                                .append("Описание заявки: null\n\n\r\n")
+                                .append("Номер ID заявки: " + itemFour.getId() + "\n")
+                                .append("Название заявки: one name\n")
+                                .append("Описание заявки: null\n\n\r\n")
+                                .append("Меню.\r\n0. Добавить новый элемент\r\n1. Показать все элементы\r\n")
+                                .append("2. Редактировать элемент\r\n3. Удалить элемент\r\n")
+                                .append("4. Найти элемент по ID\r\n5. Найти элементы по названию\r\n")
+                                .append("6. Выход из программы")
+                                .append(System.lineSeparator())
+                                .toString()
+                )
+        );
+    }
+
+    /**
+     * Проверка на поиск заявки по ID
+     */
+    @Test
+    public void whenUserAddItemThenTrackerHasFindItemsByID() {
+        Input input = new StrubInput(new String[]{"4", itemThree.getId(), "6"});
+        new StartUI(input, trackers).init();
+        assertThat(
+                new String(out.toByteArray()),
+                is(
+                        new StringBuilder()
+                                .append("Меню.\r\n0. Добавить новый элемент\r\n")
+                                .append("1. Показать все элементы\r\n2. Редактировать элемент\r\n3. Удалить элемент\r\n")
+                                .append("4. Найти элемент по ID\r\n5. Найти элементы по названию\r\n6. Выход из программы\r\n")
+                                .append("------------ Поиск заявки по ID --------------\r\n")
+                                .append("Номер ID заявки: " + itemThree.getId() + "\n")
+                                .append("Название заявки: three name\n")
+                                .append("Описание заявки: null\n\n\r\n")
+                                .append("------------ Заявка номер " + itemThree.getId() + " успешно найдена -----------\r\n")
+                                .append("Меню.\r\n0. Добавить новый элемент\r\n1. Показать все элементы\r\n")
+                                .append("2. Редактировать элемент\r\n3. Удалить элемент\r\n")
+                                .append("4. Найти элемент по ID\r\n5. Найти элементы по названию\r\n")
+                                .append("6. Выход из программы")
+                                .append(System.lineSeparator())
+                                .toString()
+                )
+        );
+    }
+
+    /**
+     * Проверка на поиск всех заявок с одинаковым автором
+     */
+    @Test
+    public void whenUserAddItemThenTrackerHasFindItemsByName() {
+        Input input = new StrubInput(new String[]{"5", itemFour.getName(), "6"});
+        new StartUI(input, trackers).init();
+        assertThat(
+                new String(out.toByteArray()),
+                is(
+                        new StringBuilder()
+                                .append("Меню.\r\n0. Добавить новый элемент\r\n")
+                                .append("1. Показать все элементы\r\n2. Редактировать элемент\r\n3. Удалить элемент\r\n")
+                                .append("4. Найти элемент по ID\r\n5. Найти элементы по названию\r\n6. Выход из программы\r\n")
+                                .append("------------ Поиск заявок по названию --------------\r\n")
+                                .append("Номер ID заявки: " + itemOne.getId() + "\n")
+                                .append("Название заявки: one name\n")
+                                .append("Описание заявки: null\n\n\r\n")
+                                .append("Номер ID заявки: " + itemFour.getId() + "\n")
+                                .append("Название заявки: one name\n")
+                                .append("Описание заявки: null\n\n\r\n")
+                                .append("------------ Все заявки с названием one name успешно найдены -----------\r\n")
+                                .append("Меню.\r\n0. Добавить новый элемент\r\n1. Показать все элементы\r\n")
+                                .append("2. Редактировать элемент\r\n3. Удалить элемент\r\n")
+                                .append("4. Найти элемент по ID\r\n5. Найти элементы по названию\r\n")
+                                .append("6. Выход из программы")
+                                .append(System.lineSeparator())
+                                .toString()
+                )
+        );
+    }
+
+    /**
+     * Проверка на поиск всех заявок с одинаковым автором, но пустым значением
+     */
+    @Test
+    public void whenUserAddItemThenTrackerHasFindItemsByNameNull() {
+        Input input = new StrubInput(new String[]{"5", itemFour.getId(), "6"});
+        new StartUI(input, trackers).init();
+        assertThat(
+                new String(out.toByteArray()),
+                is(
+                        new StringBuilder()
+                                .append("Меню.\r\n0. Добавить новый элемент\r\n")
+                                .append("1. Показать все элементы\r\n2. Редактировать элемент\r\n3. Удалить элемент\r\n")
+                                .append("4. Найти элемент по ID\r\n5. Найти элементы по названию\r\n6. Выход из программы\r\n")
+                                .append("------------ Поиск заявок по названию --------------\r\n")
+                                .append("------------ Заявки с названием " + itemFour.getId() + " отсутствуют -----------\r\n")
+                                .append("Меню.\r\n0. Добавить новый элемент\r\n1. Показать все элементы\r\n")
+                                .append("2. Редактировать элемент\r\n3. Удалить элемент\r\n")
+                                .append("4. Найти элемент по ID\r\n5. Найти элементы по названию\r\n")
+                                .append("6. Выход из программы")
+                                .append(System.lineSeparator())
+                                .toString()
+                )
+        );
+    }
 
     /**
      * Проверка на добавление элемента
