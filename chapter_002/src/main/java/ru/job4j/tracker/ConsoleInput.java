@@ -10,12 +10,12 @@ import java.io.IOException;
  * @version $Id$
  * @since 20.04.2018
  */
-public class ConsoleInput {
+public class ConsoleInput implements Input {
 
     /**
      * поток.
      */
-    BufferedReader reader;
+    private BufferedReader reader;
 
     /**
      * Конструтор инициализирующий поток BufferedReader.
