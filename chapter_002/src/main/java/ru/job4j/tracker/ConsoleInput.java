@@ -5,7 +5,6 @@ import java.io.InputStreamReader;
 import java.io.IOException;
 
 /**
- *
  * @author Dmitriy Balandin (d89086362742@yandex.ru)
  * @version $Id$
  * @since 20.04.2018
