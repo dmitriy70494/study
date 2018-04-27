@@ -3,22 +3,26 @@ package ru.job4j.tracker;
 /**
  * Внешний класс, расположенный в одном файле с MenuTracker
  * Редактирует заявку
+ *
  * @author Dmitriy Balandin (d89086362742@yandex.ru)
  * @version $Id$
  * @since 20.04.2018
  */
-class EditItem implements UserAction {
+class EditItem extends BaseAction {
 
     /**
-     * возвращает номер пункта меню
-     * @return int номер пункта меню в массиве
+     * Конструктор, задает начальные параметры действия
+     *
+     * @param key  номер пункта меню в массиве
+     * @param name название деяствия
      */
-    public int key() {
-        return 2;
+    public EditItem(int key, String name) {
+        super(key, name);
     }
 
     /**
      * Запускает на исполнение выбранный пункт меню
+     *
      * @param input   ввод вывод в консоль
      * @param tracker хранилище всех заявок
      */
@@ -32,35 +36,31 @@ class EditItem implements UserAction {
         tracker.replace(id, item);
         System.out.println("------------ Заявка номер " + id + " успешно изменена -----------");
     }
-
-    /**
-     * отображает пунк меню для отображения пользователю
-     * @return String отображает пунк меню для отображения пользователю
-     */
-    public String info() {
-        return String.format("%s. %s", this.key(), "Редактировать элемент");
-    }
 }
 
 /**
  * Внешний класс, расположенный в одном файле с MenuTracker
  * Реализует поиск заявок по названию.
+ *
  * @author Dmitriy Balandin (d89086362742@yandex.ru)
  * @version $Id$
  * @since 20.04.2018
  */
-class FindName implements UserAction {
+class FindName extends BaseAction {
 
     /**
-     * возвращает номер пункта меню
-     * @return int номер пункта меню в массиве
+     * Конструктор, задает начальные параметры действия
+     *
+     * @param key  номер пункта меню в массиве
+     * @param name название деяствия
      */
-    public int key() {
-        return 5;
+    public FindName(int key, String name) {
+        super(key, name);
     }
 
     /**
      * Запускает на исполнение выбранный пункт меню
+     *
      * @param input   ввод вывод в консоль
      * @param tracker хранилище всех заявок
      */
@@ -77,18 +77,11 @@ class FindName implements UserAction {
             System.out.println("------------ Заявки с названием " + name + " отсутствуют -----------");
         }
     }
-
-    /**
-     * отображает пунк меню для отображения пользователю
-     * @return String отображает пунк меню для отображения пользователю
-     */
-    public String info() {
-        return String.format("%s. %s", this.key(), "Найти элементы по названию");
-    }
 }
 
 /**
  * Отправляет и принимает указания на действия пользователя в меню
+ *
  * @author Dmitriy Balandin (d89086362742@yandex.ru)
  * @version $Id$
  * @since 20.04.2018
@@ -122,26 +115,28 @@ public class MenuTracker {
         int size = actions.length;
         int[] range = new int[size];
         for (int index = 0; index < size; index++) {
-            if(this.actions[index] != null) {
+            if (this.actions[index] != null) {
                 range[index] = index;
             }
         }
         return range;
     }
+
     /**
      * Инициализирует события
      */
     public void fillActions() {
-        this.actions[0] = this.new AddItem();
-        this.actions[1] = new MenuTracker.ShowItem();
-        this.actions[2] = new EditItem();
-        this.actions[3] = this.new DeleteItem();
-        this.actions[4] = new MenuTracker.FindId();
-        this.actions[5] = new FindName();
+        this.actions[0] = this.new AddItem(0, "Добавить новый элемент");
+        this.actions[1] = new MenuTracker.ShowItem(1, "Показать все элементы");
+        this.actions[2] = new EditItem(2, "Редактировать элемент");
+        this.actions[3] = this.new DeleteItem(3, "Удалить элемент");
+        this.actions[4] = new MenuTracker.FindId(4, "Найти элемент по ID");
+        this.actions[5] = new FindName(5, "Найти элементы по названию");
     }
 
     /**
      * Запускает на исполнение выбранный пункт меню
+     *
      * @param key номер задачи из массива
      */
     public void select(int key) {
@@ -162,22 +157,26 @@ public class MenuTracker {
 
     /**
      * Внутренний класс, выполняет добавление новой заявки
+     *
      * @author Dmitriy Balandin (d89086362742@yandex.ru)
      * @version $Id$
      * @since 20.04.2018
      */
-    private class AddItem implements UserAction {
+    private class AddItem extends BaseAction {
 
         /**
-         * возвращает номер пункта меню
-         * @return int номер пункта меню в массиве
+         * Конструктор, задает начальные параметры действия
+         *
+         * @param key  номер пункта меню в массиве
+         * @param name название деяствия
          */
-        public int key() {
-            return 0;
+        public AddItem(int key, String name) {
+            super(key, name);
         }
 
         /**
          * Запускает на исполнение выбранный пункт меню
+         *
          * @param input   ввод вывод в консоль
          * @param tracker хранилище всех заявок
          */
@@ -190,34 +189,30 @@ public class MenuTracker {
             tracker.add(item);
             System.out.println("------------ Новая заявка с getId: " + item.getId() + " -----------");
         }
-
-        /**
-         * отображает пунк меню для отображения пользователю
-         * @return String отображает пунк меню для отображения пользователю
-         */
-        public String info() {
-            return String.format("%s. %s", this.key(), "Добавить новый элемент");
-        }
     }
 
     /**
      * Внутренний статический класс, выполняет отображение всех заявок
+     *
      * @author Dmitriy Balandin (d89086362742@yandex.ru)
      * @version $Id$
      * @since 20.04.2018
      */
-    private static class ShowItem implements UserAction {
+    private static class ShowItem extends BaseAction {
 
         /**
-         * возвращает номер пункта меню
-         * @return int номер пункта меню в массиве
+         * Конструктор, задает начальные параметры действия
+         *
+         * @param key  номер пункта меню в массиве
+         * @param name название деяствия
          */
-        public int key() {
-            return 1;
+        public ShowItem(int key, String name) {
+            super(key, name);
         }
 
         /**
          * Запускает на исполнение выбранный пункт меню
+         *
          * @param input   ввод вывод в консоль
          * @param tracker хранилище всех заявок
          */
@@ -228,34 +223,30 @@ public class MenuTracker {
                 System.out.println(item);
             }
         }
-
-        /**
-         * отображает пунк меню для отображения пользователю
-         * @return String отображает пунк меню для отображения пользователю
-         */
-        public String info() {
-            return String.format("%s. %s", this.key(), "Показать все элементы");
-        }
     }
 
     /**
      * Внутренний класс, удаляет заявку по ID
+     *
      * @author Dmitriy Balandin (d89086362742@yandex.ru)
      * @version $Id$
      * @since 20.04.2018
      */
-    private class DeleteItem implements UserAction {
+    private class DeleteItem extends BaseAction {
 
         /**
-         * возвращает номер пункта меню
-         * @return int номер пункта меню в массиве
+         * Конструктор, задает начальные параметры действия
+         *
+         * @param key  номер пункта меню в массиве
+         * @param name название деяствия
          */
-        public int key() {
-            return 3;
+        public DeleteItem(int key, String name) {
+            super(key, name);
         }
 
         /**
          * Запускает на исполнение выбранный пункт меню
+         *
          * @param input   ввод вывод в консоль
          * @param tracker хранилище всех заявок
          */
@@ -265,34 +256,30 @@ public class MenuTracker {
             tracker.delete(id);
             System.out.println("------------ Заявка номер " + id + " успешно удалена -----------");
         }
-
-        /**
-         * отображает пунк меню для отображения пользователю
-         * @return String отображает пунк меню для отображения пользователю
-         */
-        public String info() {
-            return String.format("%s. %s", this.key(), "Удалить элемент");
-        }
     }
 
     /**
      * Внутренний статический класс, осуществляет поиск заявки по ID
+     *
      * @author Dmitriy Balandin (d89086362742@yandex.ru)
      * @version $Id$
      * @since 20.04.2018
      */
-    private static class FindId implements UserAction {
+    private static class FindId extends BaseAction {
 
         /**
-         * возвращает номер пункта меню
-         * @return int номер пункта меню в массиве
+         * Конструктор, задает начальные параметры действия
+         *
+         * @param key  номер пункта меню в массиве
+         * @param name название деяствия
          */
-        public int key() {
-            return 4;
+        public FindId(int key, String name) {
+            super(key, name);
         }
 
         /**
          * Запускает на исполнение выбранный пункт меню
+         *
          * @param input   ввод вывод в консоль
          * @param tracker хранилище всех заявок
          */
@@ -306,14 +293,6 @@ public class MenuTracker {
             } else {
                 System.out.println("------------ Заявка номер " + id + " отсутствует -----------");
             }
-        }
-
-        /**
-         * отображает пунк меню для отображения пользователю
-         * @return String отображает пунк меню для отображения пользователю
-         */
-        public String info() {
-            return String.format("%s. %s", this.key(), "Найти элемент по ID");
         }
     }
 }
