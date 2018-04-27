@@ -65,7 +65,7 @@ public class StartUITest {
      */
     @Test
     public void whenUserAddItemThenTrackerHasAllItems() {
-        Input input = new StrubInput(new String[]{"1", "6"});
+        Input input = new StrubInput(new String[]{"1", "да"});
         new StartUI(input, trackers).init();
         assertThat(
                 new String(out.toByteArray()),
@@ -73,7 +73,7 @@ public class StartUITest {
                         new StringBuilder()
                                 .append("Меню.\r\n0. Добавить новый элемент\r\n")
                                 .append("1. Показать все элементы\r\n2. Редактировать элемент\r\n3. Удалить элемент\r\n")
-                                .append("4. Найти элемент по ID\r\n5. Найти элементы по названию\r\n6. Выход из программы\r\n")
+                                .append("4. Найти элемент по ID\r\n5. Найти элементы по названию\r\n")
                                 .append("------------ Отображение всех заявок --------------\r\n")
                                 .append("Номер ID заявки: " + itemOne.getId() + "\n")
                                 .append("Название заявки: one name\n")
@@ -86,11 +86,7 @@ public class StartUITest {
                                 .append("Описание заявки: null\n\n\r\n")
                                 .append("Номер ID заявки: " + itemFour.getId() + "\n")
                                 .append("Название заявки: one name\n")
-                                .append("Описание заявки: null\n\n\r\n")
-                                .append("Меню.\r\n0. Добавить новый элемент\r\n1. Показать все элементы\r\n")
-                                .append("2. Редактировать элемент\r\n3. Удалить элемент\r\n")
-                                .append("4. Найти элемент по ID\r\n5. Найти элементы по названию\r\n")
-                                .append("6. Выход из программы")
+                                .append("Описание заявки: null\n\n")
                                 .append(System.lineSeparator())
                                 .toString()
                 )
@@ -102,7 +98,7 @@ public class StartUITest {
      */
     @Test
     public void whenUserAddItemThenTrackerHasFindItemsByID() {
-        Input input = new StrubInput(new String[]{"4", itemThree.getId(), "6"});
+        Input input = new StrubInput(new String[]{"4", itemThree.getId(), "да"});
         new StartUI(input, trackers).init();
         assertThat(
                 new String(out.toByteArray()),
@@ -110,16 +106,12 @@ public class StartUITest {
                         new StringBuilder()
                                 .append("Меню.\r\n0. Добавить новый элемент\r\n")
                                 .append("1. Показать все элементы\r\n2. Редактировать элемент\r\n3. Удалить элемент\r\n")
-                                .append("4. Найти элемент по ID\r\n5. Найти элементы по названию\r\n6. Выход из программы\r\n")
+                                .append("4. Найти элемент по ID\r\n5. Найти элементы по названию\r\n")
                                 .append("------------ Поиск заявки по ID --------------\r\n")
                                 .append("Номер ID заявки: " + itemThree.getId() + "\n")
                                 .append("Название заявки: three name\n")
                                 .append("Описание заявки: null\n\n\r\n")
-                                .append("------------ Заявка номер " + itemThree.getId() + " успешно найдена -----------\r\n")
-                                .append("Меню.\r\n0. Добавить новый элемент\r\n1. Показать все элементы\r\n")
-                                .append("2. Редактировать элемент\r\n3. Удалить элемент\r\n")
-                                .append("4. Найти элемент по ID\r\n5. Найти элементы по названию\r\n")
-                                .append("6. Выход из программы")
+                                .append("------------ Заявка номер " + itemThree.getId() + " успешно найдена -----------")
                                 .append(System.lineSeparator())
                                 .toString()
                 )
@@ -131,7 +123,7 @@ public class StartUITest {
      */
     @Test
     public void whenUserAddItemThenTrackerHasFindItemsByName() {
-        Input input = new StrubInput(new String[]{"5", itemFour.getName(), "6"});
+        Input input = new StrubInput(new String[]{"5", itemFour.getName(), "да"});
         new StartUI(input, trackers).init();
         assertThat(
                 new String(out.toByteArray()),
@@ -139,7 +131,7 @@ public class StartUITest {
                         new StringBuilder()
                                 .append("Меню.\r\n0. Добавить новый элемент\r\n")
                                 .append("1. Показать все элементы\r\n2. Редактировать элемент\r\n3. Удалить элемент\r\n")
-                                .append("4. Найти элемент по ID\r\n5. Найти элементы по названию\r\n6. Выход из программы\r\n")
+                                .append("4. Найти элемент по ID\r\n5. Найти элементы по названию\r\n")
                                 .append("------------ Поиск заявок по названию --------------\r\n")
                                 .append("Номер ID заявки: " + itemOne.getId() + "\n")
                                 .append("Название заявки: one name\n")
@@ -147,11 +139,8 @@ public class StartUITest {
                                 .append("Номер ID заявки: " + itemFour.getId() + "\n")
                                 .append("Название заявки: one name\n")
                                 .append("Описание заявки: null\n\n\r\n")
-                                .append("------------ Все заявки с названием one name успешно найдены -----------\r\n")
-                                .append("Меню.\r\n0. Добавить новый элемент\r\n1. Показать все элементы\r\n")
-                                .append("2. Редактировать элемент\r\n3. Удалить элемент\r\n")
-                                .append("4. Найти элемент по ID\r\n5. Найти элементы по названию\r\n")
-                                .append("6. Выход из программы")
+                                .append("------------ Все заявки с названием one name успешно найдены -----------")
+
                                 .append(System.lineSeparator())
                                 .toString()
                 )
@@ -163,7 +152,7 @@ public class StartUITest {
      */
     @Test
     public void whenUserAddItemThenTrackerHasFindItemsByNameNull() {
-        Input input = new StrubInput(new String[]{"5", itemFour.getId(), "6"});
+        Input input = new StrubInput(new String[]{"5", itemFour.getId(), "да"});
         new StartUI(input, trackers).init();
         assertThat(
                 new String(out.toByteArray()),
@@ -171,13 +160,9 @@ public class StartUITest {
                         new StringBuilder()
                                 .append("Меню.\r\n0. Добавить новый элемент\r\n")
                                 .append("1. Показать все элементы\r\n2. Редактировать элемент\r\n3. Удалить элемент\r\n")
-                                .append("4. Найти элемент по ID\r\n5. Найти элементы по названию\r\n6. Выход из программы\r\n")
-                                .append("------------ Поиск заявок по названию --------------\r\n")
-                                .append("------------ Заявки с названием " + itemFour.getId() + " отсутствуют -----------\r\n")
-                                .append("Меню.\r\n0. Добавить новый элемент\r\n1. Показать все элементы\r\n")
-                                .append("2. Редактировать элемент\r\n3. Удалить элемент\r\n")
                                 .append("4. Найти элемент по ID\r\n5. Найти элементы по названию\r\n")
-                                .append("6. Выход из программы")
+                                .append("------------ Поиск заявок по названию --------------\r\n")
+                                .append("------------ Заявки с названием " + itemFour.getId() + " отсутствуют -----------")
                                 .append(System.lineSeparator())
                                 .toString()
                 )
@@ -194,7 +179,7 @@ public class StartUITest {
     @Test
     public void whenUserAddItemThenTrackerHasNewItemWithSameName() {
         Tracker tracker = new Tracker();
-        Input input = new StrubInput(new String[]{"0", "test name", "desc", "6"});
+        Input input = new StrubInput(new String[]{"0", "test name", "desc", "да"});
         new StartUI(input, tracker).init();
         assertThat(tracker.findAll()[0].getName(), is("test name"));
     }
@@ -211,7 +196,7 @@ public class StartUITest {
     public void whenUpdateThenTrackerHasUpdatedValue() {
         Tracker tracker = new Tracker();
         Item item = tracker.add(new Item());
-        Input input = new StrubInput(new String[]{"2", item.getId(), "test name", "desc", "6"});
+        Input input = new StrubInput(new String[]{"2", item.getId(), "test name", "desc", "да"});
         new StartUI(input, tracker).init();
         assertThat(tracker.findById(item.getId()).getName(), is("test name"));
     }
@@ -233,7 +218,7 @@ public class StartUITest {
         Item itemTwo = tracker.add(new Item());
         Item itemThree = tracker.add(new Item());
         itemTwo.setName("test name");
-        Input input = new StrubInput(new String[]{"3", itemOne.getId(), "6"});
+        Input input = new StrubInput(new String[]{"3", itemOne.getId(), "да"});
         new StartUI(input, tracker).init();
         assertThat(tracker.findAll()[0].getName(), is("test name"));
     }
@@ -254,7 +239,7 @@ public class StartUITest {
         Item itemOne = tracker.add(new Item());
         Item itemTwo = tracker.add(new Item());
         itemTwo.setName("two name");
-        Input input = new StrubInput(new String[]{"3", itemOne.getId(), "0", "three name", "desc",  "6"});
+        Input input = new StrubInput(new String[]{"3", itemOne.getId(), "нет", "0", "three name",  "desc", "да"});
         new StartUI(input, tracker).init();
         assertThat(tracker.findAll()[1].getName(), is("three name"));
     }

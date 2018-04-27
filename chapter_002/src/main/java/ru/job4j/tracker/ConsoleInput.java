@@ -13,7 +13,12 @@ import java.io.IOException;
 public class ConsoleInput implements Input {
 
     /**
-     * поток.
+     * Ответ пользователя
+     */
+    String answer;
+
+    /**
+     * Поток.
      */
     private BufferedReader reader;
 
@@ -36,5 +41,33 @@ public class ConsoleInput implements Input {
             System.out.println("Ошибка ввода-вывода");
         }
         return "Ошибка";
+    }
+
+    /**
+     * Отображает вопрос пользователю и ждет ответ от пользователя, также проверяет ответ пользователя
+     * перегруженный метод
+     * @param phrase Выводит в консоль сообщение от пользователя
+     * @param range Содержит доступные пункты меню для ввода
+     */
+    public int ask(String phrase, int[] range) {
+        boolean exist = false;
+        System.out.println(phrase);
+        try {
+            answer = this.reader.readLine();
+        } catch (IOException e) {
+            System.out.println("Ошибка ввода-вывода");
+        }
+        int key = Integer.valueOf(answer);
+        for (int value : range) {
+            if (key == value) {
+                exist = true;
+                break;
+            }
+        }
+        if (exist) {
+            return key;
+        } else {
+            throw new MenuOutException("Ваше число отсутствует в меню.");
+        }
     }
 }

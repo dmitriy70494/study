@@ -26,4 +26,13 @@ public class StrubInput implements Input {
     public String ask(String phrase) {
         return this.answers[this.position++];
     }
+
+    /**
+     * Возвращает эмуляцию ввода в консоль от пользователя
+     * @param phrase ничего не делает, так как это эмулятор ввода
+     * @param
+     */
+    public int ask(String phrase, int[] range) {
+        return Integer.valueOf(this.answers[this.position++]);
+    }
 }

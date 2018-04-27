@@ -12,4 +12,6 @@ public interface Input {
      * @param phrase Выводит в консоль сообщение от пользователя
      */
     String ask(String phrase);
+
+    int ask(String phrase, int[] range);
 }

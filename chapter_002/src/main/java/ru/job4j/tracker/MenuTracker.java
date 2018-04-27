@@ -56,7 +56,7 @@ class FindName implements UserAction {
      * @return int номер пункта меню в массиве
      */
     public int key() {
-        return 2;
+        return 5;
     }
 
     /**
@@ -108,7 +108,7 @@ public class MenuTracker {
     /**
      * Хранит действия пользователя
      */
-    private UserAction[] actions = new UserAction[5];
+    private UserAction[] actions = new UserAction[6];
 
     /**
      * Конструктор, пробрасывает начальные значения
@@ -118,6 +118,16 @@ public class MenuTracker {
         this.tracker = tracker;
     }
 
+    public int[] makeRange() {
+        int size = actions.length;
+        int[] range = new int[size];
+        for (int index = 0; index < size; index++) {
+            if(this.actions[index] != null) {
+                range[index] = index;
+            }
+        }
+        return range;
+    }
     /**
      * Инициализирует события
      */
@@ -303,7 +313,7 @@ public class MenuTracker {
          * @return String отображает пунк меню для отображения пользователю
          */
         public String info() {
-            return String.format("%s. %s", this.key(), "Найти элементы по названию");
+            return String.format("%s. %s", this.key(), "Найти элемент по ID");
         }
     }
 }
