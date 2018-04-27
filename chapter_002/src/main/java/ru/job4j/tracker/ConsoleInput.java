@@ -63,10 +63,9 @@ public class ConsoleInput implements Input {
                 break;
             }
         }
-        if (exist) {
-            return key;
-        } else {
+        if (!exist) {
             throw new MenuOutException("Ваше число отсутствует в меню.");
         }
+        return key;
     }
 }
