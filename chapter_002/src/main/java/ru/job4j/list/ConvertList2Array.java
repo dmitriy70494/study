@@ -24,14 +24,14 @@ public class ConvertList2Array {
     public int[][] toArray(List<Integer> list, int rows) {
         int cells = list.size() / rows + (list.size() % rows != 0 ? 1 : 0);
         int[][] array = new int[rows][cells];
-        for (int row = 0, index = 0; row < rows; row++) {
-            for (int cell = 0; cell < cells; cell++) {
-                if (index < list.size()) {
-                    array[row][cell] = list.get(index++);
-                } else {
-                    array[row][cell] = 0;
-                }
+        int row = 0;
+        int cell = 0;
+        for (int arr : list) {
+            if(cell == cells) {
+                cell = 0;
+                row++;
             }
+            array[row][cell++] = arr;
         }
         return array;
     }
