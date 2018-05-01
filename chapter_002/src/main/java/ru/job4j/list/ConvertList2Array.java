@@ -1,5 +1,6 @@
 package ru.job4j.list;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,4 +36,23 @@ public class ConvertList2Array {
         }
         return array;
     }
+
+    /**
+     * В этом методе вы должны пройтись по всем элементам всех массивов
+     * в списке list и добавить их в один общий лист Integer.
+     * Массивы в списке list могут быть разного размера.
+     *
+     * @param list список массивов
+     * @return список чисел
+     */
+    public List<Integer> convert (List<int[]> list) {
+        List<Integer> listInt = new ArrayList<Integer>();
+        for (int[] mas : list) {
+            for (int number : mas) {
+                listInt.add(number);
+            }
+        }
+        return listInt;
+    }
+
 }
