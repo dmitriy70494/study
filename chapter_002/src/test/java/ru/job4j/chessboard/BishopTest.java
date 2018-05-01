@@ -20,7 +20,7 @@ public class BishopTest {
         String results;
         try {
             resultSteps = bishop.way(new Cell(3, 3), new Cell(6, 6));
-        } catch(ImpossibleMoveException ime) {
+        } catch (ImpossibleMoveException ime) {
             results = "ImpossibleMoveException";
         }
         Cell[] exceptSteps = {new Cell(4, 4), new Cell(5, 5)};
@@ -40,7 +40,7 @@ public class BishopTest {
         String results;
         try {
             resultSteps = bishop.way(new Cell(0, 0), new Cell(8, 8));
-        } catch(ImpossibleMoveException ime) {
+        } catch (ImpossibleMoveException ime) {
             results = "ImpossibleMoveException";
         }
         Cell[] exceptSteps = {new Cell(1, 1), new Cell(2, 2), new Cell(3, 3), new Cell(4, 4), new Cell(5, 5), new Cell(6, 6), new Cell(7, 7)};
@@ -60,7 +60,7 @@ public class BishopTest {
         String results;
         try {
             resultSteps = bishop.way(new Cell(8, 8), new Cell(0, 0));
-        } catch(ImpossibleMoveException ime) {
+        } catch (ImpossibleMoveException ime) {
             results = "ImpossibleMoveException";
         }
         Cell[] exceptSteps = {new Cell(7, 7), new Cell(6, 6), new Cell(5, 5), new Cell(4, 4), new Cell(3, 3), new Cell(2, 2), new Cell(1, 1)};
@@ -80,7 +80,7 @@ public class BishopTest {
         String results;
         try {
             resultSteps = bishop.way(new Cell(8, 0), new Cell(0, 8));
-        } catch(ImpossibleMoveException ime) {
+        } catch (ImpossibleMoveException ime) {
             results = "ImpossibleMoveException";
         }
         Cell[] exceptSteps = {new Cell(7, 1), new Cell(6, 2), new Cell(5, 3), new Cell(4, 4), new Cell(3, 5), new Cell(2, 6), new Cell(1, 7)};
@@ -100,7 +100,7 @@ public class BishopTest {
         String results = null;
         try {
             resultSteps = bishop.way(new Cell(8, 0), new Cell(1, 8));
-        } catch(ImpossibleMoveException ime) {
+        } catch (ImpossibleMoveException ime) {
             results = "ImpossibleMoveException";
         }
 

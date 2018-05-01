@@ -44,7 +44,9 @@ public class Bishop extends Figure {
         }
         Cell[] steps = new Cell[--indexX];
          while (indexX != 0) {
-             steps[--indexX] = new Cell(cellX += stepX, cellY += stepY);
+             cellX += stepX;
+             cellY += stepY;
+             steps[--indexX] = new Cell(cellX, cellY);
          }
         return steps;
     }

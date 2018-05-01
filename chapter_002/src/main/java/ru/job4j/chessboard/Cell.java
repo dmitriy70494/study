@@ -37,6 +37,10 @@ public class Cell {
         return obj.getX() == this.x && obj.getY() == this.y;
     }
 
+    public int hashCode() {
+        return x * 100 + y;
+    }
+
     public String toString() {
         return x + " " + y;
     }

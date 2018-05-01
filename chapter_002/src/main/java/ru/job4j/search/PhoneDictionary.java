@@ -36,9 +36,9 @@ public class PhoneDictionary {
         List<Person> result = new ArrayList<Person>();
         for (Person person : persons) {
             boolean ifFind = new StringBuffer()
-                    .append(person.getName()+ " ")
-                    .append(person.getSurname()+ " ")
-                    .append(person.getAddress()+ " ")
+                    .append(person.getName() + " ")
+                    .append(person.getSurname() + " ")
+                    .append(person.getAddress() + " ")
                     .append(person.getPhone())
                     .toString().contains(key);
             if (ifFind) {

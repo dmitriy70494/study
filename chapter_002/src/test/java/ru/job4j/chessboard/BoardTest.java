@@ -36,11 +36,11 @@ public class BoardTest {
         this.board.add(bishopTwo);
         try {
             board.move(new Cell(3, 3), new Cell(6, 6));
-        } catch(FigureNotFoundException fnf) {
+        } catch (FigureNotFoundException fnf) {
             this.result = "FigureNotFoundException";
-        } catch(ImpossibleMoveException ime) {
+        } catch (ImpossibleMoveException ime) {
             this.result = "ImpossibleMoveException";
-        } catch(OccupiedWayException owe) {
+        } catch (OccupiedWayException owe) {
             this.result = "OccupiedWayException";
         }
         assertThat(this.result, is("OccupiedWayException"));
@@ -52,11 +52,11 @@ public class BoardTest {
         this.board.add(bishopTwo);
         try {
             this.board.move(new Cell(3, 3), new Cell(6, 0));
-        } catch(FigureNotFoundException fnf) {
+        } catch (FigureNotFoundException fnf) {
             this.result = "FigureNotFoundException";
-        } catch(ImpossibleMoveException ime) {
+        } catch (ImpossibleMoveException ime) {
             this.result = "ImpossibleMoveException";
-        } catch(OccupiedWayException owe) {
+        } catch (OccupiedWayException owe) {
             this.result = "OccupiedWayException";
         }
         assertThat(this.result, is("все хорошо"));
@@ -71,11 +71,11 @@ public class BoardTest {
         this.board.add(bishopTwo);
         try {
             this.board.move(new Cell(3, 3), new Cell(6, 0));
-        } catch(FigureNotFoundException fnf) {
+        } catch (FigureNotFoundException fnf) {
             result = "FigureNotFoundException";
-        } catch(ImpossibleMoveException ime) {
+        } catch (ImpossibleMoveException ime) {
             result = "ImpossibleMoveException";
-        } catch(OccupiedWayException owe) {
+        } catch (OccupiedWayException owe) {
             result = "OccupiedWayException";
         }
         assertThat(result, is("FigureNotFoundException"));
@@ -91,11 +91,11 @@ public class BoardTest {
         String result = "все хорошо";
         try {
             board.move(new Cell(3, 3), new Cell(6, 1));
-        } catch(FigureNotFoundException fnf) {
+        } catch (FigureNotFoundException fnf) {
             result = "FigureNotFoundException";
-        } catch(ImpossibleMoveException ime) {
+        } catch (ImpossibleMoveException ime) {
             result = "ImpossibleMoveException";
-        } catch(OccupiedWayException owe) {
+        } catch (OccupiedWayException owe) {
             result = "OccupiedWayException";
         }
         assertThat(result, is("ImpossibleMoveException"));

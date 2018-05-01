@@ -43,8 +43,7 @@ public class Board {
      */
     public boolean move(Cell source, Cell dest) throws ImpossibleMoveException, OccupiedWayException, FigureNotFoundException {
         boolean notFound = false;
-        boolean Occupied = false;
-        boolean ImpossibleMove = true;
+        boolean occupied = false;
         Figure movedFigure = null;
         Cell[] way;
         int index;
@@ -62,11 +61,11 @@ public class Board {
         for (Cell cell : way) {
             for (Figure figure : figures) {
                 if (figure != null && cell.equals(figure.position)) {
-                    Occupied = true;
+                    occupied = true;
                 }
             }
         }
-        if (Occupied) {
+        if (occupied) {
             throw new OccupiedWayException();
         }
         this.figures[index] = movedFigure.copy(dest);
