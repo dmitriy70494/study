@@ -28,7 +28,7 @@ public class ConvertList2Array {
         int row = 0;
         int cell = 0;
         for (int arr : list) {
-            if(cell == cells) {
+            if (cell == cells) {
                 cell = 0;
                 row++;
             }
@@ -45,7 +45,7 @@ public class ConvertList2Array {
      * @param list список массивов
      * @return список чисел
      */
-    public List<Integer> convert (List<int[]> list) {
+    public List<Integer> convert(List<int[]> list) {
         List<Integer> listInt = new ArrayList<Integer>();
         for (int[] mas : list) {
             for (int number : mas) {
