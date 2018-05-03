@@ -40,4 +40,9 @@ public class User implements Comparable<User>{
     public int compareTo(User user) {
         return Integer.valueOf(age).compareTo(user.age);
     }
+
+    @Override
+    public String toString() {
+        return name + " " + age + " ";
+    }
 }
