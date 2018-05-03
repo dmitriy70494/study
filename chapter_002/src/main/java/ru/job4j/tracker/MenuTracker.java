@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.List;
+import java.util.ArrayList;
 /**
  * Внешний класс, расположенный в одном файле с MenuTracker
  * Редактирует заявку
@@ -67,8 +69,8 @@ class FindName extends BaseAction {
     public void execute(Input input, Tracker tracker) {
         System.out.println("------------ Поиск заявок по названию --------------");
         String name = input.ask("Введите название заявок, которые нужно найти:");
-        Item[] items = tracker.findByName(name);
-        if (items.length != 0) {
+        List<Item> items = tracker.findByName(name);
+        if (items.size() != 0) {
             for (Item item : items) {
                 System.out.println(item);
             }
@@ -101,7 +103,7 @@ public class MenuTracker {
     /**
      * Хранит действия пользователя
      */
-    private UserAction[] actions = new UserAction[6];
+    private List<UserAction> actions = new ArrayList<UserAction>();
 
     /**
      * Конструктор, пробрасывает начальные значения
@@ -111,14 +113,11 @@ public class MenuTracker {
         this.tracker = tracker;
     }
 
-    public int[] makeRange() {
-        int size = actions.length;
-        int[] range = new int[size];
-        for (int index = 0; index < size; index++) {
-            if (this.actions[index] != null) {
-                range[index] = index;
+    public List<Integer> makeRange() {
+        List<Integer> range = new ArrayList<Integer>();
+        for (int index = 0; index < actions.size(); index++) {
+                range.add(index);
             }
-        }
         return range;
     }
 
@@ -126,12 +125,12 @@ public class MenuTracker {
      * Инициализирует события
      */
     public void fillActions() {
-        this.actions[0] = this.new AddItem(0, "Добавить новый элемент");
-        this.actions[1] = new MenuTracker.ShowItem(1, "Показать все элементы");
-        this.actions[2] = new EditItem(2, "Редактировать элемент");
-        this.actions[3] = this.new DeleteItem(3, "Удалить элемент");
-        this.actions[4] = new MenuTracker.FindId(4, "Найти элемент по ID");
-        this.actions[5] = new FindName(5, "Найти элементы по названию");
+        this.actions.add(this.new AddItem(0, "Добавить новый элемент"));
+        this.actions.add(new MenuTracker.ShowItem(1, "Показать все элементы"));
+        this.actions.add(new EditItem(2, "Редактировать элемент"));
+        this.actions.add(this.new DeleteItem(3, "Удалить элемент"));
+        this.actions.add(new MenuTracker.FindId(4, "Найти элемент по ID"));
+        this.actions.add(new FindName(5, "Найти элементы по названию"));
     }
 
     /**
@@ -140,7 +139,7 @@ public class MenuTracker {
      * @param key номер задачи из массива
      */
     public void select(int key) {
-        this.actions[key].execute(this.input, this.tracker);
+        this.actions.get(key).execute(this.input, this.tracker);
     }
 
     /**
@@ -149,9 +148,7 @@ public class MenuTracker {
     public void show() {
         System.out.println("Меню.");
         for (UserAction action : this.actions) {
-            if (action != null) {
                 System.out.println(action.info());
-            }
         }
     }
 
@@ -218,7 +215,7 @@ public class MenuTracker {
          */
         public void execute(Input input, Tracker tracker) {
             System.out.println("------------ Отображение всех заявок --------------");
-            Item[] items = tracker.findAll();
+            List<Item> items = tracker.findAll();
             for (Item item : items) {
                 System.out.println(item);
             }

@@ -1,5 +1,6 @@
 package ru.job4j.tracker;
 
+import java.util.ArrayList;
 import org.junit.Test;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -25,9 +26,9 @@ public class TrackerTest {
         String oneId = oneItem.getId();
         String twoId = twoItem.getId();
         String threeId = threeItem.getId();
-        Item[] except = new Item[100];
-        except[0] = oneItem;
-        except[1] = threeItem;
+        ArrayList<Item> except = new ArrayList<Item>();
+        except.add(oneItem);
+        except.add(threeItem);
         resultTracker.delete(twoId);
         assertThat(resultTracker.getItems(), is(except));
     }
@@ -44,10 +45,10 @@ public class TrackerTest {
         String oneId = oneItem.getId();
         String twoId = twoItem.getId();
         String threeId = threeItem.getId();
-        Item[] except = new Item[100];
-        except[0] = oneItem;
-        except[1] = twoItem;
-        except[2] = threeItem;
+        ArrayList<Item> except = new ArrayList<Item>();
+        except.add(oneItem);
+        except.add(twoItem);
+        except.add(threeItem);
         resultTracker.delete("100");
         assertThat(resultTracker.getItems(), is(except));
     }
@@ -57,8 +58,8 @@ public class TrackerTest {
         Tracker resultTracker = new Tracker();
         Item oneItem = new Item();
         oneItem = resultTracker.add(oneItem);
-        Item[] except = new Item[100];
-        except[0] = oneItem;
+        ArrayList<Item> except = new ArrayList<Item>();
+        except.add(oneItem);
         assertThat(resultTracker.getItems(), is(except));
     }
 
@@ -71,8 +72,8 @@ public class TrackerTest {
         Item testItem = new Item("name", "desc", System.currentTimeMillis());
         resultTracker.replace(oneId, testItem);
         testItem.setId(oneId);
-        Item[] except = new Item[100];
-        except[0] = testItem;
+        ArrayList<Item> except = new ArrayList<Item>();
+        except.add(testItem);
         assertThat(resultTracker.getItems(), is(except));
     }
 
@@ -85,8 +86,8 @@ public class TrackerTest {
         Item testItem = new Item("name", "desc", System.currentTimeMillis());
         resultTracker.replace("100", testItem);
         testItem.setId(oneId);
-        Item[] except = new Item[100];
-        except[0] = oneItem;
+        ArrayList<Item> except = new ArrayList<Item>();
+        except.add(oneItem);
         assertThat(resultTracker.getItems(), is(except));
     }
 
@@ -99,17 +100,17 @@ public class TrackerTest {
         oneItem = resultTracker.add(oneItem);
         twoItem = resultTracker.add(twoItem);
         threeItem = resultTracker.add(threeItem);
-        Item[] except = new Item[3];
-        except[0] = oneItem;
-        except[1] = twoItem;
-        except[2] = threeItem;
+        ArrayList<Item> except = new ArrayList<Item>();
+        except.add(oneItem);
+        except.add(twoItem);
+        except.add(threeItem);
         assertThat(resultTracker.findAll(), is(except));
     }
 
     @Test
     public void whenItemsFindAllNull() {
         Tracker resultTracker = new Tracker();
-        Item[] except = new Item[0];
+        ArrayList<Item> except = new ArrayList<Item>();
         assertThat(resultTracker.findAll(), is(except));
     }
 
@@ -125,9 +126,9 @@ public class TrackerTest {
         oneItem = resultTracker.add(oneItem);
         twoItem = resultTracker.add(twoItem);
         threeItem = resultTracker.add(threeItem);
-        Item[] except = new Item[2];
-        except[0] = oneItem;
-        except[1] = threeItem;
+        ArrayList<Item> except = new ArrayList<Item>();
+        except.add(oneItem);
+        except.add(threeItem);
         assertThat(resultTracker.findByName("Мастер"), is(except));
     }
 
@@ -143,7 +144,7 @@ public class TrackerTest {
         oneItem = resultTracker.add(oneItem);
         twoItem = resultTracker.add(twoItem);
         threeItem = resultTracker.add(threeItem);
-        Item[] except = new Item[0];
+        ArrayList<Item> except = new ArrayList<Item>();
         assertThat(resultTracker.findByName("Мастерv"), is(except));
     }
 

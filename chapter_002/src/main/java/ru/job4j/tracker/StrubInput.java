@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.List;
+
 /**
  * Для работы с вводом и выводом в консоль, для эмуляции действий
  * использует interface Input.
@@ -32,7 +34,7 @@ public class StrubInput implements Input {
      * @param phrase ничего не делает, так как это эмулятор ввода
      * @param
      */
-    public int ask(String phrase, int[] range) {
+    public int ask(String phrase, List<Integer> range) {
         return Integer.valueOf(this.answers[this.position++]);
     }
 }

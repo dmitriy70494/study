@@ -1,6 +1,7 @@
 package ru.job4j.tracker;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Проверяет запросы, обрабатывает ошибки пользователя при вводе.
@@ -35,7 +36,7 @@ public class ValidateInput implements Input {
      * @param phrase вопрос пользователю
      * @param range список допустимых пунктов меню
      */
-    public int ask(String phrase, int[] range) {
+    public int ask(String phrase, List<Integer> range) {
         boolean invalid = true;
         do {
             try {

@@ -1,7 +1,7 @@
 package ru.job4j.tracker;
 
 import java.io.IOException;
-
+import java.util.List;
 /**
  * Запускает приложение
  * @author Dmitriy Balandin (d89086362742@yandex.ru)
@@ -10,7 +10,7 @@ import java.io.IOException;
  */
 public class StartUI {
 
-    private int[] ranges;
+    private List<Integer> ranges;
 
     /**
      * Получение данных от пользователя.

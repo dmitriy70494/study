@@ -3,6 +3,7 @@ package ru.job4j.tracker;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @author Dmitriy Balandin (d89086362742@yandex.ru)
@@ -48,7 +49,7 @@ public class ConsoleInput implements Input {
      * @param phrase Выводит в консоль сообщение от пользователя
      * @param range Содержит доступные пункты меню для ввода
      */
-    public int ask(String phrase, int[] range) {
+    public int ask(String phrase, List<Integer> range) {
         boolean exist = false;
         System.out.println(phrase);
         try {

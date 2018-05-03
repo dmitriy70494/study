@@ -2,6 +2,8 @@ package ru.job4j.tracker;
 
 import java.io.IOException;
 import java.util.Random;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Содержит методы, которыми можно работать с данными. Все данные хранятся в списке объектов Item
@@ -17,14 +19,9 @@ public class Tracker {
     private static final Random RN = new Random();
 
     /**
-     * определяет индекс для добавления заявки
-     */
-    private int position;
-
-    /**
      * Список со всеми заявками пользователя
      */
-    private Item[] items = new Item[100];
+    private List<Item> items = new ArrayList<Item>();
 
     /**
      * Данный метод генерирует уникальный ID, Добавляет его в экземпляр Item и добавляет его в
@@ -34,7 +31,7 @@ public class Tracker {
      */
     public Item add(Item item) {
         item.setId(this.generateId());
-        this.items[position++] = item;
+        this.items.add(item);
         return item;
     }
 
@@ -45,10 +42,10 @@ public class Tracker {
      * @param item сам элемент с изменениями, может быть новым, так как метод поменяет id, который указан в первом параметре
      */
     public void replace(String id, Item item) {
-        for (int i = 0; i < items.length; i++) {
-            if (items[i] != null && items[i].getId().equals(id)) {
+        for (int index = 0; index < this.items.size(); index++) {
+            if (id.equals(this.items.get(index).getId())) {
                 item.setId(id);
-                items[i] = item;
+                this.items.set(index, item);
                 break;
             }
         }
@@ -59,28 +56,20 @@ public class Tracker {
      * @param id id элемента, который нужно удвалить.
      */
     public void delete(String id) {
-        for (int i = 0; i < items.length; i++) {
-            if (items[i] != null && items[i].getId().equals(id)) {
-                System.arraycopy(items, i + 1, items, i, items.length - i - 1);
+        for (int index = 0; index < this.items.size(); index++) {
+            if (id.equals(this.items.get(index).getId())) {
+                this.items.remove(index);
                 break;
             }
         }
-        position--;
     }
 
     /**
      * Возвращает список со всеми элементами, без пустых ячеек
      * @return copyItems список элементов, null - если список пуст
      */
-    public Item[] findAll() {
-        for (int i = 0; i < items.length; i++) {
-            if (items[i] == null) {
-                Item[] copyItems = new Item[i];
-                System.arraycopy(items, 0, copyItems, 0, i);
-                return copyItems;
-            }
-        }
-        return null;
+    public List<Item> findAll() {
+        return this.items;
     }
 
     /**
@@ -88,17 +77,13 @@ public class Tracker {
      * @param key поле name Item.
      * @return find список найденных, если нет найденных то список пустой
      */
-    public Item[] findByName(String key) {
-        int count = 0;
-        Item[] finded = new Item[100];
-        for (int i = 0; i < items.length; i++) {
-            if (items[i] != null && items[i].getName().equals(key)) {
-                finded[count] = items[i];
-                count++;
+    public List<Item> findByName(String key) {
+        List <Item> find = new ArrayList<Item>();
+        for (Item item : items) {
+            if (key.equals(item.getName())) {
+                find.add(item);
             }
         }
-        Item[] find = new Item[count];
-        System.arraycopy(finded, 0, find, 0, count);
         return find;
     }
 
@@ -108,12 +93,14 @@ public class Tracker {
      * @return item если нет такого элемента, возвратит null
      */
     public Item findById(String id) {
-        for (int i = 0; i < items.length; i++) {
-            if (items[i] != null && items[i].getId().equals(id)) {
-                return items[i];
+        Item find = null;
+        for (Item item : items) {
+            if (id.equals(item.getId())) {
+                find = item;
+                break;
             }
         }
-        return null;
+        return find;
     }
 
     /**
@@ -128,9 +115,7 @@ public class Tracker {
      * дает таблицу
      * @return items таблица с данными
      */
-    public Item[] getItems() {
+    public List<Item> getItems() {
         return items;
     }
-
-
 }

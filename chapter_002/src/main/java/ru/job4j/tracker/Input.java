@@ -1,4 +1,7 @@
 package ru.job4j.tracker;
+
+import java.util.List;
+
 /**
  * Для работы с вводом и выводом в консоль пользователя или для эмуляции действий пользователя
  * @author Dmitriy Balandin (d89086362742@yandex.ru)
@@ -13,5 +16,5 @@ public interface Input {
      */
     String ask(String phrase);
 
-    int ask(String phrase, int[] range);
+    int ask(String phrase, List<Integer> range);
 }

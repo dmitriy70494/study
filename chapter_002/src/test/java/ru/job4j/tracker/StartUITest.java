@@ -180,7 +180,7 @@ public class StartUITest {
         Tracker tracker = new Tracker();
         Input input = new StrubInput(new String[]{"0", "test name", "desc", "да"});
         new StartUI(input, tracker).init();
-        assertThat(tracker.findAll()[0].getName(), is("test name"));
+        assertThat(tracker.findAll().get(0).getName(), is("test name"));
     }
 
     /**
@@ -219,7 +219,7 @@ public class StartUITest {
         itemTwo.setName("test name");
         Input input = new StrubInput(new String[]{"3", itemOne.getId(), "да"});
         new StartUI(input, tracker).init();
-        assertThat(tracker.findAll()[0].getName(), is("test name"));
+        assertThat(tracker.findAll().get(0).getName(), is("test name"));
     }
 
     /**
@@ -240,6 +240,6 @@ public class StartUITest {
         itemTwo.setName("two name");
         Input input = new StrubInput(new String[]{"3", itemOne.getId(), "нет", "0", "three name",  "desc", "да"});
         new StartUI(input, tracker).init();
-        assertThat(tracker.findAll()[1].getName(), is("three name"));
+        assertThat(tracker.findAll().get(1).getName(), is("three name"));
     }
 }
