@@ -7,7 +7,7 @@ package ru.job4j.sort;
  * @version $Id$
  * @since 03.05.2018
  */
-public class User implements Comparable<User>{
+public class User implements Comparable<User> {
 
     /**
      * Имя пользователя

@@ -19,7 +19,7 @@ public class SortUser {
      * @param list список
      * @return отсортированный по имени TreeSet
      */
-    public Set<User> sort (List<User> list) {
+    public Set<User> sort(List<User> list) {
         Set<User> users = new TreeSet<User>(list);
         return users;
     }
@@ -30,7 +30,7 @@ public class SortUser {
      * @param list неотсортированный список пользователей
      * @return отсортированный список
      */
-    public List<User> sortNameLength (List<User> list) {
+    public List<User> sortNameLength(List<User> list) {
         list.sort(new Comparator<User>() {
             @Override
             public int compare(final User o1, final User o2) {
@@ -47,7 +47,7 @@ public class SortUser {
      * @param list неотсортированный список пользователей
      * @return отсортированный список
      */
-    public List<User> sortByAllFields (List<User> list) {
+    public List<User> sortByAllFields(List<User> list) {
         list.sort(new Comparator<User>() {
             @Override
             public int compare(final User o1, final User o2) {

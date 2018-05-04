@@ -78,7 +78,7 @@ public class Tracker {
      * @return find список найденных, если нет найденных то список пустой
      */
     public List<Item> findByName(String key) {
-        List <Item> find = new ArrayList<Item>();
+        List<Item> find = new ArrayList<Item>();
         for (Item item : items) {
             if (key.equals(item.getName())) {
                 find.add(item);
