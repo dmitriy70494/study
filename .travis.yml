@@ -6,5 +6,5 @@ notifications:
   email:
     recipients:
       - d89086362742@yandex.ru
-    on_success: never # default: change
-    on_failure: always # default: always
+    on_success: never
+    on_failure: always

@@ -20,8 +20,7 @@ public class SortUser {
      * @return отсортированный по имени TreeSet
      */
     public Set<User> sort(List<User> list) {
-        Set<User> users = new TreeSet<User>(list);
-        return users;
+        return new TreeSet<User>(list);
     }
 
     /**
