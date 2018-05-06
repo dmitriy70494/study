@@ -9,6 +9,8 @@ package ru.job4j.tictactoe;
 
 public class Logic3T {
     private final Figure3T[][] table;
+    private boolean[][] cellX = new boolean[3][3];
+    private boolean[][] cellO = new boolean[3][3];
 
     /**
      * конструктор передает в класс готовую таблицу
@@ -17,40 +19,50 @@ public class Logic3T {
     public Logic3T(Figure3T[][] table) {
         this.table = table;
     }
+
     /**
-     * Проверяет наличие победителя среди крестиков
-     * сначала проверка по горизонтали и вертикали
-     * затем проверка по диагоналям на победителя
-     * @return boolean true - есть победитель среди Х.
+     * Проверяет наличие победителя среди ноликов или крестиков
+     * сначала проверка опорной клетки, если она заполнена,
+     * проверяет соседние клетки на наличие победителя.
+     * Всего 3 опорные клетки [0][0], [1][1], [2][2]
+     * @param cell таблица клеток крестиков или ноликов
+     * @return
      */
-    public boolean isWinnerX() {
-        for (int i = 0; i < 3; i++) {
-            if (table[i][0].hasMarkX() && table[i][1].hasMarkX() && table[i][2].hasMarkX() || table[0][i].hasMarkX() && table[1][i].hasMarkX() && table[2][i].hasMarkX()) {
-                return true;
-            }
+    public boolean isWinner(boolean[][] cell) {
+        boolean winner = false;
+        if(cell[1][1]) {
+            winner = cell[0][1] && cell[2][1] || cell[1][0] && cell[1][2] || cell[0][0] && cell[2][2] || cell[2][0] && cell[0][2];
         }
-        if (table[0][0].hasMarkX() && table[1][1].hasMarkX() && table[2][2].hasMarkX() || table[0][2].hasMarkX() && table[1][1].hasMarkX() && table[2][0].hasMarkX()) {
-            return true;
+        if(cell[0][0] && !winner) {
+            winner = cell[0][1] && cell[0][2] || cell[1][0] && cell[2][0];
         }
-        return false;
+        if(cell[2][2] && !winner) {
+            winner = cell[2][0] && cell[2][1] || cell[0][2] && cell[0][1];
+        }
+        return winner;
     }
 
     /**
-     * Проверяет наличие победителя среди ноликов
-     * сначала проверка по горизонтали и вертикали
-     * затем проверка по диагоналям на победителя
+     * Создает двумерные массивы ходов + отправляет массив крестиков на проверку
      * @return boolean true - есть победитель среди Х.
      */
-    public boolean isWinnerO() {
-        for (int i = 0; i < 3; i++) {
-            if (table[i][0].hasMarkO() && table[i][1].hasMarkO() && table[i][2].hasMarkO() || table[0][i].hasMarkO() && table[1][i].hasMarkO() && table[2][i].hasMarkO()) {
-                return true;
+    public boolean isWinnerX() {
+        for (int line = 0; line < 3; line++) {
+            for (int cell = 0; cell < 3; cell++) {
+                this.cellX[line][cell] = this.table[line][cell].hasMarkX();
+                this.cellO[line][cell] = this.table[line][cell].hasMarkO();
             }
         }
-        if (table[0][0].hasMarkO() && table[1][1].hasMarkO() && table[2][2].hasMarkO() || table[0][2].hasMarkO() && table[1][1].hasMarkO() && table[2][0].hasMarkO()) {
-            return true;
-        }
-        return false;
+        return this.isWinner(this.cellX);
+    }
+
+    /**
+     * Oтправляет массив ноликов на проверку
+     *
+     * @return boolean true - есть победитель среди O.
+     */
+    public boolean isWinnerO() {
+        return this.isWinner(this.cellO);
     }
 
     /**
@@ -65,7 +77,6 @@ public class Logic3T {
                     return true;
                 }
             }
-
         }
         return false;
     }

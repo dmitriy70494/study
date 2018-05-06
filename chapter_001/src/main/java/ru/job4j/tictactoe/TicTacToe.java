@@ -29,6 +29,13 @@ public class TicTacToe extends Application {
     private final Figure3T[][] cells = new Figure3T[size][size];
     private final Logic3T logic = new Logic3T(cells);
 
+    /**
+     * рисует фигуру
+     * @param x
+     * @param y
+     * @param size
+     * @return
+     */
     private Figure3T buildRectangle(int x, int y, int size) {
         Figure3T rect = new Figure3T();
         rect.setX(x * size);
@@ -40,6 +47,13 @@ public class TicTacToe extends Application {
         return rect;
     }
 
+    /**
+     *
+     * @param x
+     * @param y
+     * @param size
+     * @return
+     */
     private Group buildMarkO(double x, double y, int size) {
         Group group = new Group();
         int radius = size / 2;
