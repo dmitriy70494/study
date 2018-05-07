@@ -49,7 +49,6 @@ public class BoardTest {
     @Test
     public void whenBoardFiguraBishopStepsX3Y3ToX6Y0() {
         Bishop bishopTwo = new Bishop(new Cell(4, 4));
-        this.board.add(bishopTwo);
         try {
             this.board.move(new Cell(3, 3), new Cell(6, 0));
         } catch (FigureNotFoundException fnf) {

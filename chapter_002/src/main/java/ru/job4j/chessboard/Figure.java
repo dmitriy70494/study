@@ -54,5 +54,13 @@ public abstract class Figure {
      */
     abstract Figure copy(Cell dest);
 
+    public Cell getPosition() {
+        return this.position;
+    }
+
+    public static void setException() throws OccupiedWayException{
+        throw new OccupiedWayException();
+    }
+
     }
 
