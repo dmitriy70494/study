@@ -58,7 +58,7 @@ public abstract class Figure {
         return this.position;
     }
 
-    public static void setException() throws OccupiedWayException{
+    public static void setException() throws OccupiedWayException {
         throw new OccupiedWayException();
     }
 

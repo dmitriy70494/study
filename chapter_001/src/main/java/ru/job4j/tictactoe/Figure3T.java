@@ -36,6 +36,6 @@ public class Figure3T extends Rectangle {
     }
 
     public String toString() {
-        return markX + " " +markO;
+        return markX + " " + markO;
     }
 }

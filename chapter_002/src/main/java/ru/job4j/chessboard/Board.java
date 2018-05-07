@@ -1,7 +1,5 @@
 package ru.job4j.chessboard;
 
-import com.sun.istack.internal.Nullable;
-
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -20,10 +18,9 @@ public class Board {
      * содержит фигуры. Количество фигур.
      */
 
-    @Nullable
     private Figure[] figures = new Figure[32];
 
-    int position;
+    private int position = 0;
 
     // public Optional<Figure[]> getFigures() {
     //      return Optional.ofNullable(figures);
@@ -38,7 +35,7 @@ public class Board {
      */
     public void add(Figure figure) {
         if (position < 32) {
-            this.figures[this.position++] = figure;//Optional.ofNullable(figure).orElseThrow(()->new FigureNotFoundException());
+            this.figures[this.position++] = figure; //Optional.ofNullable(figure).orElseThrow(()->new FigureNotFoundException());
         } else {
             System.out.println("Слишком много фигур");
         }
@@ -69,7 +66,7 @@ public class Board {
             throw new FigureNotFoundException();
         }
         way = this.figures[index].way(source, dest);
-        for (Cell cell : way){
+        for (Cell cell : way) {
             for (Figure figure : figures) {
                 Optional.ofNullable(figure).filter(Figure -> cell.equals(figure.position)).ifPresent(t -> Figure.setException());
             }

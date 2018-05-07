@@ -30,13 +30,13 @@ public class Logic3T {
      */
     public boolean isWinner(boolean[][] cell) {
         boolean winner = false;
-        if(cell[1][1]) {
+        if (cell[1][1]) {
             winner = cell[0][1] && cell[2][1] || cell[1][0] && cell[1][2] || cell[0][0] && cell[2][2] || cell[2][0] && cell[0][2];
         }
-        if(cell[0][0] && !winner) {
+        if (cell[0][0] && !winner) {
             winner = cell[0][1] && cell[0][2] || cell[1][0] && cell[2][0];
         }
-        if(cell[2][2] && !winner) {
+        if (cell[2][2] && !winner) {
             winner = cell[2][0] && cell[2][1] || cell[0][2] && cell[0][1];
         }
         return winner;
