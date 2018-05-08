@@ -42,7 +42,7 @@ public class User {
 
     @Override
     public boolean equals(Object obj) {
-        User user = (User)obj;
+        User user = (User) obj;
         return user != null ? this == user || this.passport.equals(user.passport) : false;
     }
 

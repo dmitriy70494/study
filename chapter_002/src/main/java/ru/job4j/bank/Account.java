@@ -45,7 +45,7 @@ public class Account {
 
     @Override
     public boolean equals(Object obj) {
-        Account account = (Account)obj;
+        Account account = (Account) obj;
         return account != null ? this == account || this.requisites.equals(account.requisites) : false;
     }
 

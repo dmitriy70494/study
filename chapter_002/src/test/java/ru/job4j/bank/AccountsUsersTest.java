@@ -35,7 +35,7 @@ public class AccountsUsersTest {
             account2.setValue(new BigDecimal("11009"));
             this.allAccountsUsers.addAccountToUser("00 00 000000", account1);
             this.allAccountsUsers.addAccountToUser("10 00 000000", account2);
-        } catch(ExistingUserException eue) {
+        } catch (ExistingUserException eue) {
             allert = eue.getMessage();
         }
     }
@@ -45,10 +45,10 @@ public class AccountsUsersTest {
         User user3 = new User("Дима", "00 00 000000");
         try {
             this.allAccountsUsers.addUser(user3);
-        } catch(ExistingUserException eue) {
+        } catch (ExistingUserException eue) {
             System.out.println(eue.getMessage());
         }
-        assertThat(allAccountsUsers.getUsers().containsKey(user2) , is(true));
+        assertThat(allAccountsUsers.getUsers().containsKey(user2), is(true));
     }
 
     @Test
@@ -56,10 +56,10 @@ public class AccountsUsersTest {
         User user2 = new User("Дима", "00 00 000000");
         try {
             this.allAccountsUsers.addUser(user2);
-        } catch(ExistingUserException eue) {
+        } catch (ExistingUserException eue) {
             allert = eue.getMessage();
         }
-        assertThat(allert , is("Такой пользователь уже существует в списке"));
+        assertThat(allert, is("Такой пользователь уже существует в списке"));
     }
 
     @Test
@@ -67,10 +67,10 @@ public class AccountsUsersTest {
         try {
             this.allAccountsUsers.deleteUser(user1);
             this.allAccountsUsers.deleteUser(user2);
-        } catch(ExistingUserException eue) {
+        } catch (ExistingUserException eue) {
             System.out.println(eue.getMessage());
         }
-        assertThat(this.allAccountsUsers.getUsers().size() , is(0));
+        assertThat(this.allAccountsUsers.getUsers().size(), is(0));
     }
 
     @Test
@@ -78,10 +78,10 @@ public class AccountsUsersTest {
         User user3 = new User("Дима", "11 00 000000");
         try {
             this.allAccountsUsers.deleteUser(user3);
-        } catch(ExistingUserException eue) {
+        } catch (ExistingUserException eue) {
             this.allert = eue.getMessage();
         }
-        assertThat(this.allert , is("Не удалось удалить пользователя, так как он не существует в списке"));
+        assertThat(this.allert, is("Не удалось удалить пользователя, так как он не существует в списке"));
     }
 
     @Test
@@ -94,6 +94,6 @@ public class AccountsUsersTest {
         allAccountsUsers.transferMoney("00 00 000000", "1", "10 00 000000", "2", 6000.0);
         boolean debiting = allAccountsUsers.getUserAccounts("00 00 000000").get(0).getValue().compareTo(new BigDecimal(1001)) == 0;
         boolean receipt = allAccountsUsers.getUserAccounts("10 00 000000").get(0).getValue().compareTo(new BigDecimal(17009)) == 0;
-        assertThat(debiting && receipt , is(true));
+        assertThat(debiting && receipt, is(true));
     }
 }
