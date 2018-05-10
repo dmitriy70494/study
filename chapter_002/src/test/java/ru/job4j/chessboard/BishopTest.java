@@ -23,7 +23,7 @@ public class BishopTest {
         } catch (ImpossibleMoveException ime) {
             results = "ImpossibleMoveException";
         }
-        Cell[] exceptSteps = {new Cell(4, 4), new Cell(5, 5)};
+        Cell[] exceptSteps = {new Cell(4, 4), new Cell(5, 5), new Cell(6, 6)};
         boolean result = true;
         for (int index = 0; index < resultSteps.length; index++) {
             if (!resultSteps[index].equals(exceptSteps[index])) {
@@ -43,7 +43,7 @@ public class BishopTest {
         } catch (ImpossibleMoveException ime) {
             results = "ImpossibleMoveException";
         }
-        Cell[] exceptSteps = {new Cell(1, 1), new Cell(2, 2), new Cell(3, 3), new Cell(4, 4), new Cell(5, 5), new Cell(6, 6), new Cell(7, 7)};
+        Cell[] exceptSteps = {new Cell(1, 1), new Cell(2, 2), new Cell(3, 3), new Cell(4, 4), new Cell(5, 5), new Cell(6, 6), new Cell(7, 7), new Cell(8, 8)};
         boolean result = true;
         for (int index = 0; index < resultSteps.length; index++) {
             if (!resultSteps[index].equals(exceptSteps[index])) {
@@ -63,7 +63,7 @@ public class BishopTest {
         } catch (ImpossibleMoveException ime) {
             results = "ImpossibleMoveException";
         }
-        Cell[] exceptSteps = {new Cell(7, 7), new Cell(6, 6), new Cell(5, 5), new Cell(4, 4), new Cell(3, 3), new Cell(2, 2), new Cell(1, 1)};
+        Cell[] exceptSteps = {new Cell(7, 7), new Cell(6, 6), new Cell(5, 5), new Cell(4, 4), new Cell(3, 3), new Cell(2, 2), new Cell(1, 1), new Cell(0, 0)};
         boolean result = true;
         for (int index = 0; index < resultSteps.length; index++) {
             if (!resultSteps[index].equals(exceptSteps[index])) {
@@ -83,7 +83,7 @@ public class BishopTest {
         } catch (ImpossibleMoveException ime) {
             results = "ImpossibleMoveException";
         }
-        Cell[] exceptSteps = {new Cell(7, 1), new Cell(6, 2), new Cell(5, 3), new Cell(4, 4), new Cell(3, 5), new Cell(2, 6), new Cell(1, 7)};
+        Cell[] exceptSteps = {new Cell(7, 1), new Cell(6, 2), new Cell(5, 3), new Cell(4, 4), new Cell(3, 5), new Cell(2, 6), new Cell(1, 7), new Cell(0, 8)};
         boolean result = true;
         for (int index = 0; index < resultSteps.length; index++) {
             if (!resultSteps[index].equals(exceptSteps[index])) {

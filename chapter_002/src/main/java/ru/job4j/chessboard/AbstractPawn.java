@@ -1,72 +1,50 @@
 package ru.job4j.chessboard;
 
 /**
- * Класс Bishop. Наследуется от Figure, содержит в себе логику копирования себя с новыми координатами и
- * алгоритм хода слона
+ * Класс AbstractPawn. Определяет общий принцип хода пешки,
+ * а его реализации будут просто ходить в разные стороны и при разных условиях ходить на 2 клетки вперед.
  *
  * @author Dmitriy Balandin (d89086362742@yandex.ru)
  * @version $Id$
  * @since 24.04.2018
  */
-public class Bishop extends Figure {
+public abstract class AbstractPawn extends Figure {
+
+    protected int step;
+    protected int cell;
 
     /**
      * Конструктор, устанавливает положение фигуры на доске
      *
      * @param dest задает ячейку положения на доске.
      */
-    public Bishop(Cell dest) {
+    public AbstractPawn(Cell dest) {
         super(dest);
     }
 
     /**
+     * В данном методе используется Композиция, вызываются поочередно два разных метода логики ладьи и слона
      * Метод должен работать так. dest - задает ячейку, куда следует пойти.
      * Если фигура может туда пойти. то Вернуть массив ячеек. которые должна пройти фигура.
      * Если фигура туда пойти не может. выбросить исключение ImposibleMoveException
+     *
      * @param source клетка на которой стоит фигура
      * @param dest задает ячейку, куда следует пойти.
      * @return Cell[] массив возможных ходов
      */
     public Cell[] way(Cell source, Cell dest) throws ImpossibleMoveException {
-
-        int cellX = dest.getX();
-        int cellY = dest.getY();
-        int indexX = source.getX() - dest.getX();
-        int indexY = source.getY() - dest.getY();
-        int stepX = 1;
-        if (indexX < 0) {
-            indexX *= -1;
-            stepX = -1;
-         }
-        int stepY = (indexY < 0) ? -1 : 1;
-        if (!(indexX - indexY * stepY == 0)) {
+        if (!(source.getY() + step == dest.getY()) && !(source.getY() == cell && source.getY() + step * 2 == dest.getY())) {
             throw new ImpossibleMoveException();
-        }
-        Cell[] steps = new Cell[indexX];
-        steps[--indexX] = dest;
-        while (indexX != 0) {
-             cellX += stepX;
-             cellY += stepY;
-             steps[--indexX] = new Cell(cellX, cellY);
-         }
-        return steps;
+    }
+        return new Cell[]{dest};
     }
 
     /**
      * Он должен создавать объект Figure с координатой Cell dest.
-     * Например. для класса
-     * class Bishop impl Figure {
-     *     Figure copy(Cell dest) {
-     *         return new Bishop(dest);
-     *     }
-     * }
      *
      * @param dest координата фигуры на доске.
      * @return Figure копию класса
      *
      */
-     public Figure copy(Cell dest) {
-         return new Bishop(dest);
-     }
-
+    abstract Figure copy(Cell dest);
 }

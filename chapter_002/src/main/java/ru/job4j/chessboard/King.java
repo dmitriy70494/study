@@ -1,21 +1,21 @@
 package ru.job4j.chessboard;
 
 /**
- * Класс Bishop. Наследуется от Figure, содержит в себе логику копирования себя с новыми координатами и
- * алгоритм хода слона
+ * Класс King. Наследуется от Figure, содержит в себе логику копирования себя с новыми координатами и
+ * алгоритм хода Короля
  *
  * @author Dmitriy Balandin (d89086362742@yandex.ru)
  * @version $Id$
- * @since 24.04.2018
+ * @since 10.05.2018
  */
-public class Bishop extends Figure {
+public class King extends Figure {
 
     /**
      * Конструктор, устанавливает положение фигуры на доске
      *
      * @param dest задает ячейку положения на доске.
      */
-    public Bishop(Cell dest) {
+    public King(Cell dest) {
         super(dest);
     }
 
@@ -28,28 +28,11 @@ public class Bishop extends Figure {
      * @return Cell[] массив возможных ходов
      */
     public Cell[] way(Cell source, Cell dest) throws ImpossibleMoveException {
-
-        int cellX = dest.getX();
-        int cellY = dest.getY();
-        int indexX = source.getX() - dest.getX();
-        int indexY = source.getY() - dest.getY();
-        int stepX = 1;
-        if (indexX < 0) {
-            indexX *= -1;
-            stepX = -1;
-         }
-        int stepY = (indexY < 0) ? -1 : 1;
-        if (!(indexX - indexY * stepY == 0)) {
+        int index = source.getX() - dest.getX() + source.getY() - dest.getY();
+        if (!(index == 1 || index == -1 || (source.getX() - dest.getX() == -1 || source.getX() - dest.getX() == 1 && index == 0))) {
             throw new ImpossibleMoveException();
         }
-        Cell[] steps = new Cell[indexX];
-        steps[--indexX] = dest;
-        while (indexX != 0) {
-             cellX += stepX;
-             cellY += stepY;
-             steps[--indexX] = new Cell(cellX, cellY);
-         }
-        return steps;
+        return new Cell[]{dest};
     }
 
     /**
@@ -65,8 +48,8 @@ public class Bishop extends Figure {
      * @return Figure копию класса
      *
      */
-     public Figure copy(Cell dest) {
-         return new Bishop(dest);
-     }
+    public Figure copy(Cell dest) {
+        return new King(dest);
+    }
 
 }
