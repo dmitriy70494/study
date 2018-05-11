@@ -3,32 +3,23 @@ package ru.job4j.iterator;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class MatrixIterator implements Iterator {
+
+public class EvenIterator implements Iterator {
 
     /**
-     * высота массива
+     * Длина массива
      */
-    private int matrixSize;
+    private int length;
 
     /**
-     * Длина строки массива
+     * Индекс элемента на котором находится корретка метода next
      */
-    private int lineSize;
-
-    /**
-     * Индекс прохода по высоте
-     */
-    private int matrixIndex = 0;
-
-    /**
-     * Индекс прохода по строке
-     */
-    private int lineIndex = 0;
+    private int cursor = 0;
 
     /**
      * массив
      */
-    private int[][] matrix;
+    private int[] mas;
 
     Integer result;
 
@@ -36,38 +27,33 @@ public class MatrixIterator implements Iterator {
      * Конструктор инициализирует все необходимые параметры, размер массива по длине, размер по высоте, и вспомогательный массив line,
      * который хранит в себе данные вложенных массивов. Если массив пуст, выбрасывает исключение NoSuchElementException.
      *
-     * @param matrix
+     * @param mas массив
      */
-    public MatrixIterator(int[][] matrix) {
-        this.matrix = matrix;
-        this.matrixSize = this.matrix.length;
-        this.lineSize = this.matrix.length == 0 ? 0 : this.matrix[0].length;
+    public EvenIterator(int[] mas) {
+        this.mas = mas;
+        this.length = this.mas.length;
         this.nextStep();
     }
 
     private void nextStep() {
-        while (this.lineIndex == this.lineSize) {
-            this.lineIndex = 0;
-            if (++this.matrixIndex >= this.matrixSize) {
-                break;
-            }
-            this.lineSize = this.matrix[this.matrixIndex].length;
+        while (this.hasNext() && mas[cursor] % 2 != 0) {
+            cursor++;
         }
     }
 
     /**
      * Метод проверяет можно ли считать число, если нельзя, выбрасывает исключение
      * затем считывает число переводя корретку дальше
-     * отдельный метод проверяет, закончился ли вложенный массив, если да, то переводит корретку на новую строку, до
-     * тех пов пока высота массива не закончится
+     * отдельный метод проверяет и проталкивает дальше если следующее число не подходит
+     * до тех пор пока длина массива не закончится
      *
      * @return следующее число в массиве
      */
     public Integer next() {
-        if (this.matrixIndex >= this.matrixSize) {
+        if (!this.hasNext()) {
             throw new NoSuchElementException();
         }
-        this.result = this.matrix[this.matrixIndex][this.lineIndex++];
+        this.result = this.mas[this.cursor++];
         this.nextStep();
         return this.result;
     }
@@ -77,6 +63,6 @@ public class MatrixIterator implements Iterator {
      * @return true элемент есть, false элемента нет
      */
     public boolean hasNext() {
-        return this.matrixIndex < this.matrixSize;
+        return this.cursor != this.length;
     }
 }
