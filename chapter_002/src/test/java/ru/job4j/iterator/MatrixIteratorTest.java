@@ -13,7 +13,7 @@ public class MatrixIteratorTest {
 
     @Before
     public void setUp() {
-        it = new MatrixIterator(new int[][]{{1, 2, 3}, {4, 5, 6}});
+        it = new DoubleArrayIterator(new int[][]{{1, 2, 3}, {4, 5, 6}});
     }
 
     @Test
@@ -57,7 +57,7 @@ public class MatrixIteratorTest {
 
     @Test(expected = NoSuchElementException.class)
     public void shoulThrowNoSuchElementException() {
-        it = new MatrixIterator(new int[][]{});
+        it = new DoubleArrayIterator(new int[][]{});
         it.next();
     }
 }

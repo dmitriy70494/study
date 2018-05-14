@@ -13,7 +13,7 @@ public class JaggedArrayIteratorTest {
 
     @Before
     public void setUp() {
-        it = new MatrixIterator(new int[][]{{1}, {3, 4}, {7}});
+        it = new DoubleArrayIterator(new int[][]{{1}, {3, 4}, {7}});
     }
 
     @Test
