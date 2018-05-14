@@ -18,7 +18,7 @@ public class AccountsUsers {
     /**
      * Список содержит по ключу пользователя, а по значению список его банковских счетов
      */
-    private volatile Map<User, List<Account>> users = new HashMap<>();
+    private Map<User, List<Account>> users = new HashMap<>();
 
     /**
      * Добавление пользователя.
@@ -100,7 +100,7 @@ public class AccountsUsers {
      * @param amount       сумма платежа
      * @return true - платеж прошел успешно, false - платеж не прошел
      */
-    public synchronized boolean transferMoney(String srcPassport, String srcRequisite, String destPassport, String destRequisite, double amount) {
+    public boolean transferMoney(String srcPassport, String srcRequisite, String destPassport, String destRequisite, double amount) {
         BigDecimal amountValue = new BigDecimal(String.valueOf(amount));
         BigDecimal srcValue = null;
         boolean success;
@@ -121,6 +121,6 @@ public class AccountsUsers {
     }
 
     protected Map<User, List<Account>> getUsers() {
-        return users;
+        return this.users;
     }
 }

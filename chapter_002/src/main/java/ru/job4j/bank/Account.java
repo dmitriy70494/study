@@ -16,7 +16,7 @@ public class Account {
     /**
      * Хранит в себе количество денег на счете
      */
-    private volatile BigDecimal value;
+    private BigDecimal value;
 
     /**
      * Банковские реквизиты счета
