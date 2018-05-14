@@ -19,7 +19,7 @@ public class SortDepartments {
      * @param departments Массив Отделов
      * @param sortedDepartments Отсортированный массив отделов
      */
-    private void addDepartment(String [] departments, TreeSet<String> sortedDepartments) {
+    private void addDepartment(String[] departments, TreeSet<String> sortedDepartments) {
         String[] unit;
         for (String department : departments) {
             unit = department.split("\\\\");
