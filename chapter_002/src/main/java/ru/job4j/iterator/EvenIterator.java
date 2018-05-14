@@ -7,9 +7,14 @@ import java.util.NoSuchElementException;
 public class EvenIterator implements Iterator {
 
     /**
+     * массив
+     */
+    private final int[] mas;
+
+    /**
      * Длина массива
      */
-    private int length;
+    private final int length;
 
     /**
      * Индекс элемента на котором находится корретка метода next
@@ -17,28 +22,13 @@ public class EvenIterator implements Iterator {
     private int cursor = 0;
 
     /**
-     * массив
-     */
-    private int[] mas;
-
-    Integer result;
-
-    /**
-     * Конструктор инициализирует все необходимые параметры, размер массива по длине, размер по высоте, и вспомогательный массив line,
-     * который хранит в себе данные вложенных массивов. Если массив пуст, выбрасывает исключение NoSuchElementException.
+     * Конструктор инициализирует все необходимые параметры, сам массив и размер массива по длине
      *
-     * @param mas массив
+     * @param mas исходный массив
      */
     public EvenIterator(int[] mas) {
         this.mas = mas;
         this.length = this.mas.length;
-        this.nextStep();
-    }
-
-    private void nextStep() {
-        while (this.hasNext() && mas[cursor] % 2 != 0) {
-            cursor++;
-        }
     }
 
     /**
@@ -53,9 +43,7 @@ public class EvenIterator implements Iterator {
         if (!this.hasNext()) {
             throw new NoSuchElementException();
         }
-        this.result = this.mas[this.cursor++];
-        this.nextStep();
-        return this.result;
+        return this.mas[this.cursor++];
     }
 
     /**
@@ -63,6 +51,10 @@ public class EvenIterator implements Iterator {
      * @return true элемент есть, false элемента нет
      */
     public boolean hasNext() {
-        return this.cursor != this.length;
+        boolean access = this.cursor != this.length;
+        while (access && mas[cursor] % 2 != 0) {
+            access = ++this.cursor != this.length;
+        }
+        return access;
     }
 }
