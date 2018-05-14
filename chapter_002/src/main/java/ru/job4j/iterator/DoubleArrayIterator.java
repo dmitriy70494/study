@@ -3,7 +3,7 @@ package ru.job4j.iterator;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class DoubleArrayIterator implements Iterator {
+public class DoubleArrayIterator<E extends Integer> implements Iterator<Integer> {
 
     /**
      * высота массива

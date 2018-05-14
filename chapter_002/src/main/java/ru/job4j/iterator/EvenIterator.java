@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 
-public class EvenIterator implements Iterator {
+public class EvenIterator<E extends Integer> implements Iterator<Integer> {
 
     /**
      * массив

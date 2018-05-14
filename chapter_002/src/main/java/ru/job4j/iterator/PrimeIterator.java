@@ -11,7 +11,7 @@ import java.util.BitSet;
  * @version $Id$
  * @since 14.05.2018
  */
-public class PrimeIterator implements Iterator {
+public class PrimeIterator<E extends Integer> implements Iterator<Integer> {
 
     /**
      * массив.
