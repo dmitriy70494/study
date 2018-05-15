@@ -41,7 +41,7 @@ public class DynamicLink<E> implements Iterable<E> {
 
         this.size++;
 
-        this.modCount = this.modCount!= 2000000000 ? ++this.modCount : 0;
+        this.modCount = this.modCount != 2000000000 ? ++this.modCount : 0;
 
     }
 
