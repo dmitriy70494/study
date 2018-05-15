@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 
-public class EvenIterator<E extends Integer> implements Iterator<Integer> {
+public class EvenIterator implements Iterator<Integer> {
 
     /**
      * массив
@@ -39,6 +39,7 @@ public class EvenIterator<E extends Integer> implements Iterator<Integer> {
      *
      * @return следующее число в массиве
      */
+    @Override
     public Integer next() {
         if (!this.hasNext()) {
             throw new NoSuchElementException();
@@ -48,8 +49,10 @@ public class EvenIterator<E extends Integer> implements Iterator<Integer> {
 
     /**
      * Определяет не закончился ли массив и есть ли следующий элемент
+     *
      * @return true элемент есть, false элемента нет
      */
+    @Override
     public boolean hasNext() {
         boolean access = this.cursor != this.length;
         while (access && mas[cursor] % 2 != 0) {

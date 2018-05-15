@@ -17,10 +17,12 @@ public abstract class AbstractStore<T extends Base> implements Store<T> {
         this.objects = new SimpleArray<T>(size);
     }
 
+    @Override
     public void add(T model) {
         this.objects.add(model);
     }
 
+    @Override
     public boolean replace(String id, T model) {
         Iterator<T> it = objects.iterator();
         boolean access = false;
@@ -37,6 +39,7 @@ public abstract class AbstractStore<T extends Base> implements Store<T> {
         return access;
     }
 
+    @Override
     public boolean delete(String id) {
         Iterator<T> it = objects.iterator();
         boolean access = false;
@@ -53,6 +56,7 @@ public abstract class AbstractStore<T extends Base> implements Store<T> {
         return access;
     }
 
+    @Override
     public T findById(String id) {
         Iterator<T> it = objects.iterator();
         T result = null;

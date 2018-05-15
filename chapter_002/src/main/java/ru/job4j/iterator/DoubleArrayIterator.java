@@ -3,7 +3,7 @@ package ru.job4j.iterator;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class DoubleArrayIterator<E extends Integer> implements Iterator<Integer> {
+public class DoubleArrayIterator implements Iterator<Integer> {
 
     /**
      * высота массива
@@ -48,6 +48,7 @@ public class DoubleArrayIterator<E extends Integer> implements Iterator<Integer>
      *
      * @return следующее число в массиве
      */
+    @Override
     public Integer next() {
         if (!this.hasNext()) {
             throw new NoSuchElementException();
@@ -61,6 +62,7 @@ public class DoubleArrayIterator<E extends Integer> implements Iterator<Integer>
      *
      * @return true элемент есть, false элемента нет
      */
+    @Override
     public boolean hasNext() {
         while (this.cursor == this.width && ++this.index < this.height) {
             this.cursor = 0;

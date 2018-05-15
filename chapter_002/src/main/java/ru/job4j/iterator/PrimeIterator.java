@@ -11,7 +11,7 @@ import java.util.BitSet;
  * @version $Id$
  * @since 14.05.2018
  */
-public class PrimeIterator<E extends Integer> implements Iterator<Integer> {
+public class PrimeIterator implements Iterator<Integer> {
 
     /**
      * массив.
@@ -76,6 +76,7 @@ public class PrimeIterator<E extends Integer> implements Iterator<Integer> {
      *
      * @return следующее число в массиве
      */
+    @Override
     public Integer next() {
         if (!this.hasNext()) {
             throw new NoSuchElementException();
@@ -89,6 +90,7 @@ public class PrimeIterator<E extends Integer> implements Iterator<Integer> {
      *
      * @return true элемент есть, false элемента нет
      */
+    @Override
     public boolean hasNext() {
         boolean access = this.cursor != this.length;
         while (access && !primes.get(mas[cursor])) {
