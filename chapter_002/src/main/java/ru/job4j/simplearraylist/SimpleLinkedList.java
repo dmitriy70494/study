@@ -1,6 +1,6 @@
 package ru.job4j.simplearraylist;
 
-public class SimpleArrayList<E> {
+public class SimpleLinkedList<E> {
 
     private int size;
 
@@ -11,28 +11,19 @@ public class SimpleArrayList<E> {
      */
 
     public void add(E date) {
-
         Node<E> newLink = new Node<E>(date);
-
         newLink.next = this.first;
-
         this.first = newLink;
-
         this.size++;
-
     }
 
     /**
      * Реализовать метод удаления первого элемента в списке.
      */
     public E delete() {
-
         Node<E> twoLink = this.first.next;
-
         E date = first.date;
-
         this.first = twoLink;
-
         return date;
     }
 

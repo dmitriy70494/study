@@ -32,17 +32,11 @@ public class DynamicLink<E> implements Iterable<E> {
      * Метод вставляет в начало списка данные.
      */
     public void add(E date) {
-
         Node<E> newLink = new Node<E>(date);
-
         newLink.next = this.first;
-
         this.first = newLink;
-
         this.size++;
-
         this.modCount = this.modCount != 2000000000 ? ++this.modCount : 0;
-
     }
 
 
@@ -62,6 +56,7 @@ public class DynamicLink<E> implements Iterable<E> {
      *
      * @return Итератор экземпляра данного списка
      */
+    @Override
     public Iterator<E> iterator() {
         return new Iterator<E>() {
             Node<E> result = first;

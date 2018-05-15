@@ -24,13 +24,9 @@ public class SimpleQueueTest {
 
     @Before
     public void beforeTest() {
-
         queue = new SimpleQueue<Integer>();
-
         queue.push(1);
-
         queue.push(2);
-
         queue.push(3);
 
     }

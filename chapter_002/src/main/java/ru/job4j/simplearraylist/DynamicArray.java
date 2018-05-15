@@ -69,6 +69,7 @@ public class DynamicArray<E> implements Iterable<E> {
      *
      * @return Итератор
      */
+    @Override
     public Iterator<E> iterator() {
         return new Iterator<E>() {
             int index = 0;

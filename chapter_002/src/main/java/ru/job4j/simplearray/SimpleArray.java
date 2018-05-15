@@ -78,6 +78,7 @@ public class SimpleArray<T> implements Iterable<T> {
      *
      * @return Итератор
      */
+    @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
             int index = 0;

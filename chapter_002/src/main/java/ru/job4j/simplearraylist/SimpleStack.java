@@ -18,11 +18,8 @@ public class SimpleStack<T> {
      * Метод вставляет элемент в начало очереди.
      */
     public void push(T value) {
-
         Node<T> newLink = new Node<T>(value);
-
         newLink.next = this.first;
-
         this.first = newLink;
     }
 

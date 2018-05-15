@@ -8,12 +8,12 @@ import static org.junit.Assert.assertThat;
 
 public class SimpleArrayListTest {
 
-    private SimpleArrayList<Integer> list;
+    private SimpleLinkedList<Integer> list;
 
     @Before
     public void beforeTest() {
 
-        list = new SimpleArrayList<>();
+        list = new SimpleLinkedList<>();
 
         list.add(1);
 
