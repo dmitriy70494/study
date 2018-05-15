@@ -32,7 +32,7 @@ public class CheckCycleTest {
 
     @Test
     public void whenAddFourElementsThenCheckNoCicle() {
-        this.first.next.next.next = this.check.buildNode();;
+        this.first.next.next.next = this.check.buildNode();
         assertThat(this.check.hasCycle(this.first), is(false));
     }
 }
