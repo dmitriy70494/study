@@ -11,42 +11,22 @@ public class CheckCycle<T> {
 
     /**
      * Данный метод делает следующее.
-     * check - это проверочный элемент в системе
-     * cursor - передвигающийся вперед
-     * count - количество шагов методом next
-     * мы запускаем бесконечный цикл
-     * делаем в цикле заданное count количество шагов при условии что они есть, если пришло нул, значит зацикливания нет
-     * далее увеличиваем количество шагов чтобы можно было попасть в цикл и проверить его
-     * проверяем равна ли ссылка от cursor проверяемой, от которой курсор постоянно уходит
-     * если равна то прекращаем цикл, так как есть зацикленность
-     * и приставляем к нашему шагу проверочный элемент
-     * Таким образом рано или поздно check войдет в зацикленный участок и там инкрементируемый cursor рано или
-     * поздно дойдет до него, что будет означать зацикленность этого участка.
-     * Но честно говоря было бы намного проще, если бы было известно количество элементов в этой связке.
+     * Если зацикленность есть  черепаха догонит зайца, который зачтрял в цикле
      *
      * @param first
      * @return
      */
     public boolean hasCycle(Node first) {
-        Node<T> check = first;
-        Node<T> cursor = first;
-        int count = 1;
-        boolean access = true;
-        while (access) {
-            for (int index = 0; index < count; index++) {
-                if (cursor == null) {
-                    access = false;
-                    break;
-                }
-                cursor = cursor.next;
-            }
-            count++;
-            if (cursor == check) {
+        Node<T> turtle = first;
+        Node<T> rabbit = first;
+        while (rabbit != null && rabbit.next != null) {
+            rabbit = rabbit.next.next;
+            turtle = turtle.next;
+            if (rabbit == turtle) {
                 break;
             }
-            check = cursor;
         }
-        return access;
+        return rabbit != null;
     }
 
     public Node<T> buildNode() {
