@@ -10,42 +10,28 @@ package ru.job4j.simplearraylist;
 public class SimpleStack<T> {
 
     /**
-     * Обертка для хранения ссылок на следующий объект
+     * Связанный список
      */
-    private Node<T> first;
+    DynamicLink<T> linked;
+
+    /**
+     * Инициализирует список
+     */
+    public SimpleStack() {
+        linked = new DynamicLink<T>();
+    }
 
     /**
      * Метод вставляет элемент в начало очереди.
      */
     public void push(T value) {
-        Node<T> newLink = new Node<T>(value);
-        newLink.next = this.first;
-        this.first = newLink;
+        linked.addFirst(value);
     }
-
 
     /**
      * Метод удаляет первый элемент в очереди и возвращает его.
      */
     public T poll() {
-        T date = null;
-        if (first != null) {
-            date = first.date;
-            first.date = null;
-            this.first = this.first.next;
-        }
-        return date;
-    }
-
-    /**
-     * Класс предназначен для хранения данных.
-     */
-    private static class Node<E> {
-        E date;
-        Node<E> next;
-
-        Node(E date) {
-            this.date = date;
-        }
+        return linked.removeFirst();
     }
 }

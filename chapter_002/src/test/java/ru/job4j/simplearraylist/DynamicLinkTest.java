@@ -27,11 +27,11 @@ public class DynamicLinkTest {
 
         list = new DynamicLink<Integer>();
 
-        list.add(1);
+        list.addFirst(1);
 
-        list.add(2);
+        list.addFirst(2);
 
-        list.add(3);
+        list.addFirst(3);
 
     }
 
@@ -66,7 +66,7 @@ public class DynamicLinkTest {
         MatcherAssert.assertThat(it.hasNext(), is(true));
         MatcherAssert.assertThat(it.next(), is(3));
         MatcherAssert.assertThat(it.hasNext(), is(true));
-        list.add(4);
+        list.addFirst(4);
         it.next();
     }
 }

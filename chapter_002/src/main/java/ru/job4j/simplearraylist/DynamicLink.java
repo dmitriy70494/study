@@ -24,21 +24,50 @@ public class DynamicLink<E> implements Iterable<E> {
     private Node<E> first;
 
     /**
+     * Обертка для хранения ссылок на предыдущий объект
+     */
+    private Node<E> last;
+
+    /**
      * Хранит количество изменений
      */
     private int modCount;
 
     /**
-     * Метод вставляет в начало списка данные.
+     * Метод вставляет данные в зависимости от аргумента в начало или в конец.
      */
-    public void add(E date) {
-        Node<E> newLink = new Node<E>(date);
-        newLink.next = this.first;
-        this.first = newLink;
-        this.size++;
-        this.modCount = this.modCount != 2000000000 ? ++this.modCount : 0;
+    private void add(Node<E> added) {
+        boolean preved = added.prev == null;
+        boolean nexted = added.next == null;
+        if (preved && nexted) {
+            this.last = added;
+            this.first = added;
+        }
+        if (!nexted) {
+            this.first.prev = added;
+            this.first = added;
+        }
+        if (!preved) {
+            this.last.next = added;
+            this.last = added;
+        }
+        ++this.size;
+        ++this.modCount;
     }
 
+    /**
+     * Метод вставляет в начало списка данные.
+     */
+    public void addFirst(E date) {
+        this.add(new Node<E>(date, this.first, null));
+    }
+
+    /**
+     * Метод вставляет в конце списка данные.
+     */
+    public void addLast(E date) {
+        this.add(new Node<E>(date, null, this.last));
+    }
 
     /**
      * Метод получения элемента по индексу.
@@ -49,6 +78,38 @@ public class DynamicLink<E> implements Iterable<E> {
             result = result.next;
         }
         return result.date;
+    }
+
+    /**
+     * Удаляет первый элемент
+     * @return
+     */
+    public E removeFirst() {
+        E removed = null;
+        if (this.first != null) {
+            removed = this.first.date;
+            this.first = this.first.next;
+            if (first != null) {
+                first.prev = null;
+            }
+        }
+        return removed;
+    }
+
+    /**
+     * Удаляет последний элемент
+     * @return
+     */
+    public E removeLast() {
+        E removed = null;
+        if (this.last != null) {
+            removed = this.last.date;
+            this.last = this.last.prev;
+            if (last != null) {
+                last.next = null;
+            }
+        }
+        return removed;
     }
 
     /**
@@ -85,9 +146,12 @@ public class DynamicLink<E> implements Iterable<E> {
     private static class Node<E> {
         E date;
         Node<E> next;
+        Node<E> prev;
 
-        Node(E date) {
+        Node(E date, Node<E> next, Node<E> prev) {
             this.date = date;
+            this.next = next;
+            this.prev = prev;
         }
     }
 }

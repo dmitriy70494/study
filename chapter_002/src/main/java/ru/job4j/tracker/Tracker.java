@@ -18,6 +18,8 @@ public class Tracker {
      */
     private static final Random RN = new Random();
 
+    int count = 0;
+
     /**
      * Список со всеми заявками пользователя
      */
@@ -108,7 +110,7 @@ public class Tracker {
      * @return String число в строке длиной long
      */
     public String generateId() {
-        return String.valueOf(System.currentTimeMillis() + RN.nextInt(100));
+        return String.valueOf(System.currentTimeMillis() + RN.nextInt(100)) + count++;
     }
 
     /**
