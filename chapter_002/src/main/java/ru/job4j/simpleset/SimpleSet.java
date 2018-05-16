@@ -31,15 +31,7 @@ public class SimpleSet<E> implements Iterable<E> {
      * @param e
      */
     public void add(E e) {
-        Iterator<E> iterator = list.iterator();
-        boolean access = true;
-        while (iterator.hasNext()) {
-            if (e.equals(iterator.next())) {
-                access = false;
-                break;
-            }
-        }
-        if (access) {
+        if (!list.conteins(e)) {
             list.add(e);
         }
     }

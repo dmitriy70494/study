@@ -40,6 +40,21 @@ public class DynamicArray<E> implements Iterable<E> {
     }
 
     /**
+     * Занимается поиском объекта в массиве
+     * @param date
+     * @return
+     */
+    public boolean conteins(E date) {
+        boolean finded = false;
+        for (Object object : objects) {
+            if (date.equals(object)) {
+                finded = true;
+            }
+        }
+        return finded;
+    }
+
+    /**
      * Добавляет объект. Увеличивает размер массива, если тот заканчивается, и увеличивает modCount
      * которая фиксирует изменения
      *
