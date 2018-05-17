@@ -6,6 +6,8 @@ import ru.job4j.simplemap.User;
 
 import java.util.*;
 
+import java.util.HashMap;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
