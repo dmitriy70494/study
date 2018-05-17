@@ -22,4 +22,9 @@ public class User {
         this.children = children;
         this.birthday = birthday;
     }
+
+    @Override
+    public int hashCode() {
+        return 31 * (name == null ? 0 : name.hashCode() + (birthday == null ? 0 : birthday.hashCode())) + children;
+    }
 }
