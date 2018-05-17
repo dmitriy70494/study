@@ -61,4 +61,20 @@ public class MapTest {
         System.out.println("equals: " + first.equals(second));
         System.out.println(map);
     }
+
+    /**
+     * По прежнему добавилось два объекта так как хешкод у объектов разный, то программа разносит объекты по разным ячейкам, не проводя сравнение методом equals
+     * результаты:
+     * first hash: 1343441044
+     * second hash: 693632176
+     * equals: true
+     * {ru.job4j.simplemap.User@50134894=first, ru.job4j.simplemap.User@2957fcb0=second}
+     */
+    @Test
+    public void whenAddTwoElementAndEqualsTrueHashCodFalseShouldTwoInMap() {
+        System.out.println("first hash: " + first.hashCode());
+        System.out.println("second hash: " + second.hashCode());
+        System.out.println("equals: " + first.equals(second));
+        System.out.println(map);
+    }
 }
