@@ -24,18 +24,18 @@ public class User {
         this.birthday = birthday;
     }
 
-    //@Override
-    //public boolean equals(Object object) {
-    //    boolean access = !(object == null || this.getClass() != object.getClass() || this == object);
-    //    User user = null;
-    //    if (access) {
-    //        user = (User) object;
-    //    }
-    //    return access && (this.name != null ? this.name.equals(user.name) : user.name == null) && (this.birthday != null ? this.birthday.equals(user.birthday) : user.birthday == null) && children == children;
-    //}
+    @Override
+    public boolean equals(Object object) {
+        boolean access = !(object == null || this.getClass() != object.getClass() || this == object);
+        User user = null;
+        if (access) {
+            user = (User) object;
+        }
+        return access && (this.name != null ? this.name.equals(user.name) : user.name == null) && (this.birthday != null ? this.birthday.equals(user.birthday) : user.birthday == null) && children == children;
+    }
 
-    //@Override
-    //public int hashCode() {
-    //    return 31 * (name == null ? 0 : name.hashCode() + (birthday == null ? 0 : birthday.hashCode())) + children;
-    //}
+    @Override
+    public int hashCode() {
+        return 31 * (name == null ? 0 : name.hashCode() + (birthday == null ? 0 : birthday.hashCode())) + children;
+    }
 }

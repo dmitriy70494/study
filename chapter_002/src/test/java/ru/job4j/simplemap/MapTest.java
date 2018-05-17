@@ -77,4 +77,26 @@ public class MapTest {
         System.out.println("equals: " + first.equals(second));
         System.out.println(map);
     }
+
+    /**
+     * Добавился сначала первый объект, затем, когда начал добавляться второй объект User программа вычислила его хешфункцию,
+     * и определила ее ячейку. Эта ячейка занята, тогда программа стала сравнивать эти объекты методом equals. Он выдал true, тогда заменила предыдущее значение
+     * новым в этом же ключе. на что указано ниже User@3ef9e28=SECOND а не first как было раньше.
+     * результаты:
+     * first object: ru.job4j.simplemap.User@3ef9e28
+     * second object: ru.job4j.simplemap.User@3ef9e28
+     * first hash: 66035240
+     * second hash: 66035240
+     * equals: true
+     * {ru.job4j.simplemap.User@3ef9e28=second}
+     */
+    @Test
+    public void whenAddTwoElementAndEqualsTrueHashCodTrueShouldTwoInMap() {
+        System.out.println("first object: " + first);
+        System.out.println("second object: " + second);
+        System.out.println("first hash: " + first.hashCode());
+        System.out.println("second hash: " + second.hashCode());
+        System.out.println("equals: " + first.equals(second));
+        System.out.println(map);
+    }
 }
