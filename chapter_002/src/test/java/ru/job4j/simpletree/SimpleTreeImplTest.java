@@ -62,4 +62,37 @@ public class SimpleTreeImplTest {
         assertThat(it.next(), is(6));
         assertThat(it.hasNext(), is(false));
     }
+
+    @Test
+    public void when6ElBynary() {
+        SimpleTreeImpl<Integer> tree = new SimpleTreeImpl<>(1);
+        tree.add(1, 2);
+        tree.add(1, 3);
+        tree.add(3, 4);
+        tree.add(4, 5);
+        tree.add(4, 6);
+        tree.add(5, 7);
+        tree.add(5, 8);
+        assertThat(tree.isBinary(), is(true));
+    }
+
+    @Test
+    public void when6ElNotBynary() {
+        SimpleTreeImpl<Integer> tree = new SimpleTreeImpl<>(1);
+        tree.add(1, 2);
+        tree.add(1, 3);
+        tree.add(3, 4);
+        tree.add(4, 5);
+        tree.add(4, 6);
+        tree.add(5, 7);
+        tree.add(5, 8);
+        tree.add(6, 9);
+        tree.add(6, 10);
+        tree.add(2, 12);
+        tree.add(2, 13);
+        tree.add(13, 14);
+        tree.add(13, 15);
+        tree.add(13, 16);
+        assertThat(tree.isBinary(), is(false));
+    }
 }
