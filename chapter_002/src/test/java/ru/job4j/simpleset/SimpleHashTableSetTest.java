@@ -17,7 +17,6 @@ import static org.junit.Assert.assertThat;
  * @version $Id$
  * @since 16.05.2018
  */
-
 public class SimpleHashTableSetTest {
 
     private SimpleHashTableSet<Integer> set;
