@@ -6,16 +6,6 @@ import java.util.NoSuchElementException;
 public class DoubleArrayIterator implements Iterator<Integer> {
 
     /**
-     * высота массива
-     */
-    private int height;
-
-    /**
-     * Длина строки массива
-     */
-    private int width;
-
-    /**
      * Индекс прохода по высоте
      */
     private int index = 0;
@@ -38,8 +28,6 @@ public class DoubleArrayIterator implements Iterator<Integer> {
      */
     public DoubleArrayIterator(int[][] doubleMas) {
         this.doubleMas = doubleMas;
-        this.height = doubleMas.length;
-        this.width = doubleMas.length == 0 ? 0 : doubleMas[0].length;
     }
 
     /**
@@ -64,10 +52,10 @@ public class DoubleArrayIterator implements Iterator<Integer> {
      */
     @Override
     public boolean hasNext() {
-        while (this.cursor == this.width && ++this.index < this.height) {
+        while (this.index < doubleMas.length && this.cursor == doubleMas[this.index].length) {
+            this.index++;
             this.cursor = 0;
-            this.width = this.doubleMas[this.index].length;
         }
-        return this.index < this.height;
+        return this.index < doubleMas.length;
     }
 }
