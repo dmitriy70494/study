@@ -1,6 +1,7 @@
 package ru.job4j.converter;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * класс Converter. Конвертирует несколько итераторов в один.
@@ -15,16 +16,7 @@ public class Converter {
             /**
              * Элемент списка итератора итераторов
              */
-            Iterator<Integer> iterator;
-
-            /**
-             * Инициализирует iterator
-             */
-            {
-                if (it.hasNext()) {
-                    iterator = it.next();
-                }
-            }
+            Iterator<Integer> iterator = it.next();
 
             /**
              * Проверяет следующий ход, переводит на следующий итератор
@@ -46,7 +38,9 @@ public class Converter {
              */
             @Override
             public Integer next() {
-                this.hasNext();
+                if (!this.hasNext()) {
+                    throw new NoSuchElementException();
+                }
                 return iterator.next();
             }
         };
