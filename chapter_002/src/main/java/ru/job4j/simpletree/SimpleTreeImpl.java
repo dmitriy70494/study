@@ -49,27 +49,13 @@ public class SimpleTreeImpl<E extends Comparable<E>> implements SimpleTree<E> {
     public boolean isBinary() {
         this.access = true;
         return findBinary(root);
-       /** this.access = true;
-        Queue<Node<E>> data = new LinkedList<>();
-        data.offer(this.root);
-        while (!data.isEmpty()) {
-            int count = 0;
-            for (Node<E> node : data.poll().leaves()) {
-                data.offer(node);
-                count++;
-            }
-            if (access = count <= 2) {
-                break;
-            }
-        }
-        return access;
-        */
     }
 
     private boolean findBinary(Node<E> node) {
         List<Node<E>> list = node.leaves();
         if (!access || list.size() > 2) {
-            return access = false;
+            access = false;
+            return access;
         }
         for (Node<E> element : list) {
             findBinary(element);
