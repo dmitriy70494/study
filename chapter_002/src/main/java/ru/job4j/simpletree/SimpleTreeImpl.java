@@ -44,6 +44,7 @@ public class SimpleTreeImpl<E extends Comparable<E>> implements SimpleTree<E> {
 
     /**
      * Метод должен проверять количество дочерних элементов в дереве. Если их <= 2 - то дерево бинарное.
+     *
      * @return
      */
     public boolean isBinary() {
@@ -72,11 +73,16 @@ public class SimpleTreeImpl<E extends Comparable<E>> implements SimpleTree<E> {
      */
     @Override
     public boolean add(E parent, E child) {
-        this.access = false;
+        this.access = true;
         this.findBy(parent).ifPresent(value ->
                 {
-                    this.access = value.add(new Node<E>(child));
+                    for (Node<E> data : value.leaves()) {
+                        if (data.eqValue(child)) {
+                            this.access = false;
+                        }
+                    }
                     if (this.access) {
+                        this.access = value.add(new Node<E>(child));
                         size++;
                         modCount++;
                     }
