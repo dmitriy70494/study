@@ -56,6 +56,24 @@ public class DynamicLink<E> implements Iterable<E> {
     }
 
     /**
+     * Определяет содержится ли объект в очереди
+     * @param date
+     * @return
+     */
+    public boolean contains(E date) {
+        boolean contains = false;
+        Node<E> next = this.first;
+        for (int index = 0; index < size; index++) {
+            if (next.date.equals(date)) {
+                contains = true;
+                break;
+            }
+            next = next.next;
+        }
+        return contains;
+    }
+
+    /**
      * Метод вставляет в начало списка данные.
      */
     public void addFirst(E date) {
