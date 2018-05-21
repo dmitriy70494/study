@@ -59,16 +59,22 @@ public class SortDepartments {
         TreeSet<String> sortedDepartments = new TreeSet<String>(new Comparator<String>() {
             @Override
             public int compare(String left, String right) {
+                boolean access = true;
                 int result = 0;
-                String[] lefts = left.split("\\\\");
-                String[] rights = right.split("\\\\");
-                int length = lefts.length < rights.length ? lefts.length : rights.length;
+                int lefts = left.length();
+                int rights = right.length();
+                int length = lefts < rights ? lefts : rights;
                 int index = 0;
-                result = rights[index].compareTo(lefts[index++]);
+                result = 0;
                 while (result == 0 && index < length) {
-                    result = lefts[index].compareTo(rights[index++]);
+                    if (access) {
+                        result = Character.compare(right.charAt(index), left.charAt(index));
+                        access = right.charAt(index++) != '\\';
+                    } else {
+                        result = Character.compare(left.charAt(index), right.charAt(index++));
+                    }
                 }
-                return result == 0 ? lefts.length - rights.length : result;
+                return result == 0 ? lefts - rights : result;
             }
         });
         sortedDepartments.addAll(Arrays.asList(departments));
