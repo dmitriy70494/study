@@ -1,8 +1,8 @@
-package ru.job4j.multitread;
+package ru.job4j.multithread;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import java.util.Iterator;
 
 
 public class ProblemThreadTest {
@@ -17,7 +17,7 @@ public class ProblemThreadTest {
      */
     @Test
     public void whenTwoThreadCountX() {
-        ProblemThread problem = new ProblemThread();
+        /**ProblemThread problem = new ProblemThread();
         for (int index = 0; index < 10; index++) {
             new Thread(new Runnable() {
                 @Override
@@ -26,6 +26,7 @@ public class ProblemThreadTest {
                         System.out.println(problem.count++);
                         try {
                             Thread.currentThread().sleep(1);
+
                         } catch (InterruptedException ie) {
 
                         }
@@ -36,6 +37,7 @@ public class ProblemThreadTest {
         while (true) {
             int s = 0;
         }
+         */
     }
 
     /**
@@ -51,7 +53,7 @@ public class ProblemThreadTest {
      */
     @Test
     public void whenTwoThreadBeRaceCondition() {
-        ProblemThread problem = new ProblemThread();
+        /** ProblemThread problem = new ProblemThread();
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -81,7 +83,8 @@ public class ProblemThreadTest {
             }
         }).start();
         while (true) {
-            int s = 0;
-        }
+         int s = 0;
+         }
+         */
     }
 }

@@ -1,4 +1,4 @@
-package ru.job4j.multitread;
+package ru.job4j.multithread;
 
 public class ProblemThread {
     int count = 1;
