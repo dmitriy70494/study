@@ -1,5 +1,7 @@
 package ru.job4j.multithread;
 
+import net.jcip.annotations.GuardedBy;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -8,60 +10,50 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 public class ThreadPool {
 
+    boolean worked = true;
 
+    private volatile int active;
 
-    boolean access = false;
-
-    List<Thread> list;
-
-    Queue<Work> threads;
-
-    int volume;
-
-    int size = 0;
+    @GuardedBy("works")
+    private final Queue<Runnable> works;
 
     public ThreadPool(int volume) {
-        this.volume = volume;
-        this.threads = new LinkedList<Work>();
-        this.list = new ArrayList<Thread>();
-        if (volume < 2) {
-            throw new IllegalArgumentException();
+        works = new LinkedList<Runnable>();
+        for (int index = 0; index < volume; index++) {
+            new Thread(new Work()).start();
+        }
+        active = volume - 1;
+    }
+
+    public void add(Runnable work) {
+        synchronized (works) {
+            works.offer(work);
         }
     }
 
-    public void add(Work work) {
-        threads.offer(work);
-        check();
+    public void close() throws InterruptedException {
+        worked = false;
+        if (active != 0) {
+            Thread.sleep(100);
+        }
     }
 
-    private void check() {
-        if (!access) {
-            access = true;
-            Thread thread = new Thread() {
-                public void run() {
-                        while (access) {
-                            System.out.println(Thread.activeCount());
-                            size = Thread.activeCount();
-                            while (size <= volume) {
-                                Work work = threads.poll();
-                                if (work == null) {
-                                    break;
-                                }
-                                list.add(0, new Thread(work));
-                                list.get(0).start();
-                            }
-                        }
+
+    class Work implements Runnable {
+
+        @Override
+        public void run() {
+            synchronized (works) {
+                while (worked || works.size() != 0) {
+                    Runnable nextWork = works.poll();
+                    if (nextWork != null) {
+                        nextWork.run();
+                    }
                 }
-            };
-            thread.start();
-            try {
-                thread.join();
-            } catch (InterruptedException ie) {
             }
+            active--;
         }
-    }
-
-    interface Work extends Runnable {
-
     }
 }
+
+

@@ -36,7 +36,9 @@ public class SimpleBlockingQueue<T> {
             while (size == 3) {
                 try {
                     //System.out.println("Размер равен: " + size + " очередь переполнена, wait");
+                    System.out.println("до вейт");
                     this.wait();
+                    System.out.println("после вейт");
                 } catch (InterruptedException ie) {
                     ie.printStackTrace();
                     System.out.println("Исключение метода wait");

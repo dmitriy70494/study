@@ -12,9 +12,7 @@ public class ThreadPoolTest {
     public void whenManyThreadsAddThreadPool() {
         ThreadPool pool = new ThreadPool(4);
         for (index = 0; index < 100; index++) {
-            pool.add(new ThreadPool.Work() {
-                int thread = index;
-                @Override
+            pool.add(new Runnable() {
                 public void run() {
                     System.out.println("Thread: " + index + " начал работу");
 
@@ -29,21 +27,25 @@ public class ThreadPoolTest {
                 }
             });
         }
+        try {
+            pool.close();
+        } catch (InterruptedException ie) {
+            System.out.println("Interrapted");
+        }
     }
 
     @Test
-    public void whenManyThreadsAddThreadPoolAssimetric() {
-        ThreadPool pool = new ThreadPool(4);
+    public void whenManyThreadsAddThreadPoolAssimetric() throws InterruptedException {
+        ThreadPool pool = new ThreadPool(3);
         for (index = 0; index < 100; index++) {
-            pool.add(new ThreadPool.Work() {
+            pool.add(new Runnable() {
                 int thread = index;
                 @Override
                 public void run() {
-                    System.out.println("Thread: " + index + " начал работу");
+                    System.out.println("Thread: " + thread + " начал работу");
 
                     if(index % 2 == 0) {
-                        for (int index = 0; index < 10; index++) {
-                            System.out.println(index);
+                        for (int index = 0; index < 9; index++) {
                             try {
                                 Thread.currentThread().sleep(2);
 
@@ -52,9 +54,12 @@ public class ThreadPoolTest {
                             }
                         }
                     }
-                    System.out.println("Thread: " + index + " закончил работу");
+                    System.out.println("Thread: " + thread + " закончил работу");
                 }
             });
         }
+       while(true) {
+
+       }
     }
 }
