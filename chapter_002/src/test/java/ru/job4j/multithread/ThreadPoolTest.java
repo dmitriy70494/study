@@ -4,62 +4,76 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+/**
+ * тест ThreadPool.
+ *
+ * @author Dmitriy Balandin (d89086362742@yandex.ru)
+ * @version $Id$
+ * @since 30.05.2018
+ */
 public class ThreadPoolTest {
 
-    volatile int index;
+    private volatile int index;
 
-    @Test
-    public void whenManyThreadsAddThreadPool() {
-        ThreadPool pool = new ThreadPool(4);
-        for (index = 0; index < 100; index++) {
-            pool.add(new Runnable() {
-                public void run() {
-                    System.out.println("Thread: " + index + " начал работу");
-
-
-                    //for (int index = 0; index < 10; index++) {
-                      //  try {
-                      //      Thread.currentThread().sleep(2);
-                     //   } catch (InterruptedException ie) {
-                    //    }
-                  //  }
-                    System.out.println("Thread: " + index + " закончил работу");
-                }
-            });
-        }
-        try {
-            pool.close();
-        } catch (InterruptedException ie) {
-            System.out.println("Interrapted");
-        }
-    }
-
+    /**
+     * Данный тест при 2 потоках 250мс (это происходит видимо потому, что основной поток создает еще один поток,
+     * они видимо задействуют 2 ядра процессора, остается для обработки еще только два процессора время работы которых
+     * и переключается между этими 2 потоками. Видимо виртуальные ядра не участвуют в обработке данных.)
+     * при 8 потоках выдает около 600 мс, если запустить 100 потоков в конструкторе, то программа справляется
+     * с задачей за 1 с 140 мс что в два раза выше за счет экономиии на переключении между потоками. Из результата видно,
+     * что более долгие потоки выполняются последними, быстрые четные потоки первыми, номера потоков скачут из-за
+     * асинхронности
+     * @throws InterruptedException
+     */
     @Test
     public void whenManyThreadsAddThreadPoolAssimetric() throws InterruptedException {
-        ThreadPool pool = new ThreadPool(3);
+        ThreadPool pool = new ThreadPool(2);
         for (index = 0; index < 100; index++) {
             pool.add(new Runnable() {
-                int thread = index;
-                @Override
+
+                volatile int thread = index;
+
                 public void run() {
                     System.out.println("Thread: " + thread + " начал работу");
-
-                    if(index % 2 == 0) {
-                        for (int index = 0; index < 9; index++) {
-                            try {
-                                Thread.currentThread().sleep(2);
-
-                            } catch (InterruptedException ie) {
-
-                            }
+                    if (thread % 2 == 0) {
+                        int result = 1;
+                        for (int index = 0; index < 10000000; index++) {
+                            result *= index;
+                            result = index * result + index;
+                            result = (int) Math.sqrt(result);
                         }
                     }
                     System.out.println("Thread: " + thread + " закончил работу");
                 }
             });
         }
-       while(true) {
+        pool.close();
+    }
 
-       }
+    /**
+     * Если мы поставим 100 потоков, задача выполняется за 120 мс, а если 8 то за 650 мс, экономии за счет переключений
+     * не происходит за счет того, что потоки легковесные и дополнительное время тратится на алгоритмы получения работы для потока.
+     *
+     * @throws InterruptedException
+     */
+    @Test
+    public void whenManyThreadsAddThreadPool() throws InterruptedException {
+        ThreadPool pool = new ThreadPool(100);
+        for (index = 0; index < 100; index++) {
+            pool.add(new Runnable() {
+
+                volatile int thread = index;
+
+                @Override
+                public void run() {
+                    try {
+                        Thread.currentThread().sleep((100 - thread));
+                    } catch (InterruptedException ie) {
+                    }
+                    System.out.println("Thread: " + thread + " закончил работу");
+                }
+            });
+        }
+        pool.close();
     }
 }
