@@ -35,7 +35,6 @@ public class SimpleBlockingQueue<T> {
         synchronized (this) {
             while (size == 3) {
                 try {
-                    //System.out.println("Размер равен: " + size + " очередь переполнена, wait");
                     System.out.println("до вейт");
                     this.wait();
                     System.out.println("после вейт");
@@ -47,7 +46,6 @@ public class SimpleBlockingQueue<T> {
             queue.offer(value);
             size++;
             this.notify();
-            //System.out.println("Добавили значение в очередь, пнули второй поток");
         }
     }
 
@@ -62,7 +60,6 @@ public class SimpleBlockingQueue<T> {
         synchronized (this) {
             while (size == 0) {
                 try {
-                    //System.out.println("Размер равен: " + size + " в очереди нет элементов, wait");
                     this.wait();
                 } catch (InterruptedException ie) {
                     ie.printStackTrace();
@@ -72,7 +69,6 @@ public class SimpleBlockingQueue<T> {
             T value = queue.poll();
             size--;
             this.notify();
-            //System.out.println("Взяли элемент из очереди, пнули первый поток ");
             return value;
         }
     }
