@@ -15,13 +15,12 @@ public class RectangleMove implements Runnable {
 
     @Override
     public void run() {
-        boolean interrapted = true;
         double stepX = 1;
         double stepY = 1;
         double limitY = limitX;
         double positionX = this.rect.getX();
         double positionY = this.rect.getY();
-        while (interrapted) {
+        while (!Thread.interrupted()) {
             try {
                 this.rect.setX(positionX);
                 this.rect.setY(positionY);
@@ -33,9 +32,10 @@ public class RectangleMove implements Runnable {
                 if (positionY > limitY || positionY < 0) {
                     stepY *= -1;
                 }
-                Thread.currentThread().join(50);
-            } catch (InterruptedException e) {
-                interrapted = false;
+                Thread.currentThread().sleep(50);
+            } catch (InterruptedException ie) {
+                ie.printStackTrace();
+                break;
             }
         }
     }

@@ -22,7 +22,12 @@ public class PingPong extends Application {
         stage.setTitle(JOB4J);
         stage.setResizable(false);
         stage.setOnCloseRequest(
-                event -> thread.interrupt());
+
+                event -> {
+                    if (!thread.isInterrupted()) {
+                        thread.interrupt();
+                    }
+                });
         stage.show();
     }
 }
