@@ -12,6 +12,8 @@ public class WordIndex {
 
     private Trie root;
 
+    private int depth;
+
     public WordIndex() {
         root = new Trie();
     }
@@ -33,9 +35,12 @@ public class WordIndex {
                 read = br.read();
                 letter = (char) read;
                 next = next.chars.computeIfAbsent(letter, k -> new Trie());
-                next.indexes.add(index - length);
+                next.indexes.add(index);
                 if (letter == ' ') {
                     next = this.root;
+                    if (depth < length) {
+                        depth = length;
+                    }
                     length = 0;
                 }
                 index++;
@@ -51,22 +56,57 @@ public class WordIndex {
     }
 
     public Set<Integer> getIndexes4Word(String searchWord) {
-        Set<Integer> noIndexes = null;
+        Set<Integer> indexes = new TreeSet<>();
+        Queue<Trie> tries = new LinkedList<>();
         Trie next = root;
-        for (int index = 0; index < searchWord.length(); index++) {
-            if (next == null) {
-                break;
+        if (next != null && searchWord != null) {
+            String[] words = searchWord.split(" ");
+            ArrayList<Set<Integer>> sets = new ArrayList<Set<Integer>>();
+            while (next != null) {
+                for (int index = 0; index < words.length; index++) {
+                    Set<Integer> set = findIndexes(words[index], next, 0);
+                        if (set != null) {
+                        sets.add(set);
+                    } else {
+                        sets.add(new TreeSet<Integer>());
+                    }
+                }
+                if (sets.size() > 1) {
+                    Integer result = 0;
+                    for (Integer index : sets.get(0)) {
+                        result = index;
+                        for (int count = 1; count < sets.size(); count++) {
+                            result += words[count].length() + 1;
+                            if (!sets.get(count).contains(result)) {
+                                result = 0;
+                                break;
+                            }
+                        }
+                        if (result != 0) {
+                            indexes.add(result - searchWord.length() + 1);
+                        }
+                    }
+                } else if (sets.size() != 0 && sets.get(0) != null) {
+                    for (Integer result : sets.get(0)) {
+                        indexes.add(result - searchWord.length() + 1);
+                    }
+                }
+                tries.addAll(next.chars.values());
+                next = (Trie) tries.poll();
+                sets.clear();
             }
-            next = next.chars.get(searchWord.charAt(index));
         }
-        if (next != null) {
-            noIndexes = next.indexes;
+        return indexes;
+    }
+
+    private Set<Integer> findIndexes(String search, Trie next, int index) {
+        if (next == null) {
+            return null;
         }
-        if (noIndexes == null || noIndexes.size() == 0) {
-            noIndexes = new TreeSet<>();
-            noIndexes.add(-1);
+        if (search.length() == index) {
+            return next.indexes;
         }
-        return noIndexes;
+        return findIndexes(search, next.chars.get(search.charAt(index)), index + 1);
     }
 
     class Trie {

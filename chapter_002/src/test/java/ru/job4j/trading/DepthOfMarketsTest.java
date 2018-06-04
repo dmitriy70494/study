@@ -20,6 +20,7 @@ import static org.junit.Assert.assertThat;
 public class DepthOfMarketsTest {
 
     private DepthOfMarkets dom;
+
     private StringBuffer buffer;
 
     @Before

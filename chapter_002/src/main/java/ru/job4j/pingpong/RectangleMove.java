@@ -6,9 +6,11 @@ import java.sql.SQLOutput;
 
 public class RectangleMove implements Runnable {
     private final Rectangle rect;
+    double limitX;
 
-    public RectangleMove(Rectangle rect) {
+    public RectangleMove(Rectangle rect, int limit) {
         this.rect = rect;
+        limitX = limit;
     }
 
     @Override
@@ -16,8 +18,7 @@ public class RectangleMove implements Runnable {
         boolean interrapted = true;
         double stepX = 1;
         double stepY = 1;
-        double limitX = 300;
-        double limitY = 300;
+        double limitY = limitX;
         double positionX = this.rect.getX();
         double positionY = this.rect.getY();
         while (interrapted) {
