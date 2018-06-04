@@ -24,7 +24,7 @@ public class DepthOfMarketsTest {
 
     @Before
     public void beforeTest() {
-        dom = new DepthOfMarkets();
+        dom = new DepthOfMarkets(100);
         buffer = new StringBuffer(500);
         dom.processOrder(new Order(2, 1, true, true, 11, 10));
         dom.processOrder(new Order(3, 1, true, false, 10, 9));

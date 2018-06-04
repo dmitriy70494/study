@@ -69,8 +69,10 @@ public class Board {
                         }
                         try {
                             access = false;
-                            long time = 1000 - ( - start);
-                            sleep(time = time < 0 ? 0 : time);
+                            long time = 1000 - (System.currentTimeMillis() - start);
+                            if (time > 0) {
+                                sleep(time);
+                            }
                             start = System.currentTimeMillis();
                         } catch (InterruptedException ie) {
                             ie.printStackTrace();

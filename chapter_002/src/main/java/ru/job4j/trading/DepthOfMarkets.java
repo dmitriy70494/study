@@ -13,166 +13,15 @@ import java.util.*;
 public class DepthOfMarkets {
 
     /**
-     * Внутренний класс экземпляры которого используются как ключи TreeMap дерева
-     */
-    private class KeyOrder implements Comparable<KeyOrder> {
-
-        /**
-         * совпадает с id заявки
-         */
-        int id;
-
-        /**
-         * цена заявки
-         */
-        double price;
-
-
-        /**
-         * Конструктор для ключа, для быстрого вычисления хешфункции, удобной навигвции и дополнительных полей и сортировки
-         * все заявки будут храниться в 2 упорядоченном деревьях.
-         *
-         * @param order
-         */
-        public KeyOrder(Order order) {
-            if (order != null) {
-                this.id = order.getId();
-                this.price = order.getPrice();
-            }
-        }
-
-        /**
-         * Проверяет все поля ключа на равенство
-         * @param o
-         * @return
-         */
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) {
-                return true;
-            }
-            if (o instanceof KeyOrder) {
-                return false;
-            }
-            KeyOrder keyOrder = (KeyOrder) o;
-            return id == keyOrder.id && Double.compare(keyOrder.price, price) == 0;
-        }
-
-        /**
-         * Определяет хэшкод ключа
-         * @return
-         */
-        @Override
-        public int hashCode() {
-            long doubl = Double.doubleToLongBits(price);
-            return 31 * (31 * (31 * 19) + id) + (int) (doubl - (doubl >>> 32));
-        }
-
-        /**
-         * Данный компаратор немного отличается от метода equals и естесственной сортировки, он сортирует по убыванию
-         * цены, но если цены равны то по увеличению id заявки.
-         * @param order
-         * @return
-         */
-        @Override
-        public int compareTo(KeyOrder order) {
-            int result = (int) (order.price - price);
-            if (result == 0) {
-                result = id - order.id;
-            }
-            return result;
-        }
-    }
-
-    /**
-     * Хранит 2 упорядоченных дерева заявок purches - заявки на покупку и sales заявки на продажу
-     */
-    private class Value {
-        TreeMap<KeyOrder, Order> purches;
-        TreeMap<KeyOrder, Order> sales;
-
-        /**
-         * Инициирует деревья
-         */
-        public Value() {
-            purches = new TreeMap<KeyOrder, Order>();
-            sales = new TreeMap<KeyOrder, Order>();
-        }
-
-        /**
-         * Данный метод проверяет после добавления в дерево нового элемента. Берет начальную заявку(готовы купить по самой высокой цене) на покупку
-         * и конечную (готовы продать по самой низкой цене) заявку на продажу. Если они не равны нулл, то есть существуют,
-         * мы проверяем выше ли цена покупки, цены продажи акций. Если да, то вычисляем разницу, присваиваем значение количества акций
-         * проверяем, если акций меньше или равно 0 в заявке то удаляем ее и передаем системе следующий элемент для проверки.
-         * Удаляем все ссылки, чтобы система смогла удалить объекты
-         *
-         */
-        private void checkOrders() {
-            Order purch = purches.firstEntry().getValue();
-            Order sale = sales.lastEntry().getValue();
-            while (purch != null && sale != null && purch.getPrice() >= sale.getPrice()) {
-                int newVolume = purch.getVolume() - sale.getVolume();
-                purch.setVolume(newVolume);
-                sale.setVolume(-newVolume);
-                if (purch.getVolume() <= 0) {
-                    purches.remove(new KeyOrder(purch));
-                }
-                if (sale.getVolume() <= 0) {
-                    sales.remove(new KeyOrder(sale));
-                }
-                purch = null;
-                sale = null;
-                if (purches.size() > 0 && sales.size() > 0) {
-                    purch = purches.firstEntry().getValue();
-                    sale = sales.lastEntry().getValue();
-                }
-            }
-        }
-
-
-        /**
-         * Добавляет заявку в то дерева, на которое указывает boolean Action заявки true заявки на покупку, false на продажу
-         *
-         * @param order заявка
-         * @return boolean удален ли объект
-         */
-        private boolean addOrder(Order order) {
-            boolean access;
-            if (order.isAction()) {
-                access = purches.put(new KeyOrder(order), order) == null;
-            } else {
-                access = sales.put(new KeyOrder(order), order) == null;
-            }
-            if (purches.size() > 0 && sales.size() > 0) {
-                this.checkOrders();
-            }
-            return access;
-        }
-
-        /**
-         * Удаляет заявку из того дерева, на которое указывает boolean Action заявки true заявки на покупку, false на продажу
-         * @param order
-         * @return
-         */
-        private boolean deleteOrder(Order order) {
-            boolean access;
-            if (order.isAction()) {
-                access = purches.remove(new KeyOrder(order)) != null;
-            } else {
-                access = sales.remove(new KeyOrder(order)) != null;
-            }
-            return access;
-        }
-    }
-
-
-    /**
      * Все стаканы Integer идентификатор стакана int book указанной в заявке
      */
     private HashMap<Integer, Value> doms;
 
-    public DepthOfMarkets() {
-        doms = new HashMap<Integer, Value>(100);
+    /**
+     * Конструктор
+     */
+    public DepthOfMarkets(int initialCapacity) {
+        doms = new HashMap<Integer, Value>(initialCapacity);
     }
 
 
@@ -207,10 +56,10 @@ public class DepthOfMarkets {
         Value orders = doms.get(book);
         if (orders != null) {
             buffer = new StringBuffer(1000);
-            Iterator it = orders.sales.values().iterator();
+            Iterator it = orders.getSales().values().iterator();
             buffer.append(String.format("%10s%10s%10s%n", "Покупка", "Цена", "Продажа"));
             this.printNext(it, false, buffer);
-            it = orders.purches.values().iterator();
+            it = orders.getPurches().values().iterator();
             this.printNext(it, true, buffer);
         } else {
             buffer = new StringBuffer("Стакана с таким именем не существует в системе");
