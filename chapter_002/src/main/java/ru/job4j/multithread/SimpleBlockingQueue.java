@@ -29,6 +29,7 @@ public class SimpleBlockingQueue<T> {
 
     /**
      * Получает значение
+     *
      * @param value
      */
     void offer(T value) {
