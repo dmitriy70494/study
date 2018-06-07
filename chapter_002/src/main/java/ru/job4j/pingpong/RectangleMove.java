@@ -20,7 +20,7 @@ public class RectangleMove implements Runnable {
         double limitY = limitX;
         double positionX = this.rect.getX();
         double positionY = this.rect.getY();
-        while (!Thread.interrupted()) {
+        while (!Thread.currentThread().isInterrupted()) {
             try {
                 this.rect.setX(positionX);
                 this.rect.setY(positionY);

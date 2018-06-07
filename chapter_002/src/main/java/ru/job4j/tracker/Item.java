@@ -62,6 +62,18 @@ public class Item {
     }
 
     /**
+     * Конструтор для инициализации заявки.
+     * @param name - имя заявки
+     * @param desc - описание заявки
+     */
+    public Item(String id, String name, String desc) {
+        this.id = id;
+        this.name = name;
+        this.desc = desc;
+        this.created = created;
+    }
+
+    /**
      * Конструтор для инициализации заявки без параметров.
      */
     public Item() {

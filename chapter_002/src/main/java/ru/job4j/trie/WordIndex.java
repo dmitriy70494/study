@@ -46,6 +46,7 @@ public class WordIndex {
                 index++;
                 length++;
             } while (read != -1);
+            br.close();
         } catch (FileNotFoundException fe) {
             fe.printStackTrace();
             System.out.println("файл" + filename + " не найден");

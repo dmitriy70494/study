@@ -23,7 +23,7 @@ public class WordIndexTest {
     public void hasNextNextSequentialInvocation() {
         WordIndex wi = new WordIndex();
         wi.loadFile("test.txt");
-        Set<Integer> set = wi.getIndexes4Word("Сегодня я хочу");
+        Set<Integer> set = wi.getIndexes4Word("годня");
         for (Integer index : set) {
             System.out.println(index);
         }

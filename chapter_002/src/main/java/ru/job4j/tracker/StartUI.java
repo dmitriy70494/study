@@ -56,7 +56,7 @@ public class StartUI {
                 new ValidateInput(
                         new ConsoleInput()
                 ),
-                new Tracker()
+                Tracker.init("settings.sql")
         ).init();
     }
 }

@@ -2,6 +2,9 @@ package ru.job4j.chessboard;
 
 
  import java.util.*;
+ import java.util.concurrent.Callable;
+ import java.util.concurrent.FutureTask;
+
  import org.junit.Test;
  import static org.hamcrest.core.Is.is;
  import static org.junit.Assert.assertThat;
@@ -72,5 +75,21 @@ package ru.job4j.chessboard;
 
 
          assertThat(results, is("ImpossibleMoveException"));
+     }
+
+     @Test
+     public void whenRookStepsX8Y0ToX7Y2Miss2() {
+
+         for (int index = 0; index < 20; index++) {
+             FutureTask task = new FutureTask(new Callable<String>() {
+
+                 @Override
+                 public String call() throws Exception {
+                     System.out.println("поток" + Thread.currentThread());
+                     return "fgh";
+                 }
+             });
+             task.run();
+         }
      }
  }
