@@ -36,9 +36,7 @@ public class SimpleBlockingQueue<T> {
         synchronized (this) {
             while (size == 3) {
                 try {
-                    System.out.println("до вейт");
                     this.wait();
-                    System.out.println("после вейт");
                 } catch (InterruptedException ie) {
                     ie.printStackTrace();
                     System.out.println("Исключение метода wait");
