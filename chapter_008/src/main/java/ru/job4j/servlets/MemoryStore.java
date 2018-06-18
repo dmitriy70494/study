@@ -53,6 +53,7 @@ public class MemoryStore implements Store {
     public boolean update(String id, User user) {
         int index = Integer.valueOf(id);
         boolean access = false;
+        user.setId(index);
         if (users.containsKey(index)) {
             access = this.users.put(index, user).getId() == index;
         }
