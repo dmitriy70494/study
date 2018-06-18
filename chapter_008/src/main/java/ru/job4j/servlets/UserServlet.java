@@ -66,9 +66,7 @@ public class UserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         this.initAction();
-        response.setContentType("text/html");
-        PrintWriter writer = new PrintWriter(response.getOutputStream());
-        writer.append(this.actions.get(request.getParameter("action")).apply(request));
-        writer.flush();
+        this.actions.get(request.getParameter("action")).apply(request);
+        response.sendRedirect(String.format("%s/index.jsp", request.getContextPath()));
     }
 }

@@ -49,6 +49,6 @@ public class UsersServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         new UserServlet().doPost(req, res);
-        doGet(req, res);
+        res.sendRedirect(String.format("%s/index.jsp", req.getContextPath()));
     }
 }

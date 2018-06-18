@@ -20,7 +20,7 @@ public class UserCreateServlet extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
         res.setContentType("text/html");
         PrintWriter writer = new PrintWriter(res.getOutputStream());
-        Queue<String> data = new LinkedList<>();
+        LinkedList<String> data = new LinkedList<>();
         data.addAll(Arrays.asList((req.getContextPath() + "/create"), "Name: ", "name", "Login: ", "login", "E-mail: ", "email", "Create", "add"));
         writer.append(new Form().getFormNullOrFill(data, false));
         writer.flush();

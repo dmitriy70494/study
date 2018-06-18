@@ -22,7 +22,7 @@ public class UserUpdateServlet extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
         res.setContentType("text/html");
         PrintWriter writer = new PrintWriter(res.getOutputStream());
-        Queue<String> data = new LinkedList<>();
+        LinkedList<String> data = new LinkedList<>();
         User user = this.logic.findById(req.getParameter("id"));
         data.addAll(Arrays.asList((req.getContextPath() + "/update"), "id: ", "id", String.valueOf(user.getId()), "Name: ","name",  user.getName(), "Login: ", "login", user.getLogin(), "E-mail: ", "email", user.getEmail(), "Create", "update"));
         writer.append(new Form().getFormNullOrFill(data, true));
