@@ -16,7 +16,7 @@ public class TrackerTest {
 
     @Test
     public void whenItemsDelete() {
-        Tracker resultTracker = Tracker.init("settings.sql");
+        Tracker resultTracker = new Tracker().init("settings.sql");
         Item oneItem = new Item();
         Item twoItem = new Item();
         resultTracker.add(oneItem);
@@ -30,7 +30,7 @@ public class TrackerTest {
 
     @Test
     public void whenItemsReplace() {
-        Tracker resultTracker = Tracker.init("settings.sql");
+        Tracker resultTracker = new Tracker().init("settings.sql");
         Item oneItem = new Item();
         resultTracker.add(oneItem);
         String oneId = oneItem.getId();
@@ -43,13 +43,13 @@ public class TrackerTest {
 
     @Test
     public void whenItemsFindAll() {
-        Tracker resultTracker = Tracker.init("settings.sql");
+        Tracker resultTracker = new Tracker().init("settings.sql");
         assertThat(resultTracker.findAll().size() > 7, is(true));
     }
 
     @Test
     public void whenItemsFindByName() {
-        Tracker resultTracker = Tracker.init("settings.sql");
+        Tracker resultTracker = new Tracker().init("settings.sql");
         assertThat(resultTracker.findByName("Мастер").size() > 2, is(true));
     }
 

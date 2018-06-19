@@ -1,5 +1,6 @@
 package ru.job4j.servlets;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -16,16 +17,19 @@ public class ValidateService {
 
     private final static ValidateService instance = new ValidateService();
 
-    private final Store storage = MemoryStore.getInstance();
+    private final Store storage = DBStore.getInstance();
 
     private ValidateService() {
+
     }
 
     public static ValidateService getInstance() {
         return instance;
     }
 
+    public void init() {
 
+    }
 
     /**
      * не существует ли еще такой пользователь
@@ -69,7 +73,7 @@ public class ValidateService {
     /**
      *
      */
-    public Collection<User> findAll() {
+    public ArrayList<User> findAll() {
         return storage.findAll();
     }
 

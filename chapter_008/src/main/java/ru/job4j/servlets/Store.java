@@ -1,7 +1,7 @@
 package ru.job4j.servlets;
 
 
-import java.util.Collection;
+import java.util.ArrayList;
 
 public interface Store {
 
@@ -11,7 +11,7 @@ public interface Store {
 
     boolean delete(String id);
 
-    Collection<User> findAll();
+    ArrayList<User> findAll();
 
     User findById(String id);
 }

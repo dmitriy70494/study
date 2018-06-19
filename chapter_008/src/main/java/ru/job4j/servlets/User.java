@@ -21,6 +21,14 @@ public class User {
         this.createDate = createDate;
     }
 
+    public User(Integer id, String name, String login, String email, Timestamp createDate) {
+        this.id = id;
+        this.name = name;
+        this.login = login;
+        this.email = email;
+        this.createDate = createDate;
+    }
+
     public int getId() {
         return id;
     }

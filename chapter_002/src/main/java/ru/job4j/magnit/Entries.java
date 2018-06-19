@@ -8,9 +8,7 @@ public class Entries {
 
     private List<Field> entry;
 
-    public Entries() {
-
-    }
+    public Entries() { }
 
     public Entries(List<Field> entry) {
         this.entry = entry;

@@ -43,7 +43,7 @@ public class Tracker implements AutoCloseable {
 
     private static Tracker tracker;
 
-    private Tracker() {
+    public Tracker() {
     }
 
     /**
@@ -52,7 +52,7 @@ public class Tracker implements AutoCloseable {
      * @param config
      * @return
      */
-    public static Tracker init(final String config) {
+    public Tracker init(final String config) {
         tracker = new Tracker();
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(config)))) {
             String line = reader.readLine();
@@ -168,8 +168,7 @@ public class Tracker implements AutoCloseable {
     public List<Item> findAll() {
         try (
                 Statement statement = connection.createStatement();
-                ResultSet result = statement.executeQuery(scripts.get("select_users"))
-                ) {
+                ResultSet result = statement.executeQuery(scripts.get("select_users"))) {
             List<Item> items = new ArrayList<>(100);
             while (result.next()) {
                 items.add(new Item(String.valueOf(result.getInt("id")), result.getString("name"), result.getString("description")));
@@ -243,6 +242,4 @@ public class Tracker implements AutoCloseable {
     public void close() throws Exception {
         this.connection.close();
     }
-
-
 }

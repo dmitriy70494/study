@@ -1,8 +1,6 @@
 package ru.job4j.servlets;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
@@ -10,7 +8,7 @@ public class MemoryStore implements Store {
 
     private final ConcurrentHashMap<Integer, User> users = new ConcurrentHashMap<>(1000);
 
-    private final static Store instance = new MemoryStore();
+    private final static MemoryStore instance = new MemoryStore();
 
     private int size = 0;
 
@@ -66,8 +64,8 @@ public class MemoryStore implements Store {
     }
 
     @Override
-    public Collection<User> findAll() {
-        return this.users.values();
+    public ArrayList<User> findAll() {
+        return new ArrayList<>(this.users.values());
     }
 
     @Override
