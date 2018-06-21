@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Timestamp;
 import java.util.Collection;
 
 /**
@@ -48,7 +47,7 @@ public class UsersServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        new UserServlet().doPost(req, res);
-        res.sendRedirect(String.format("%s/index.jsp", req.getContextPath()));
+        new UsersController().doPost(req, res);
+        res.sendRedirect(String.format("%s/UsersView.jsp", req.getContextPath()));
     }
 }

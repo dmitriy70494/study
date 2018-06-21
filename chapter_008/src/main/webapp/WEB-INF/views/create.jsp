@@ -9,7 +9,7 @@
 </head>
 <body>
 <%LinkedList data = new LinkedList();%>
-<%data.addAll(Arrays.asList((request.getContextPath() + "/user"), "Name: ", "name", "Login: ", "login", "E-mail: ", "email", "Create", "add"));%>
+<%data.addAll(Arrays.asList((request.getContextPath() + "/"), "Name: ", "name", "Login: ", "login", "E-mail: ", "email", "Create", "add"));%>
 <%=new Form().getFormNullOrFill(data, false)%>
 </body>
 </html>

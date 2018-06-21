@@ -14,7 +14,7 @@ import java.util.function.Function;
 /**
  *
  */
-public class UserServlet extends HttpServlet {
+public class UsersController extends HttpServlet {
 
     private final ValidateService logic = ValidateService.getInstance();
 
@@ -44,11 +44,9 @@ public class UserServlet extends HttpServlet {
      * @throws IOException
      */
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.setContentType("text/html");
-        PrintWriter writer = new PrintWriter(response.getOutputStream());
-        writer.append(this.logic.findAll().toString());
-        writer.flush();
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        request.setAttribute("users", ValidateService.getInstance().findAll());
+        request.getRequestDispatcher("/WEB-INF/views/UsersView.jsp").forward(request, response);
     }
 
 
@@ -67,6 +65,6 @@ public class UserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         this.initAction();
         this.actions.get(request.getParameter("action")).apply(request);
-        response.sendRedirect(String.format("%s/index.jsp", request.getContextPath()));
+        response.sendRedirect(String.format("%s/", request.getContextPath()));
     }
 }

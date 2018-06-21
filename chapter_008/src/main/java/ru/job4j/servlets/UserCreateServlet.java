@@ -17,17 +17,11 @@ import java.util.Queue;
 public class UserCreateServlet extends HttpServlet {
 
     @Override
-    public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
-        res.setContentType("text/html");
-        PrintWriter writer = new PrintWriter(res.getOutputStream());
-        LinkedList<String> data = new LinkedList<>();
-        data.addAll(Arrays.asList((req.getContextPath() + "/create"), "Name: ", "name", "Login: ", "login", "E-mail: ", "email", "Create", "add"));
-        writer.append(new Form().getFormNullOrFill(data, false));
-        writer.flush();
+    public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+        req.getRequestDispatcher("/WEB-INF/views/create.jsp").forward(req, res);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        new UsersServlet().doPost(req, res);
     }
 }

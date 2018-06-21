@@ -19,18 +19,11 @@ public class UserUpdateServlet extends HttpServlet {
     private final ValidateService logic = ValidateService.getInstance();
 
     @Override
-    public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
-        res.setContentType("text/html");
-        PrintWriter writer = new PrintWriter(res.getOutputStream());
-        LinkedList<String> data = new LinkedList<>();
-        User user = this.logic.findById(req.getParameter("id"));
-        data.addAll(Arrays.asList((req.getContextPath() + "/update"), "id: ", "id", String.valueOf(user.getId()), "Name: ","name",  user.getName(), "Login: ", "login", user.getLogin(), "E-mail: ", "email", user.getEmail(), "Create", "update"));
-        writer.append(new Form().getFormNullOrFill(data, true));
-        writer.flush();
+    public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+        req.getRequestDispatcher("WEB-INF/views/update.jsp").forward(req, res);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        new UsersServlet().doPost(req, res);
     }
 }
