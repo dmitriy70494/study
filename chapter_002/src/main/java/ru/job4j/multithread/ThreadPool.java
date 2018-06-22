@@ -20,18 +20,18 @@ public class ThreadPool {
     /**
      * Отображает желание прекратить работу потоков, потоки не зыкрываются сразу, они доделывают всю работу в очереди и текущую
      */
-    private boolean worked = true;
+    private volatile boolean worked = true;
 
     /**
      * Хранит ссылки на созданные в конструкторе потоки
      */
+
     private Thread[] threads;
 
     /**
      * Хранит работу для потоков, также является монитором для потоков
      */
-    @GuardedBy("works")
-    private final Queue<Runnable> works;
+    private final SimpleBlockingQueue<Runnable> works;
 
     /**
      * Запускает потоки, которые просматривают очередь и берут из нее работу. Если здесь запустить join программа на нем
@@ -40,7 +40,7 @@ public class ThreadPool {
      * @param volume количество потоков, не должно быть ниже 1. Можно поставить на значение 0 и ниже исключение.
      */
     public ThreadPool(int volume) {
-        works = new LinkedList<Runnable>();
+        works = new SimpleBlockingQueue<Runnable>();
         threads = new Thread[volume];
         for (int index = 0; index < volume; index++) {
             threads[index] = new Thread(new Work());
@@ -54,10 +54,7 @@ public class ThreadPool {
      * @param work
      */
     public void add(Runnable work) {
-        synchronized (works) {
-            works.offer(work);
-            works.notify();
-        }
+        works.offer(work);
     }
 
     /**
@@ -69,7 +66,8 @@ public class ThreadPool {
      * @throws InterruptedException
      */
     public void close() throws InterruptedException {
-        worked = false;
+        this.worked = false;
+        this.works.close();
         for (Thread thread : threads) {
             thread.join();
         }
@@ -95,26 +93,13 @@ public class ThreadPool {
         @Override
         public void run() {
             Runnable nextWork;
-            int size = 1;
+            int size = 0;
             while (worked || size != 0) {
-                synchronized (works) {
-                    nextWork = works.poll();
-                    if (nextWork == null && worked) {
-                        try {
-                            works.wait(100);
-                        } catch (InterruptedException ie) {
-                            System.out.println("return");
-                            return;
-                        }
-                    }
-
-                }
+                nextWork = works.poll();
                 if (nextWork != null) {
                     nextWork.run();
                 }
-                synchronized (works) {
-                    size = works.size();
-                }
+                size = works.size();
             }
         }
     }

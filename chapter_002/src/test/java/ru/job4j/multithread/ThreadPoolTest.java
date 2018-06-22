@@ -37,7 +37,7 @@ public class ThreadPoolTest {
                     System.out.println("Thread: " + thread + " начал работу");
                     if (thread % 2 == 0) {
                         int result = 1;
-                        for (int index = 0; index < 10000000; index++) {
+                        for (int index = 0; index < 100; index++) {
                             result *= index;
                             result = index * result + index;
                             result = (int) Math.sqrt(result);

@@ -27,6 +27,8 @@ public class SimpleBlockingQueue<T> {
      */
     private volatile int size = 0;
 
+    private volatile boolean worked = true;
+
     /**
      * Получает значение
      *
@@ -36,15 +38,21 @@ public class SimpleBlockingQueue<T> {
         synchronized (this) {
             while (size == 3) {
                 try {
-                    this.wait();
+                    if (worked) {
+                        this.wait();
+                    } else {
+                        break;
+                    }
                 } catch (InterruptedException ie) {
                     ie.printStackTrace();
                     System.out.println("Исключение метода wait");
                 }
             }
-            queue.offer(value);
-            size++;
-            this.notify();
+            if (value != null) {
+                queue.offer(value);
+                size++;
+            }
+            this.notifyAll();
         }
     }
 
@@ -59,16 +67,33 @@ public class SimpleBlockingQueue<T> {
         synchronized (this) {
             while (size == 0) {
                 try {
+                    if (worked) {
                     this.wait();
+                    } else {
+                        break;
+                    }
                 } catch (InterruptedException ie) {
                     ie.printStackTrace();
                     System.out.println("Исключение метода wait");
                 }
             }
             T value = queue.poll();
-            size--;
-            this.notify();
+            if (value != null) {
+                size--;
+            }
+            this.notifyAll();
             return value;
+        }
+    }
+
+    public synchronized int size() {
+        return this.size;
+    }
+
+    public void close() {
+        synchronized (this) {
+            this.worked = false;
+            this.notifyAll();
         }
     }
 }
