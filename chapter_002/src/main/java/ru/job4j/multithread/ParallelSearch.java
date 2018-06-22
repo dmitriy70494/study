@@ -9,6 +9,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Queue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * класс ParallelSearch. Двупоточный поиск файлов
@@ -47,14 +49,14 @@ public class ParallelSearch {
     /**
      * Очередь файлов
      */
-    @GuardedBy("files")
-    private final Queue<String> files = new LinkedList<>();
+    @GuardedBy("this")
+    private final BlockingQueue<String> files = new LinkedBlockingQueue<>();
 
     /**
      * список с файлами содержащими нужный текст
      */
-    @GuardedBy("paths")
-    private final List<String> paths = new ArrayList<>();
+    @GuardedBy("this")
+    private final ConcurrentDynamicArray<String> paths = new ConcurrentDynamicArray<>(100);
 
 
     /**
@@ -97,10 +99,8 @@ public class ParallelSearch {
                     int size = 1;
                     while (worked || size != 0) {
                         String file;
-                        synchronized (files) {
-                            size = files.size();
-                            file = files.poll();
-                        }
+                        size = files.size();
+                        file = files.poll();
                         if (file != null) {
                             BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
                             int liter = 0;
@@ -109,9 +109,7 @@ public class ParallelSearch {
                                 liter = reader.read();
                                 index += liter == text.charAt(index) ? 1 : -index;
                                 if (index == text.length() - 1) {
-                                    synchronized (paths) {
-                                        paths.add(file);
-                                    }
+                                    paths.add(file);
                                     break;
                                 }
                             }
@@ -129,9 +127,10 @@ public class ParallelSearch {
 
     /**
      * Ждет окончания работы поиска в файлах, как только потоки перестают работать, возвращает результат
+     *
      * @return
      */
-    public List<String> result() {
+    public ConcurrentDynamicArray<String> result() {
         try {
             read.join();
         } catch (InterruptedException ie) {

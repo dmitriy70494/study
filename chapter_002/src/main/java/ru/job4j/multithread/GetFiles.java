@@ -5,12 +5,14 @@ import net.jcip.annotations.GuardedBy;
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Path;
+
 import static java.nio.file.FileVisitResult.*;
+
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.concurrent.BlockingQueue;
 
 /**
  * класс GetFiles. Посещает файл, и переходит на следующий
@@ -29,15 +31,15 @@ public class GetFiles extends SimpleFileVisitor<Path> {
     /**
      * ссылка на очередь с файлами для добавления файлов, если выполняется условие
      */
-    @GuardedBy("files")
-    private final Queue<String> files;
+    private final BlockingQueue<String> files;
 
     /**
      * Конструктор
+     *
      * @param exts
      * @param files
      */
-    public GetFiles(List<String> exts, Queue<String> files) {
+    public GetFiles(List<String> exts, BlockingQueue<String> files) {
         this.exts = exts;
         this.files = files;
     }
@@ -45,6 +47,7 @@ public class GetFiles extends SimpleFileVisitor<Path> {
     /**
      * посещает файл(только файл, прохождение директорий ничего не делает) и если его расширение содержится в списке
      * то добавляет данный файл в очередь. Необходимо помнить что шаблон рассчитан на точное расширение без * звездочек
+     *
      * @param file
      * @param attr
      * @return
@@ -54,9 +57,7 @@ public class GetFiles extends SimpleFileVisitor<Path> {
         String result = file.toString();
         for (String exts : this.exts) {
             if (result.contains(exts)) {
-                synchronized (files) {
-                    files.offer(result);
-                }
+                files.offer(result);
                 break;
             }
         }

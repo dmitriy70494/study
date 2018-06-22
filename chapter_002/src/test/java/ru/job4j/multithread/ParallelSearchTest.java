@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import static org.hamcrest.Matchers.is;
@@ -26,7 +27,7 @@ public class ParallelSearchTest {
         List<String> list = new ArrayList<String>();
         list.add(".java");
         ParallelSearch search = new ParallelSearch("C:\\projects\\study", "Test", list);
-        //search.init();
-        //assertThat(search.result().size(), is(74));
+        search.init();
+        //assertThat(search.result().get(0).contains(".java"), is(true));
     }
 }
