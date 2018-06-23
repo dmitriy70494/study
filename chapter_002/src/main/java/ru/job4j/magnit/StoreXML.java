@@ -30,17 +30,6 @@ public class StoreXML {
      * сохраняет данные из list в файл target.
      * Данные нужно сохранить в виде XML.
      *
-     * <entries>
-     * <entry>
-     * <field>значение поля field</field>
-     * </entry>
-     * ...
-     * <entry>
-     * <field>значение поля field</field>
-     * </entry>
-     * </entries>
-     *
-     * Для создания xml файла нужно использовать технологию JAXB.
      * @param list
      */
     public void save(List<Field> list) {

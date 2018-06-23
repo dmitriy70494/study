@@ -22,21 +22,6 @@ public class ConvertXSQT {
     /**
      * читает файл source и преобразовывает его в файл dest за счет XSTL схемы scheme.
      * Исходный файл должен выглядеть следующим образом.
-     * <entries>
-     * <entry field="значение поля field">
-     * ...
-     * <entry field="значение поля field">
-     * </entries>
-     * <p>
-     * пример
-     * Вывод в консоль.
-     * <p>
-     * <?xml version="1.0" encoding="UTF-8"?>
-     * <entries>
-     * <entry href="1"/>
-     * <entry href="2"/>
-     * </entries>
-     *
      * @param source файл с преобразуемыми данными в формате xml
      * @param dest в этот файл идет запись, расширение xml
      * @param scheme схема преобразования файла source в dest

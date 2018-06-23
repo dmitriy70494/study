@@ -17,15 +17,15 @@ public class StoreSQLTest {
 
     @Test
     public void whenCreateTableMustIsEmpty() throws SQLException {
-        /**File source = new File("target.xml");
+        File source = new File("target.xml");
         File dest = new File("convert.xml");
         int size = 10;
-        Config config = Config.initialConfig("magnit.sql");
-        String[] commands = config.getCommands();
+        Config config = new Config().initialConfig("magnit.sql");
+
         StoreSQL storeSQL = new StoreSQL(config);
         storeSQL.generate(size);
         List<Field> fields = new ArrayList<>(size);
-        Connection connection = DriverManager.getConnection(config.command(commands[0]), config.command(commands[1]), config.command(commands[2]));
+        Connection connection = DriverManager.getConnection(config.command("url"), config.command("username"), config.command("passwordw"));
         Statement statement = connection.createStatement();
         ResultSet result = statement.executeQuery("SELECT * FROM Entry");
         while (result.next()) {
@@ -47,6 +47,6 @@ public class StoreSQLTest {
         }
         System.out.println(except);
         System.out.println(index);
-        System.out.println(results);*/
+        System.out.println(results);
     }
 }

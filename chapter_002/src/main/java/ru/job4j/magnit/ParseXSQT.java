@@ -17,15 +17,6 @@ import java.util.Queue;
  * Приложение парсит выходной файл из пункта 4 и выводит арифметическую сумму значений всех атрибутов
  * field в консоль.
  *
- * Для парсинга использовать SAX.  https://docs.oracle.com/javase/tutorial/jaxp/sax/parsing.html
- * При больших N (~1000000) время работы приложения не должно быть более пяти минут.
- *
- * Рекомендации.
- *
- * 1. Почитайте про режим autocommit = false.
- * 2. При использовании режима autocommit  = false - нужно в блоке catch откатывать транзакцию transaction.rollback();
- * 3. Для парсинга используйте JAXB - https://www.mkyong.com/java/jaxb-hello-world-example/
- * 4. Для преобразования xslt - https://docs.oracle.com/javase/tutorial/jaxp/xslt/transformingXML.html
  */
 public class ParseXSQT {
 
