@@ -20,15 +20,10 @@ public class ValidateService {
     private final Store storage = DBStore.getInstance();
 
     private ValidateService() {
-
     }
 
     public static ValidateService getInstance() {
         return instance;
-    }
-
-    public void init() {
-
     }
 
     /**
@@ -36,7 +31,7 @@ public class ValidateService {
      *
      * @param user
      */
-    public String add(User user) {
+    public boolean add(User user) {
         return this.storage.add(user);
     }
 
@@ -45,16 +40,8 @@ public class ValidateService {
      *
      * @param user
      */
-    public String update(String id, User user) {
-        String result = "update complite";
-        try {
-            if (!this.storage.update(id, user)) {
-                result = "not update";
-            }
-        } catch (IllegalArgumentException ie) {
-            result = ie.getMessage();
-        }
-        return result;
+    public boolean update(String id, User user) {
+        return this.storage.update(id, user);
     }
 
     /**
@@ -62,12 +49,8 @@ public class ValidateService {
      *
      * @param id
      */
-    public String delete(String id) {
-        String result = "не удалось удалить пользователя";
-        if (this.storage.delete(id)) {
-            result = "пользователь успешно удален";
-        }
-        return result;
+    public boolean delete(String id) {
+        return this.storage.delete(id);
     }
 
     /**
@@ -82,5 +65,9 @@ public class ValidateService {
      */
     public User findById(String id) {
         return storage.findById(id);
+    }
+
+    public User findCredential(String login, String password) {
+        return this.storage.findCredential(login, password);
     }
 }

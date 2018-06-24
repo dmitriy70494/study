@@ -43,7 +43,6 @@ public class StoreJob implements Closeable {
      */
     public StoreJob(Config config) {
         this.config = config;
-        this.commands = config.getCommands();
     }
 
     /**

@@ -44,7 +44,7 @@ public class StartUI {
      * @return время ожидания следующего запуска
      */
     public long start() {
-        Config config = Config.initialConfig("C:/projects/study/chapter_002/ru_sql.sql");
+        Config config = new Config().initialConfig("C:/projects/study/chapter_002/ru_sql.sql");
         StoreJob store = new StoreJob(config);
         store.initDatabase();
         Timestamp stopDate = store.getTimeLastJob();
@@ -56,7 +56,7 @@ public class StartUI {
         Thread writer = new WriteJob(readed, writed, store, stopDate);
         new ReadJob(readed, writed, writer, "http://www.sql.ru/forum/job/").start();
         writer.start();
-        return Long.valueOf(config.command(config.getCommands()[13]));
+        return Long.valueOf(config.command(""));//поправить
     }
 
     /**

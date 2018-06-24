@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public interface Store {
 
-    String add(User user);
+    boolean add(User user);
 
     boolean update(String id, User user);
 
@@ -14,4 +14,6 @@ public interface Store {
     ArrayList<User> findAll();
 
     User findById(String id);
+
+    User findCredential(String login, String password);
 }

@@ -20,7 +20,14 @@ public class UserUpdateServlet extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
-        req.getRequestDispatcher("WEB-INF/views/update.jsp").forward(req, res);
+        req.setAttribute("user", this.logic.findById(req.getParameter("id")));
+        String role = req.getParameter("role");
+        if ("1".equals(role)) {
+            req.getRequestDispatcher("WEB-INF/views/update.jsp").forward(req, res);
+        }
+        if ("2".equals(role)) {
+            req.getRequestDispatcher("WEB-INF/views/UserUpdate.jsp").forward(req, res);
+        }
     }
 
     @Override

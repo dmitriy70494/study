@@ -12,7 +12,21 @@ public class User {
 
     private String email;
 
+    private String password;
+
+    private String role;
+
     private Timestamp createDate;
+
+    public User(int id, String name, String login, String email, String password, String role, Timestamp createDate) {
+        this.id = id;
+        this.name = name;
+        this.login = login;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.createDate = createDate;
+    }
 
     public User(String name, String login, String email, Timestamp createDate) {
         this.name = name;
@@ -63,12 +77,19 @@ public class User {
     }
 
     public String getName() {
-
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getRole() {
+        return role;
     }
 
     @Override

@@ -47,19 +47,14 @@ public class DBStore implements Store {
     }
 
     @Override
-    public String add(User user) {
-        String result = null;
-        if (this.checkUser(this.properties.getProperty("select_user_login"), user.getLogin())) {
-            result = "Пользователь с таким логином уже существует";
-        }
-        if (this.checkUser(this.properties.getProperty("select_user_email"), user.getEmail())) {
-            result = "Пользователь с такой почтой уже существует";
-        }
-        if (result == null) {
+    public boolean add(User user) {
+        boolean access = false;
+        if (!this.checkUser(this.properties.getProperty("select_user_login"), user.getLogin()) ||
+                !this.checkUser(this.properties.getProperty("select_user_email"), user.getEmail())) {
             this.addUser(user);
-            result = "Пользователь успешно добавлен";
+            access = true;
         }
-        return result;
+        return access;
     }
 
     public void addUser(User user) {
@@ -69,6 +64,8 @@ public class DBStore implements Store {
             statement.setString(2, user.getLogin());
             statement.setString(3, user.getEmail());
             statement.setTimestamp(4, user.getCreateDate());
+            statement.setString(5, user.getPassword());
+            statement.setInt(6, Integer.valueOf(user.getRole()));
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -80,9 +77,9 @@ public class DBStore implements Store {
              PreparedStatement statement = connection.prepareStatement(sql);) {
             if (value instanceof Integer) {
                 statement.setInt(1, (Integer) value);
-            }else if (value instanceof String) {
+            } else if (value instanceof String) {
                 statement.setString(1, (String) value);
-            }else if (value instanceof Timestamp) {
+            } else if (value instanceof Timestamp) {
                 statement.setTimestamp(1, (Timestamp) value);
             } else {
                 throw new IllegalArgumentException("the value is not verified");
@@ -132,7 +129,10 @@ public class DBStore implements Store {
              Statement statement = connection.createStatement();
              ResultSet result = statement.executeQuery(this.properties.getProperty("select_all_users"));) {
             while (result.next()) {
-                users.add(new User(result.getInt(1), result.getString(2), result.getString(3), result.getString(4), result.getTimestamp(5)));
+                users.add(new User(result.getInt("id"), result.getString("name"),
+                        result.getString("login"), result.getString("email"),
+                        result.getString("password"), String.valueOf(result.getInt("role")),
+                        result.getTimestamp("create_date")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -148,7 +148,31 @@ public class DBStore implements Store {
             statement.setInt(1, Integer.valueOf(id));
             try (ResultSet result = statement.executeQuery()) {
                 if (result.next()) {
-                    user = new User(result.getInt("id"), result.getString("name"), result.getString("login"), result.getString("email"), result.getTimestamp("create_date"));
+                    user = new User(result.getInt("id"), result.getString("name"),
+                            result.getString("login"), result.getString("email"),
+                            result.getString("password"), String.valueOf(result.getInt("role")),
+                            result.getTimestamp("create_date"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+
+    @Override
+    public User findCredential(String login, String password) {
+        User user = null;
+        try (Connection connection = this.dataSource.getConnection();
+             PreparedStatement statement = connection.prepareStatement(this.properties.getProperty("select_user_login_password"))) {
+            statement.setString(1, login);
+            statement.setString(2, password);
+            try (ResultSet result = statement.executeQuery()) {
+                if (result.next()) {
+                    user = new User(result.getInt("id"), result.getString("name"),
+                            result.getString("login"), result.getString("email"),
+                            result.getString("password"), String.valueOf(result.getInt("role")),
+                            result.getTimestamp("create_date"));
                 }
             }
         } catch (SQLException e) {

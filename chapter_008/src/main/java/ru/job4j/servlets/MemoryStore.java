@@ -21,39 +21,32 @@ public class MemoryStore implements Store {
     }
 
     @Override
-    public String add(User user) {
-        String result = checkUser(user);
-        if (result == null) {
+    public boolean add(User user) {
+        boolean access = checkUser(user);
+        if (access) {
             user.setId(++this.size);
-            if (this.users.put(user.getId(), user) == null) {
-                result = "the user has been added";
-            } else {
-                result = "the user not has been added";
-            }
+            access = this.users.put(user.getId(), user) != null;
         }
-        return result;
+        return access;
     }
 
-    private String checkUser(User checked) {
-        String result = null;
+    private boolean checkUser(User checked) {
+        boolean access = true;
         for (User user : this.users.values()) {
-            if (user.getLogin().equals(checked.getLogin())) {
-                result = "a user with this login already exists";
-            }
-            if (user.getEmail().equals(checked.getEmail())) {
-                result = "a user with this email already exists";
+            if (user.getLogin().equals(checked.getLogin()) || user.getEmail().equals(checked.getEmail())) {
+                access = false;
             }
         }
-        return result;
+        return access;
     }
 
     @Override
     public boolean update(String id, User user) {
         int index = Integer.valueOf(id);
-        boolean access = false;
+        boolean access = users.containsKey(index);
+        if (access) {
         user.setId(index);
-        if (users.containsKey(index)) {
-            access = this.users.put(index, user).getId() == index;
+        this.users.put(index, user);
         }
         return access;
     }
@@ -71,5 +64,10 @@ public class MemoryStore implements Store {
     @Override
     public User findById(String id) {
         return this.users.get(Integer.valueOf(id));
+    }
+
+    @Override
+    public User findCredential(String login, String password) {
+        return null;
     }
 }
