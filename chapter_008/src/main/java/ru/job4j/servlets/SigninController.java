@@ -23,8 +23,11 @@ public class SigninController extends HttpServlet {
         User user = this.service.findCredential(login, password);
         if (user != null) {
             HttpSession session = req.getSession();
-            synchronized (session) {
-                session.setAttribute("theUser", user);
+            req.setAttribute("user", user.getId());
+            if (session != null) {
+                synchronized (session) {
+                    session.setAttribute("theUser", user);
+                }
             }
             resp.sendRedirect(String.format("%s/", req.getContextPath()));
         } else {

@@ -88,6 +88,7 @@
         <servlet-name>Signin</servlet-name>
         <url-pattern>/signin</url-pattern>
     </servlet-mapping>
+
     <filter>
         <filter-name>AuthFilter</filter-name>
         <filter-class>ru.job4j.servlets.AuthFilter</filter-class>
@@ -96,6 +97,7 @@
         <filter-name>AuthFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
     <filter>
         <filter-name>UserFilter</filter-name>
         <filter-class>ru.job4j.servlets.UserFilter</filter-class>
