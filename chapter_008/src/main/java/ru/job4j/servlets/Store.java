@@ -2,6 +2,7 @@ package ru.job4j.servlets;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface Store {
 
@@ -16,4 +17,10 @@ public interface Store {
     User findById(String id);
 
     User findCredential(String login, String password);
+
+    List<Person> getAllPerson();
+
+    boolean addPerson(Person person);
+
+    boolean updatePerson(String id, Person person);
 }

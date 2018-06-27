@@ -8,15 +8,44 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script>
-        function addRow() {
-            var name = $('#name').val();
-            var lastname = $('#lastname').val();
-            var sex = $('#sex').val();
-            var description = $('#description').val();
-            $('#table tr:last').after('<tr><td>' + name +'</td><td>' + lastname + '</td><td>' + sex + '</td><td>' + description +'</td></tr>');
+
+        $(document).ready(viewPersons());
+
+
+        function viewPersons() {
+            $.ajax('./json', {
+                method: 'get',
+                complete: function (data) {
+                    var users = JSON.parse(data.responseText);
+                    var result = "<thead><tr><th>Имя</th><th>Фамилия</th><th>Пол</th><th>Описание</th></tr></thead><tbody>";
+                    for (var i = 0; i < users.length; i++) {
+                        result += "<tr><td>" + users[i].name + "</td><td>" + users[i].lastname + "</td><td>" + users[i].sex + "</td><td>" + users[i].description + "</td></tr>";
+                    }
+                    result += "</tbody>";
+                    table.innerHTML = result;
+                }
+            });
         }
-    </script>
-    <script>
+
+        function createPerson() {
+            $.ajax('./json', {
+                method: 'post',
+                data: {
+                    name: $('#name').val(),
+                    lastname: $('#lastname').val(),
+                    sex: $('#sex').val(),
+                    description: $('#description').val()
+                },
+                complete: function (data) {
+                    if (data.responseText == 'true') {
+                        viewPersons();
+                    } else {
+                        alert("Данные не были внесены на сервер. Возможно такой пользователь существует");
+                    }
+                }
+            })
+        }
+
         function validate() {
             var access = true;
             if ($('#name').val() == '') {
@@ -33,7 +62,7 @@
             }
             return access;
         }
-        </script>
+    </script>
 
 </head>
 <body>
@@ -43,7 +72,7 @@
 
         <div class="form-group">
             <label for="name">Имя:</label>
-            <input type="text" class="form-control" id="name" placeholder="Введите имя" name="name" >
+            <input type="text" class="form-control" id="name" placeholder="Введите имя" name="name">
         </div>
 
         <div class="form-group">
@@ -68,29 +97,18 @@
         <div class="checkbox">
             <label><input type="checkbox" name="remember"> Remember me</label>
         </div>
-        <button type="button" class="btn btn-default" onclick="if(validate()) { addRow(); }">Submit</button>
+        <button type="button" class="btn btn-default" onclick="if(validate()) { createPerson() }">Submit</button>
+
     </form>
 </div>
+<br>
+<br>
+<br>
 <div class="user table">
     <h2>Пользователи</h2>
     <table class="table table-hover" id="table">
-        <thead>
-        <tr>
-            <th>Имя</th>
-            <th>Фамилия</th>
-            <th>Пол</th>
-            <th>Описание</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>Андрей</td>
-            <td>Курзанов</td>
-            <td>муж</td>
-            <td>описание</td>
-        </tr>
-        </tbody>
     </table>
+    <button type="button" class="btn btn-default" onclick="viewPersons()">Refresh</button>
 </div>
 </body>
 </html>
