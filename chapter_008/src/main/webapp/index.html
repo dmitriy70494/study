@@ -8,15 +8,23 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script>
+        $(
+            $.ajax('./json', {
+                method: 'get',
+                complete: function (data) {
+                    console.log(JSON.parse(data.responseText));
+                }
+            })
+        );
+
         function addRow() {
             var name = $('#name').val();
             var lastname = $('#lastname').val();
             var sex = $('#sex').val();
             var description = $('#description').val();
-            $('#table tr:last').after('<tr><td>' + name +'</td><td>' + lastname + '</td><td>' + sex + '</td><td>' + description +'</td></tr>');
+            $('#table tr:last').after('<tr><td>' + name + '</td><td>' + lastname + '</td><td>' + sex + '</td><td>' + description + '</td></tr>');
         }
-    </script>
-    <script>
+
         function validate() {
             var access = true;
             if ($('#name').val() == '') {
@@ -33,7 +41,7 @@
             }
             return access;
         }
-        </script>
+    </script>
 
 </head>
 <body>
@@ -43,7 +51,7 @@
 
         <div class="form-group">
             <label for="name">Имя:</label>
-            <input type="text" class="form-control" id="name" placeholder="Введите имя" name="name" >
+            <input type="text" class="form-control" id="name" placeholder="Введите имя" name="name">
         </div>
 
         <div class="form-group">
