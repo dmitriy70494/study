@@ -8,6 +8,7 @@ import ru.job4j.logic.Role;
 import ru.job4j.logic.User;
 
 import java.io.*;
+import java.sql.SQLException;
 import java.util.Properties;
 
 public class DAOFactory {
@@ -57,6 +58,8 @@ public class DAOFactory {
                 e.printStackTrace();
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
         return instance;
@@ -66,7 +69,7 @@ public class DAOFactory {
      * синхронизация нужна чтобы при одновременной инициализвации 2 потоков они не испортили данные
      * @throws IOException
      */
-    private synchronized void initDAO() throws IOException {
+    private synchronized void initDAO() throws IOException, SQLException {
         if (this.users == null) {
             this.users = UserDAOimpl.getInstance(FILE_PROPERTIES_USER, dataSource);
         }

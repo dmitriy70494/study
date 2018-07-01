@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(viewItems(false));
+
+        function viewItems(checked) {
+            $.ajax('./tasks', {
+                method: 'get',
+                data: {
+                    done: checked
+                },
+                complete: function (data) {
+                    var tasks = JSON.parse(data.responseText);
+                    var result = "<thead><tr><th>Выбрать</th><th>Задача</th><th>Дата</th><th>Статус</th></tr></thead><tbody>";
+                    for (var i = 0; i < tasks.length; i++) {
+                        result += "<tr><td><input type='radio' id='modify' name='modify' value='" + tasks[i].id + "'></td>" +
+                            "<td>" + tasks[i].desc + "</td><td>" + tasks[i].created + "</td><td>" + tasks[i].done + "</td></tr>";
+                    }
+                    result += "</tbody>";
+                    table.innerHTML = result;
+                }
+            });
+        }
+
+        function createItems() {
+            $.ajax('./tasks', {
+                method: 'post',
+                data: {
+                    desc: $('#desc').val(),
+                    action: 'add'
+                },
+                complete: function (data) {
+                    viewItems(check.checked);
+                }
+            });
+        }
+
+        function deleteItem() {
+            $.ajax('./tasks', {
+                method: 'post',
+                data: {
+                    id: $('#modify').val(),
+                    action: 'delete'
+                },
+                complete: viewItems(check.checked)
+            });
+        }
+
+        function updateItem() {
+            $.ajax('./tasks', {
+                method: 'post',
+                data: {
+                    id: document.querySelector('input[name="modify"]:checked').value,
+                    action: 'update'
+                },
+                complete: function() {
+                    viewItems(check.checked);
+                    
+                }
+            });
+        }
+
+
+        function validate() {
+            var access = true;
+            if ($('#desc').val() == '') {
+                alert($('#desc').attr('placeholder'));
+                access = false;
+            }
+            return access;
+        }
+
+
+    </script>
+
+</head>
+<body>
+
+<div class="container-fluid">
+
+    <form action="/action_page.php">
+
+        <div class="form-group">
+            <label for="desc">Описание задачи:</label>
+            <input type="text" class="form-control" id="desc" placeholder="Введите описание задачи" name="desc">
+        </div>
+
+        <button type="button" class="btn btn-default" onclick="if(validate()) { createItems() }">Submit</button>
+
+    </form>
+
+</div>
+
+<br>
+<br>
+<br>
+
+<div class="checkbox">
+    <label><input type="checkbox" id="check" name="check"> Все заявки</label>
+    <button type="button" class="btn btn-default" onclick="viewItems(check.checked)">Обновить</button>
+</div>
+
+<div class="modyfied">
+        <button type="button" class="btn btn-default" onclick="updateItem()">Завершить</button>
+        <button type="button" class="btn btn-default" onclick="deleteItem()">Удалить</button>
+</div>
+
+<div class="user table">
+    <h2>Задачи</h2>
+    <table class="table table-hover" id="table">
+    </table>
+</div>
+
+</body>
+</html>

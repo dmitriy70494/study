@@ -101,7 +101,7 @@ public class Tracker implements AutoCloseable {
      * таблицу для хранения данных программы. Всего можно добавить 99 элементов (связано с работой метода Delete)
      *
      * @param item Новый элемент с данными.
-     * @return item возвращает добавленный элемент с присвоенным ID
+     * @return ru возвращает добавленный элемент с присвоенным ID
      */
     public Item add(Item item) {
         ResultSet key = null;
@@ -206,7 +206,7 @@ public class Tracker implements AutoCloseable {
      * Ищет элемент по id и возвращает его
      *
      * @param id id элемента, который нужно найти.
-     * @return item если нет такого элемента, возвратит null
+     * @return ru если нет такого элемента, возвратит null
      */
     public Item findById(String id) {
         try (PreparedStatement statment = connection.prepareStatement(scripts.get("select_id"))) {

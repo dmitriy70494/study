@@ -19,6 +19,7 @@
         <module>chapter_008</module>
         <module>chapter_008</module>
         <module>chapter_009</module>
+        <module>chapter_010</module>
     </modules>
 
     <dependencies>
@@ -84,6 +85,12 @@
             <artifactId>mockito-all</artifactId>
             <version>1.9.5</version>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>5.3.1.Final</version>
         </dependency>
 
     </dependencies>
