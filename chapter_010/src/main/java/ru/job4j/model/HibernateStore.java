@@ -2,13 +2,16 @@ package ru.job4j.model;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 import ru.job4j.item.Item;
 
 import java.io.Closeable;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.function.Function;
 
 public class HibernateStore implements Closeable {
 
@@ -26,46 +29,62 @@ public class HibernateStore implements Closeable {
         return instance;
     }
 
-    public void add(Item item) {
-        Session session = this.factory.openSession();
-        session.beginTransaction();
-        session.save(item);
-        session.getTransaction().commit();
-        session.close();
+    private <T> T tx(final Function<Session, T> command) {
+        final Session session = this.factory.openSession();
+        final Transaction tx = session.beginTransaction();
+        try {
+            return command.apply(session);
+        } catch (final Exception e) {
+            session.getTransaction().rollback();
+            throw e;
+        } finally {
+            tx.commit();
+            session.close();
+        }
+    }
+
+    public void add(final Item item) {
+        this.tx(
+                session -> {
+                    session.save(item);
+                    return null;
+                }
+        );
     }
 
     public void update(Item item) {
-        Session session = this.factory.openSession();
-        session.beginTransaction();
-        session.update(item);
-        session.getTransaction().commit();
-        session.close();
+        this.tx(
+                session -> {
+                    session.update(item);
+                    return null;
+                }
+        );
     }
 
-    public void delete(Item item) {
-        Session session = this.factory.openSession();
-        session.beginTransaction();
-        session.delete(item);
-        session.getTransaction().commit();
-        session.close();
+    public void delete(final Item item) {
+        this.tx(
+                session -> {
+                    session.delete(item);
+                    return null;
+                }
+        );
     }
 
     public List<Item> findAll() {
-        Session session = this.factory.openSession();
-        session.beginTransaction();
-        List<Item> items = session.createQuery("from Item").list();
-        session.getTransaction().commit();
-        session.close();
-        return items;
+        return this.tx(
+                session -> {
+                    return session.createQuery("from Item").list();
+                }
+        );
     }
 
-    public Item findByID(String id) {
-        Session session = this.factory.openSession();
-        session.beginTransaction();
-        Item item = (Item) session.createQuery("from Item where id = " + id).list().get(0);
-        session.getTransaction().commit();
-        session.close();
-        return item;
+    public Item findByID(final String id) {
+        return this.tx(
+                session -> {
+                    final Query query = session.createQuery("from Item where id =" + id);
+                    return (Item) query.list().get(0);
+                }
+        );
     }
 
     @Override
