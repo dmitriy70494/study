@@ -1,17 +1,16 @@
-package ru.job4j.model;
+package ru.job4j.persist;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.query.Query;
-import ru.job4j.item.Item;
+        import org.hibernate.Session;
+        import org.hibernate.SessionFactory;
+        import org.hibernate.Transaction;
+        import org.hibernate.cfg.Configuration;
+        import org.hibernate.query.Query;
+        import ru.job4j.item.Item;
 
-import java.io.Closeable;
-import java.io.IOException;
-import java.sql.Timestamp;
-import java.util.List;
-import java.util.function.Function;
+        import java.io.Closeable;
+        import java.io.IOException;
+        import java.util.List;
+        import java.util.function.Function;
 
 public class HibernateStore implements Closeable {
 
@@ -70,7 +69,7 @@ public class HibernateStore implements Closeable {
         );
     }
 
-    public List<Item> findAll() {
+    public List findAll() {
         return this.tx(
                 session -> {
                     return session.createQuery("from Item").list();

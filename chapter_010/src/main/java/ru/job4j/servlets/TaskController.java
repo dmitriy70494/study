@@ -1,7 +1,7 @@
 package ru.job4j.servlets;
 
 import ru.job4j.item.Item;
-import ru.job4j.model.HibernateStore;
+import ru.job4j.persist.HibernateStore;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
