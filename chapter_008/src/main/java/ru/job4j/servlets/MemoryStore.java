@@ -70,4 +70,19 @@ public class MemoryStore implements Store {
     public User findCredential(String login, String password) {
         return null;
     }
+
+    @Override
+    public List<Person> getAllPerson() {
+        return null;
+    }
+
+    @Override
+    public boolean addPerson(Person person) {
+        return false;
+    }
+
+    @Override
+    public boolean updatePerson(String id, Person person) {
+        return false;
+    }
 }

@@ -1,0 +1,20 @@
+<hibernate-mapping>
+    <class name="ru.job4j.Car" table="car">
+        <id name="id" column="id">
+            <generator class="identity"/>
+        </id>
+
+        <many-to-one name="motor"
+                     column="id_motor"
+                     class="ru.job4j.Motor"/>
+
+        <many-to-one name="bodywork"
+                     column="id_bodywork"
+                     class="ru.job4j.Bodywork"/>
+
+        <many-to-one name="transmission"
+                     column="id_transmission"
+                     class="ru.job4j.Transmission"/>
+
+    </class>
+</hibernate-mapping>

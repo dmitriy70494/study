@@ -3,6 +3,7 @@ package ru.job4j.servlets;
 import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import org.postgresql.Driver;
@@ -19,6 +20,8 @@ public class DBStore implements Store {
     private final static DBStore instance = new DBStore();
 
     private BasicDataSource dataSource;
+
+    List<Person> persons = new ArrayList<Person>();
 
     private DBStore() {
 
@@ -37,6 +40,8 @@ public class DBStore implements Store {
                 instance.dataSource.setMinIdle(5);
                 instance.dataSource.setMaxIdle(10);
                 instance.dataSource.setMaxOpenPreparedStatements(100);
+                instance.persons.add(new Person("0", "Dima", "Zimin", "муж", "description", "country", "Sverdlovsk"));
+                instance.persons.add(new Person("1", "Dimы", "Zimin", "муж", "description", "country", "Sverdlovsk"));
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (ClassNotFoundException e) {
@@ -179,5 +184,24 @@ public class DBStore implements Store {
             e.printStackTrace();
         }
         return user;
+    }
+
+    public List<Person> getAllPerson() {
+        return this.persons;
+    }
+
+    public boolean addPerson(Person person) {
+        boolean access = false;
+        for (int index = 0; index < 100000; index++) {
+            System.out.println("цикл");
+        }
+        if (!persons.contains(person)) {
+            access = persons.add(person);
+        }
+        return access;
+    }
+
+    public boolean updatePerson(String id, Person person) {
+        return this.persons.set(Integer.valueOf(id), person) != null;
     }
 }

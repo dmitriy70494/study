@@ -70,4 +70,16 @@ public class ValidateService {
     public User findCredential(String login, String password) {
         return this.storage.findCredential(login, password);
     }
+
+    public List<Person> getAllPerson() {
+        return this.storage.getAllPerson();
+    }
+
+    public boolean addPerson(Person person) {
+        return this.storage.addPerson(person);
+    }
+
+    public boolean updatePerson(String id, Person person) {
+        return this.storage.updatePerson(id, person);
+    }
 }

@@ -194,10 +194,10 @@ public class StartUITest {
     @Test
     public void whenUpdateThenTrackerHasUpdatedValue() {
         Tracker tracker = Tracker.init("settings.sql");
-        Item item = tracker.add(new Item());
-        Input input = new StrubInput(new String[]{"2", item.getId(), "test name", "desc", "да"});
+        Item ru = tracker.add(new Item());
+        Input input = new StrubInput(new String[]{"2", ru.getId(), "test name", "desc", "да"});
         new StartUI(input, tracker).init();
-        assertThat(tracker.findById(item.getId()).getName(), is("test name"));
+        assertThat(tracker.findById(ru.getId()).getName(), is("test name"));
     }
 
     /**
