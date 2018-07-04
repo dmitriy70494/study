@@ -1,0 +1,19 @@
+
+<div class="container-fluid">
+    <form action="cars" method="post">
+        <input type="hidden" name="action" id="action" value="createAd">
+        <button type="submit" class="btn btn-default" action="">Добавить объявление</button>
+        <button type="button" class="btn btn-default" onclick="drawUsersAd('usersAd', 1)">Мои объявление</button>
+
+    </form>
+</div>
+
+<br>
+<br>
+<br>
+
+<div class="user table">
+    <h2>Объявления</h2>
+    <table class="table table-hover" id="table">
+    </table>
+</div>

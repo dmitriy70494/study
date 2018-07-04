@@ -1,9 +1,17 @@
 package ru.job4j;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name="motor")
 public class Motor {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Integer id;
 
+    @Column (name = "name")
     private String name;
 
     public Motor() {
@@ -32,5 +40,10 @@ public class Motor {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("{\"%s\" : \"%s\", \"%s\" : \"%s\"}", "id", id, "name", name);
     }
 }
