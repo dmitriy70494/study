@@ -9,11 +9,14 @@ import ru.job4j.Car;
 import ru.job4j.User;
 
 import java.io.*;
+import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
 
 public class CarStore implements Closeable {
+
+    private final static Integer LONG_ONE_DAY = 24 * 60 * 60 * 1000;
 
     private final static CarStore instance = new CarStore();
 
@@ -156,7 +159,45 @@ public class CarStore implements Closeable {
                     return query.list();
                 }
         );
+    }
 
+    public List findCarLastDay() {
+        return this.tx(
+                session -> {
+                    Timestamp time = new Timestamp(System.currentTimeMillis() - LONG_ONE_DAY);
+                    Query query = session.createQuery("from Car where create > :create");
+                    query.setParameter("create", time);
+                    return query.list();
+                }
+        );
+    }
+
+    public List  findCarWithFoto() {
+        return this.tx(
+                session -> {
+                    Query query = session.createQuery("from Car where foto != ''");
+                    return query.list();
+                }
+        );
+    }
+
+    public List  findAllCarsName() {
+        return this.tx(
+                session -> {
+                    Query query = session.createQuery("select distinct c.name from Car as c");
+                    return query.list();
+                }
+        );
+    }
+
+    public List  findByNameCar(String name) {
+        return this.tx(
+                session -> {
+                    Query query = session.createQuery("from Car as c where c.name = :name");
+                    query.setParameter("name", name);
+                    return query.list();
+                }
+        );
     }
 
     public void closeSession() {

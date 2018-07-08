@@ -76,13 +76,15 @@ public class FileController extends HttpServlet {
                         new User(Integer.valueOf(((User) req.getSession().getAttribute("theUser")).getId())),
                         ""
                 );
-                FileItem item = iter.next();
-                String fileName = new File(item.getName()).getName();
-                String filePath = this.uploadPath + File.separator + fileName;
-                String path = UPLOAD_DIRECTORY + "/" + fileName;
-                File storeFile = new File(filePath);
-                item.write(storeFile);
-                car.setFoto(path);
+                    FileItem item = iter.next();
+                    String fileName = new File(item.getName()).getName();
+                if (fileName != "") {
+                    String filePath = this.uploadPath + File.separator + fileName;
+                    String path = UPLOAD_DIRECTORY + "/" + fileName;
+                    File storeFile = new File(filePath);
+                    item.write(storeFile);
+                    car.setFoto(path);
+                }
             }
         if (car != null) {
             this.store.add(car);
