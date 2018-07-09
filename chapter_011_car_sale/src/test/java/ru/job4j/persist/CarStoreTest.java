@@ -37,7 +37,6 @@ public class CarStoreTest {
         this.userStore.add(user);
         this.car = new Car(1, "aka", motor, trans, body, true, new Timestamp(System.currentTimeMillis()), user, "update/image.jpg");
         this.store.add(this.car);
-        this.access = false;
     }
 
     @After

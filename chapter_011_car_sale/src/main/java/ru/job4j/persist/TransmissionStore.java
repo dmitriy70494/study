@@ -9,6 +9,8 @@ import ru.job4j.Car;
 import ru.job4j.Motor;
 import ru.job4j.Transmission;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.function.Function;
 
 public class TransmissionStore {

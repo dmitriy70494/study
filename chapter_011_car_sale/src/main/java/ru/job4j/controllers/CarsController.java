@@ -9,6 +9,7 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.util.*;
 import java.util.function.Function;
@@ -72,6 +73,7 @@ public class CarsController extends HttpServlet {
         String url = this.actions.get(req.getParameter("action")).apply(req);
         if (url != null) {
             req.getRequestDispatcher(url).forward(req, resp);
+
         }
     }
 }

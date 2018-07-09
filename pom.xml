@@ -22,6 +22,7 @@
         <module>chapter_010</module>
         <module>chapter_011_car_sale</module>
         <module>chapter_011_car_sale</module>
+        <module>chapter_012_spring_example</module>
     </modules>
 
     <dependencies>
@@ -119,6 +120,12 @@
             <artifactId>hsqldb</artifactId>
             <version>2.4.0</version>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>tomcat</groupId>
+            <artifactId>catalina</artifactId>
+            <version>5.5.23</version>
         </dependency>
 
 
