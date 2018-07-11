@@ -13,5 +13,7 @@
        <!--<constructor-arg name="storage" ref="memory"></constructor-arg>-->
     <!--</bean>-->
 
+    <import resource="jdbc-template.xml"/>
+
     <context:component-scan base-package="ru.job4j"/>
 </beans>

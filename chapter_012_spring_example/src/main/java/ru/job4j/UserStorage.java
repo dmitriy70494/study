@@ -14,7 +14,7 @@ public class UserStorage {
     private final Storage storage;
 
     @Autowired
-    public UserStorage(final Storage storage) {
+    public UserStorage(final JdbcStorage storage) {
         this.storage = storage;
     }
 
