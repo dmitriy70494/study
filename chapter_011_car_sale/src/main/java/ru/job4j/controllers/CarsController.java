@@ -73,7 +73,6 @@ public class CarsController extends HttpServlet {
         String url = this.actions.get(req.getParameter("action")).apply(req);
         if (url != null) {
             req.getRequestDispatcher(url).forward(req, resp);
-
         }
     }
 }

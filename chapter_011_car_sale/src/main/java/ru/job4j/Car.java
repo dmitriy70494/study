@@ -1,8 +1,11 @@
 package ru.job4j;
 
+import org.springframework.stereotype.Component;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
+@Component
 @Entity
 @Table(name="car")
 public class Car {

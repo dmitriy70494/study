@@ -1,0 +1,34 @@
+<hibernate-mapping default-lazy="false">
+    <class name="ru.job4j.Car" table="car">
+
+        <id name="id" column="id">
+            <generator class="identity"/>
+        </id>
+
+        <property name="done" column="done"/>
+        <property name="name" column="name"/>
+        <property name="create" column="create_date"/>
+        <property name="foto" column="foto"/>
+
+        <many-to-one name="motor"
+                     column="id_motor"
+                     class="ru.job4j.Motor"
+                     lazy="false"/>
+
+        <many-to-one name="bodywork"
+                     column="id_bodywork"
+                     class="ru.job4j.Bodywork"
+                     lazy="false"/>
+
+        <many-to-one name="transmission"
+                     column="id_transmission"
+                     class="ru.job4j.Transmission"
+                     lazy="false"/>
+
+        <many-to-one name="user"
+                     column="id_user"
+                     class="ru.job4j.User"
+                     lazy="false"/>
+
+    </class>
+</hibernate-mapping>

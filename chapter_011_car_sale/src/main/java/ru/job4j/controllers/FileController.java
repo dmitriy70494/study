@@ -4,6 +4,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.springframework.stereotype.Component;
 import ru.job4j.*;
 import ru.job4j.persist.CarStore;
 
@@ -17,7 +18,8 @@ import java.sql.Timestamp;
 import java.util.Iterator;
 import java.util.List;
 
-public class FileController extends HttpServlet {
+@Component
+public class FileController {
 
     private CarStore store = CarStore.getInstance();
 
@@ -31,7 +33,7 @@ public class FileController extends HttpServlet {
     private static final int MAX_FILE_SIZE      = 1024 * 1024 * 400;
     private static final int MAX_REQUEST_SIZE   = 1024 * 1024 * 500;
 
-    private void initFileLoader() {
+    private void initFileLoader(String uploadPath) {
         if (upload == null) {
             DiskFileItemFactory factory = new DiskFileItemFactory();
             factory.setRepository(new File(System.getProperty("java.io.tmpdir")));
@@ -39,7 +41,7 @@ public class FileController extends HttpServlet {
             this.upload = new ServletFileUpload(factory);
             this.upload.setFileSizeMax(MAX_FILE_SIZE);
             this.upload.setSizeMax(MAX_REQUEST_SIZE);
-            this.uploadPath = getServletContext().getRealPath("")
+            this.uploadPath = uploadPath
                     + File.separator + UPLOAD_DIRECTORY;
             File uploadDir = new File(this.uploadPath);
             if (!uploadDir.exists()) {
@@ -53,14 +55,12 @@ public class FileController extends HttpServlet {
      * после перезапуска сервер подчищает все фотографии из себя, поэтому они недоступны
      *
      * @param req
-     * @param resp
      * @throws ServletException
      * @throws IOException
      */
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void saveFileAndCar(HttpServletRequest req, String uploadPath) throws ServletException, IOException {
         try {
-            this.initFileLoader();
+            this.initFileLoader(uploadPath);
             Car car = null;
             List<FileItem> items = this.upload.parseRequest(req);
             Iterator<FileItem> iter = items.iterator();
@@ -90,7 +90,6 @@ public class FileController extends HttpServlet {
             this.store.add(car);
         }
         this.store.drawTableHTML();
-        req.getRequestDispatcher("index.html").forward(req, resp);
         } catch (FileUploadException e) {
             e.printStackTrace();
         } catch (Exception e) {
