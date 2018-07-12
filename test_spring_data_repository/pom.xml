@@ -1,30 +1,16 @@
-<project>
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>junior</artifactId>
+        <groupId>ru.job4j</groupId>
+        <version>2.0</version>
+    </parent>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>ru.job4j</groupId>
-    <artifactId>junior</artifactId>
-    <packaging>pom</packaging>
-    <version>2.0</version>
-    <name>junior</name>
-    <url>http://job4j.ru/</url>
 
-    <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
+    <artifactId>test_spring_data_repository</artifactId>
 
-    <modules>
-        <module>chapter_001</module>
-        <module>chapter_002</module>
-        <module>chapter_008</module>
-        <module>chapter_008</module>
-        <module>chapter_009</module>
-        <module>chapter_010</module>
-        <module>chapter_011_car_sale</module>
-        <module>chapter_011_car_sale</module>
-        <module>chapter_012_spring_example</module>
-        <module>test_spring_data_repository</module>
-    </modules>
 
     <dependencies>
         <dependency>
@@ -133,7 +119,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>5.0.6.RELEASE</version>
+            <version>5.0.7.RELEASE</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
@@ -143,55 +129,53 @@
             <version>5.0.7.RELEASE</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>5.0.7.RELEASE</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>5.0.7.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>5.0.7.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>2.0.8.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>5.0.7.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>5.0.7.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>5.0.7.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>2.4.1</version>
+            <scope>test</scope>
+        </dependency>
+
+
     </dependencies>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.7.9</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>report</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.0.0</version>
-            </plugin>
-            <!--<plugin>-->
-                <!--<groupId>org.apache.maven.plugins</groupId>-->
-                <!--<artifactId>maven-checkstyle-plugin</artifactId>-->
-                <!--<version>2.17</version>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<id>validate</id>-->
-                        <!--<phase>validate</phase>-->
-                        <!--<configuration>-->
-                            <!--<configLocation>checkstyle.xml</configLocation>-->
-                            <!--<encoding>UTF-8</encoding>-->
-                            <!--<consoleOutput>true</consoleOutput>-->
-                            <!--<failsOnError>true</failsOnError>-->
-                            <!--<includeTestSourceDirectory>true</includeTestSourceDirectory>-->
-                        <!--</configuration>-->
-                        <!--<goals>-->
-                            <!--<goal>check</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-            <!--</plugin>-->
-        </plugins>
-    </build>
+
 </project>
