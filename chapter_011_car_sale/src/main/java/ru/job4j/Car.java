@@ -1,16 +1,47 @@
 package ru.job4j;
 
+import org.springframework.stereotype.Component;
+
+import javax.persistence.*;
+import java.sql.Timestamp;
+
+@Component
+@Entity
+@Table(name="car")
 public class Car {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Integer id;
 
+    @Column (name = "done")
+    private Boolean done;
+
+    @Column (name = "create_date")
+    private Timestamp create;
+
+    @Column (name = "name")
     private String name;
 
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="id_motor")
     private Motor motor;
 
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="id_transmission")
     private Transmission transmission;
 
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="id_bodywork")
     private Bodywork bodywork;
+
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="id_user")
+    private User user;
+
+    @Column (name = "foto")
+    private String foto;
 
     public Car() {
     }
@@ -19,12 +50,48 @@ public class Car {
         this.id = id;
     }
 
-    public Car(Integer id, String name, Motor motor, Transmission transmission, Bodywork bodywork) {
+    public Car(Integer id, String name, Motor motor, Transmission transmission, Bodywork bodywork, Boolean done, Timestamp create, User user, String foto) {
         this.id = id;
         this.name = name;
         this.motor = motor;
         this.transmission = transmission;
         this.bodywork = bodywork;
+        this.done = done;
+        this.create = create;
+        this.user = user;
+        this.foto = foto;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Timestamp getCreate() {
+        return create;
+    }
+
+    public void setCreate(Timestamp create) {
+        this.create = create;
+    }
+
+    public Boolean getDone() {
+        return done;
+    }
+
+    public void setDone(Boolean done) {
+        this.done = done;
     }
 
     public Integer getId() {
@@ -65,5 +132,11 @@ public class Car {
 
     public void setBodywork(Bodywork bodywork) {
         this.bodywork = bodywork;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("{\"id\" : %s, \"name\" : \"%s\", \"motor\" : %s, \"transmission\" : %s, \"bodywork\" : %s, \"foto\" : \"%s\", \"create\" : \"%s\", \"done\" : \"%s\"}",
+                id, name, motor.toString(), transmission.toString(), bodywork.toString(), foto, create, done);
     }
 }

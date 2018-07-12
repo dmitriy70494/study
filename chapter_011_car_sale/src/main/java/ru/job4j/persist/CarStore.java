@@ -5,18 +5,30 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ru.job4j.Car;
+import ru.job4j.User;
 
-import java.io.Closeable;
-import java.io.IOException;
+import java.io.*;
+import java.sql.Timestamp;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
 
 public class CarStore implements Closeable {
 
+    private final static Integer LONG_ONE_DAY = 24 * 60 * 60 * 1000;
+
     private final static CarStore instance = new CarStore();
 
-    private SessionFactory factory;
+    private final SessionFactory factory;
+
+    private Session session;
+
+    private Transaction transaction;
+
+    private String table;
 
     private CarStore() {
         this.factory = new Configuration()
@@ -30,14 +42,14 @@ public class CarStore implements Closeable {
 
     private <T> T tx(final Function<Session, T> command) {
         final Session session = this.factory.openSession();
-        final Transaction tx = session.beginTransaction();
+        final Transaction txs = session.beginTransaction();
         try {
             return command.apply(session);
         } catch (final Exception e) {
             session.getTransaction().rollback();
             throw e;
         } finally {
-            tx.commit();
+            txs.commit();
             session.close();
         }
     }
@@ -72,22 +84,144 @@ public class CarStore implements Closeable {
     public List findAll() {
         return this.tx(
                 session -> {
-                    return session.createQuery("from Car").list();
+                    return session.createQuery("from Car where done = 'true'").list();
                 }
         );
     }
 
-    public Car findByID(final String id) {
+    public List<List> findAllPartsCar() {
+        List<List> list = new LinkedList<>();
+        list.add(this.tx(session -> {
+            return session.createQuery("from Motor").list();
+        }));
+        list.add(this.tx(session -> {
+            return session.createQuery("from Transmission").list();
+        }));
+        list.add(this.tx(session -> {
+            return session.createQuery("from Bodywork").list();
+        }));
+        return list;
+    }
+
+    public Car findByID(Integer id) {
+        this.session = this.factory.openSession();
+        this.transaction = session.beginTransaction();
+        try {
+            Car car = session.get(Car.class, id);
+            return car;
+        } catch (final Exception e) {
+            this.session.getTransaction().rollback();
+            this.closeSession();
+            throw e;
+        }
+    }
+
+    /**
+     * Сервер не использует почему то обновленный файл, он использует только тот файл html, который скомпилировал перед этим,
+     * так что этот способ не подходит, пока не выяснится, как это все работает,
+     * для скорости можно создавать текстовый файл и передавать его в jsp на динамическую прорисовку; файл в таргете тоже менял, не помогло.
+     */
+    public void drawTableHTML() {
+        StringBuilder result = new StringBuilder("<tr><th>Фото</th><th>Название</th><th>Тип двигателя</th><th>Передача</th><th>Кузов</th><th>Дата создания</th></tr>");
+        for (Object obj : this.findAll()) {
+            Car car = (Car) obj;
+            result.append("<tr><td>")
+                    .append(car.getFoto()).append("</td><td>")
+                    .append(car.getName()).append("</td><td>")
+                    .append(car.getMotor().getName()).append("</td><td>")
+                    .append(car.getTransmission().getName()).append("</td><td>")
+                    .append(car.getBodywork().getName()).append("</td><td>")
+                    .append(car.getCreate())
+                    .append("</td></tr>");
+        }
+        this.table = result.toString();
+    }
+
+    public User findUser(String login, String password) {
         return this.tx(
                 session -> {
-                    final Query query = session.createQuery("from Item where id =" + id);
-                    return (Car) query.list().get(0);
+                    User user = null;
+                    Query query = session.createQuery("from User where login = :login and password = :password");
+                    query.setParameter("login", login);
+                    query.setParameter("password", password);
+                    List list = query.list();
+                    if (list.size() != 0) {
+                        user = (User) list.get(0);
+                    }
+                    return user;
                 }
         );
+    }
+
+    public List findCarByUser(Integer userId) {
+        return this.tx(
+                session -> {
+                    Query query = session.createQuery("from Car where id_user = :user");
+                    query.setParameter("user", userId);
+                    return query.list();
+                }
+        );
+    }
+
+    public List findCarLastDay() {
+        return this.tx(
+                session -> {
+                    Timestamp time = new Timestamp(System.currentTimeMillis() - LONG_ONE_DAY);
+                    Query query = session.createQuery("from Car where create > :create");
+                    query.setParameter("create", time);
+                    return query.list();
+                }
+        );
+    }
+
+    public List  findCarWithFoto() {
+        return this.tx(
+                session -> {
+                    Query query = session.createQuery("from Car where foto != ''");
+                    return query.list();
+                }
+        );
+    }
+
+    public List  findAllCarsName() {
+        return this.tx(
+                session -> {
+                    Query query = session.createQuery("select distinct c.name from Car as c");
+                    return query.list();
+                }
+        );
+    }
+
+    public List  findByNameCar(String name) {
+        return this.tx(
+                session -> {
+                    Query query = session.createQuery("from Car as c where c.name = :name");
+                    query.setParameter("name", name);
+                    return query.list();
+                }
+        );
+    }
+
+    public void closeSession() {
+        if (this.session != null) {
+            this.session.close();
+        }
+    }
+
+    public void commitTransaction() {
+        if (this.transaction != null) {
+            this.transaction.commit();
+        }
     }
 
     @Override
     public void close() throws IOException {
+        this.commitTransaction();
+        this.closeSession();
         this.factory.close();
+    }
+
+    public String getTable() {
+        return this.table;
     }
 }
