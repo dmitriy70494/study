@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ru.job4j.Car;
 import ru.job4j.User;
+import ru.job4j.persist.CarDataRepository;
 import ru.job4j.persist.CarStore;
 import ru.job4j.persist.UserStore;
 
@@ -32,7 +33,9 @@ public class SpringController {
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public @ResponseBody
     String jsonAllCars() {
-        return this.store.findAll().toString();
+        ApplicationContext context = new ClassPathXmlApplicationContext("spring-context.xml");
+        CarDataRepository repository = context.getBean(CarDataRepository.class);
+        return repository.findAll().toString();
     }
 
     @RequestMapping(value = "/search_named", method = RequestMethod.POST)
