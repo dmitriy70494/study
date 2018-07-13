@@ -4,9 +4,11 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 import ru.job4j.*;
-import ru.job4j.persist.CarStore;
+import ru.job4j.persist.CarDataRepository;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -21,17 +23,15 @@ import java.util.List;
 @Component
 public class FileController {
 
-    private CarStore store = CarStore.getInstance();
-
     private ServletFileUpload upload;
 
     private String uploadPath;
 
     private static final String UPLOAD_DIRECTORY = "upload";
 
-    private static final int MEMORY_THRESHOLD   = 1024 * 1024 * 30;
-    private static final int MAX_FILE_SIZE      = 1024 * 1024 * 400;
-    private static final int MAX_REQUEST_SIZE   = 1024 * 1024 * 500;
+    private static final int MEMORY_THRESHOLD = 1024 * 1024 * 30;
+    private static final int MAX_FILE_SIZE = 1024 * 1024 * 400;
+    private static final int MAX_REQUEST_SIZE = 1024 * 1024 * 500;
 
     private void initFileLoader(String uploadPath) {
         if (upload == null) {
@@ -76,8 +76,8 @@ public class FileController {
                         new User(Integer.valueOf(((User) req.getSession().getAttribute("theUser")).getId())),
                         ""
                 );
-                    FileItem item = iter.next();
-                    String fileName = new File(item.getName()).getName();
+                FileItem item = iter.next();
+                String fileName = new File(item.getName()).getName();
                 if (fileName != "") {
                     String filePath = this.uploadPath + File.separator + fileName;
                     String path = UPLOAD_DIRECTORY + "/" + fileName;
@@ -86,10 +86,11 @@ public class FileController {
                     car.setFoto(path);
                 }
             }
-        if (car != null) {
-            this.store.add(car);
-        }
-        this.store.drawTableHTML();
+            ApplicationContext context = new ClassPathXmlApplicationContext("spring-context.xml");
+            CarDataRepository repository = context.getBean(CarDataRepository.class);
+            if (car != null) {
+                repository.save(car);
+            }
         } catch (FileUploadException e) {
             e.printStackTrace();
         } catch (Exception e) {

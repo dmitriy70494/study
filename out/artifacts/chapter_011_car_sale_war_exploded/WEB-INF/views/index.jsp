@@ -1,3 +1,11 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: balandin
+  Date: 12.07.2018
+  Time: 7:29
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,33 +16,18 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script>
+
         $(document).ready(drawHtml());
 
         function drawHtml() {
-            $.ajax('./cars', {
-                asinh: false,
-                method: 'post',
-                data: {
-                    action: 'view'
-                },
-                cache: false,
-                beforeSend: function () {
-                    $('#main').html('Получаем контент');
-                },
-                complete: function (data) {
-                    $("#main").html(data.responseText);
-                    drawUsersAd('allAd', 2, '');
-                    drawSelect();
-                }
-            });
-            return true;
+            drawUsersAd("${'/items/search.do'}", 2, '');
+            drawSelect();
         }
 
-        function drawUsersAd(command, style, parametr) {
-            $.ajax('./search', {
+        function drawUsersAd(linked, style, parametr) {
+            $.ajax(linked, {
                     method: 'post',
                     data: {
-                        action: command,
                         parametr: parametr
                     },
                     beforeSend: function () {
@@ -70,42 +63,64 @@
         }
 
         function drawUsersAdWithParametr(select) {
-            drawUsersAd('findName', 2, select.options[select.selectedIndex].value);
+            drawUsersAd("${'/items/users_select.do'}", 2, select.options[select.selectedIndex].value);
         }
 
         function updateAd(id) {
-            $.ajax('./cars', {
+            $.ajax("${'/items/change_status.do'}", {
                     method: 'post',
                     data: {
-                        action: 'changeStatus',
                         id: id
                     },
-                    complete: drawUsersAd('usersAd', 1)
+                    complete: drawUsersAd("${'/items/search.do'}", 2, '')
                 }
             );
         }
 
         function drawSelect() {
-             $.ajax('./search', {
-                     method: 'post',
-                     data: {action: 'named'},
+            $.ajax("${'/items/search_named.do'}", {
+                    method: 'post',
                     complete: function (data) {
                         var result = "<select id='sel' name='sel' onchange=\"drawUsersAdWithParametr(this)\" required>"
                             + "<option value=\"\">None</option>";
                         result += data.responseText;
-                        result += "</select>"
+                        result += "</select>";
                         $('#selectInterface').html(result);
                     }
-                 }
-             );
-         }
+                }
+            );
+        }
 
     </script>
 </head>
 <body>
 <div class="main" id="main">
+    <div class="container-fluid">
+        <form action="cars" method="post">
+            <input type="hidden" name="action" id="action" value="createAd">
+            <a href="create.do">Добавить объявление</a>
+            <button type="button" class="btn btn-default" onclick="drawUsersAd('${'/items/users_selects.do'}', 1, '')">Мои объявление
+            </button>
 
+        </form>
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <div class="interface">
+        <label><input type="checkbox" id="lastDay" onchange="drawUsersAd('${'/items/last_day.do'}', 2, '')"/> за последний день</label>
+        <label><input type="checkbox" id="withFoto" onchange="drawUsersAd('${'/items/with_foto.do'}', 2, '')"/>только с
+            фотографией</label>
+    </div>
+    <div class="selectInterface" id="selectInterface">
+
+    </div>
+    <div class="user table">
+        <h2>Объявления</h2>
+        <table class="table table-hover" id="table">
+        </table>
+    </div>
 </div>
-Hollo
 </body>
 </html>

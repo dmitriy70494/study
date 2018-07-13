@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,12 +10,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script>
 
-
         $(document).ready(initData());
 
         function initData() {
-            $.ajax('./cars', {
-                method: 'get',
+            $.ajax("${'/items/all_parts.do'}", {
+                method: 'POST',
                 complete: function (data) {
                     var parts = [];
                     var objects = JSON.parse(data.responseText);
@@ -36,7 +36,7 @@
 </head>
 <body>
 
-<form action="file" method="post" enctype="multipart/form-data" accept-charset='utf-8'>
+<form action="/items/create.do" method="post" enctype="multipart/form-data" accept-charset='utf-8'>
     Название: <input type="text" name="name" id="name" required/></br>
     <div id="motor">
 
@@ -54,4 +54,3 @@
 </form>
 
 </body>
-

@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 import javax.persistence.*;
 import java.sql.Timestamp;
 
-@Component
 @Entity
 @Table(name="car")
 public class Car {
@@ -24,19 +23,19 @@ public class Car {
     @Column (name = "name")
     private String name;
 
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="id_motor")
     private Motor motor;
 
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="id_transmission")
     private Transmission transmission;
 
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="id_bodywork")
     private Bodywork bodywork;
 
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="id_user")
     private User user;
 
