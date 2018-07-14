@@ -3,10 +3,14 @@ package ru.job4j.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ru.job4j.*;
 import ru.job4j.persist.BodyworkDataRepository;
@@ -26,9 +30,46 @@ public class SpringController {
 
     private CarDataRepository repository;
 
+
+
     @Autowired
     public SpringController(CarDataRepository repository) {
         this.repository = repository;
+    }
+
+    @RequestMapping("/login")
+    public String login(
+            @RequestParam(value = "error", required = false) String error,
+            @RequestParam(value = "logout", required = false) String logout,
+            Model model
+    ) {
+        System.out.println("login");
+        if (error != null) {
+            model.addAttribute("error", "Invalid username or password");
+        }
+        if (logout != null) {
+            model.addAttribute("msg", "You've been logger out successfully");
+        }
+        return "login";
+    }
+
+    @RequestMapping("/error")
+    public String error(ModelMap model)
+    {
+        model.addAttribute("error", "true");
+        return "login";
+
+    }
+
+    @RequestMapping("/logout")
+    public String logout(ModelMap model)
+    {
+        Authentication authentication = SecurityContextHolder.getContext()
+                .getAuthentication();
+        authentication.setAuthenticated(false);
+
+        model.addAttribute("logout", "true");
+        return "login";
     }
 
     @RequestMapping(value = "/cars", method = RequestMethod.GET)
@@ -118,4 +159,6 @@ public class SpringController {
         }
         return "index";
     }
+
+
 }

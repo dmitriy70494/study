@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<b:beans xmlns="http://www.springframework.org/schema/security"
+         xmlns:b="http://www.springframework.org/schema/beans"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security.xsd
+	http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+<!--<http auto-config="true">-->
+    <!--<intercept-url pattern="/*" access="hasRole('ROLE-USER')" />-->
+    <!--<intercept-url pattern="/login.do" access="permitAll()" />-->
+    <!--<intercept-url pattern="/login.jsp" access="permitAll()" />-->
+    <!--<form-login login-page="/login.do"-->
+                <!--default-target-url="/cars.do"-->
+                <!--authentication-failure-url="/login.do?error=error"-->
+                <!--username-parameter="username"-->
+                <!--password-parameter="password"-->
+                <!--login-processing-url="/login.do"/>-->
+    <!--<logout logout-success-url="/login.do?logout" />-->
+    <!--<csrf disabled="true"/>-->
+<!--</http>-->
+
+    <!--<authentication-manager>-->
+        <!--<authentication-provider>-->
+            <!--<user-service>-->
+                <!--<user name="user" password="user" authorities="ROLE-USER"/>-->
+                <!--<user name="admin" password="admin" authorities="ROLE-ADMIN"/>-->
+            <!--</user-service>-->
+        <!--</authentication-provider>-->
+    <!--</authentication-manager>-->
+
+</b:beans>
