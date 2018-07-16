@@ -24,6 +24,7 @@
         <module>chapter_011_car_sale</module>
         <module>chapter_012_spring_example</module>
         <module>test_spring_data_repository</module>
+        <module>chapter_013_spring_boot</module>
     </modules>
 
     <dependencies>
@@ -143,6 +144,7 @@
             <artifactId>spring-jdbc</artifactId>
             <version>5.0.7.RELEASE</version>
         </dependency>
+
 
     </dependencies>
 
