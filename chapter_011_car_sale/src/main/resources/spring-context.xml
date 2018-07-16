@@ -51,35 +51,7 @@
         </property>
     </bean>
 
-    <v:http auto-config="true">
-        <v:intercept-url pattern="/*" access="hasRole('ROLE-USER')" />
-        <v:intercept-url pattern="/login.do" access="permitAll()" />
-        <v:intercept-url pattern="/login" access="permitAll()" />
-        <v:form-login login-page="/login"
-                    default-target-url="/cars.do"
-                    authentication-failure-url="/login.do?error=error"
-                    username-parameter="username"
-                    password-parameter="password"
-                    login-processing-url="/login.do"/>
-        <v:logout logout-success-url="/login.do?logout" />
-        <v:csrf disabled="true"/>
-    </v:http>
-
-    <v:authentication-manager>
-        <v:authentication-provider>
-            <v:user-service>
-                <v:user name="user" password="user" authorities="ROLE-USER"/>
-                <v:user name="admin" password="admin" authorities="ROLE-ADMIN"/>
-            </v:user-service>
-        </v:authentication-provider>
-    </v:authentication-manager>
-
     <context:component-scan base-package="ru.job4j"/>
 
-
-
     <jpa:repositories base-package="ru.job4j"/>
-
-
-
 </beans>
