@@ -23,19 +23,19 @@ public class Car {
     @Column (name = "name")
     private String name;
 
-    @ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name="id_motor")
     private Motor motor;
 
-    @ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name="id_transmission")
     private Transmission transmission;
 
-    @ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name="id_bodywork")
     private Bodywork bodywork;
 
-    @ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name="id_user")
     private User user;
 
