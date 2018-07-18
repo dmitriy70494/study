@@ -75,17 +75,6 @@ public class SpringControllerTest {
                          }
                      }
         );
-        List<Iterable<?>> list = new ArrayList<>();
-        List<Object> part = new ArrayList<>();
-        part.add(new Motor(1, "motor"));
-        list.add(part);
-        part.add(new Transmission(1, "trans"));
-        list.add(part);
-        part.add(new Bodywork(1, "body"));
-        list.add(part);
-        given(
-                this.partsServ.findAllParts()
-        ).willReturn(list);
         this.mvc.perform(
                 get("/cars").accept(MediaType.TEXT_HTML)
         ).andExpect(
