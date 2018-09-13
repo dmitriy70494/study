@@ -16,6 +16,10 @@ public class Item {
 
     }
 
+    public Item(Integer id) {
+        this.id = id;
+    }
+
     public Item(Integer id, String desc, Timestamp created, String done) {
         this.id = id;
         this.desc = desc;

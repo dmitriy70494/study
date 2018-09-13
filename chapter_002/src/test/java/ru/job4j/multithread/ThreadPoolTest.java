@@ -2,6 +2,13 @@ package ru.job4j.multithread;
 
 import org.junit.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
 import static org.junit.Assert.*;
 
 /**
@@ -27,9 +34,11 @@ public class ThreadPoolTest {
      */
     @Test
     public void whenManyThreadsAddThreadPoolAssimetric() throws InterruptedException {
+        ExecutorService service = Executors.newFixedThreadPool(5);
+
         ThreadPool pool = new ThreadPool(2);
         for (index = 0; index < 100; index++) {
-            pool.add(new Runnable() {
+            service.execute(new Runnable() {
 
                 volatile int thread = index;
 
@@ -58,22 +67,22 @@ public class ThreadPoolTest {
      */
     @Test
     public void whenManyThreadsAddThreadPool() throws InterruptedException {
-        ThreadPool pool = new ThreadPool(100);
+        ExecutorService service = Executors.newFixedThreadPool(5 );
         for (index = 0; index < 100; index++) {
-            pool.add(new Runnable() {
+            service.submit(new Runnable() {
 
                 volatile int thread = index;
 
                 @Override
                 public void run() {
-                    try {
-                        Thread.currentThread().sleep((100 - thread));
-                    } catch (InterruptedException ie) {
+                    for (long i = 0; i < 2000000000; i++) {
+
                     }
                     System.out.println("Thread: " + thread + " закончил работу");
                 }
             });
         }
-        pool.close();
+
+        System.out.println( service.isTerminated());
     }
 }

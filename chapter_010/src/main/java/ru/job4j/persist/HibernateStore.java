@@ -86,8 +86,24 @@ public class HibernateStore implements Closeable {
         );
     }
 
+    public Item testPersistent() {
+        final Session session = this.factory.openSession();
+        final Transaction tx = session.beginTransaction();
+        Item item1 = (Item) session.get(Item.class, 17);
+        System.out.println(item1);
+        item1.setDesc("изменились");
+        System.out.println(item1);
+        session.flush();
+        return null;
+    }
+
     @Override
     public void close() throws IOException {
         this.factory.close();
+    }
+
+    public static void main(String[] args) throws IOException {
+        HibernateStore store = HibernateStore.getInstance();
+        Item item = store.testPersistent();
     }
 }
